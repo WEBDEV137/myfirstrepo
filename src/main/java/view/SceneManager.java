@@ -44,7 +44,9 @@ public class SceneManager {
     }
 
     public void showLoginScene() {
-        getScene("/view/fxml/login.fxml");
+        FXMLLoader loader = getScene("/view/fxml/login.fxml");
+        LoginController controller = loader.getController();
+
     }
 
     public void showWelcomeScene() {
