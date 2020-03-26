@@ -26,7 +26,7 @@ public class WelcomeController {
                 //Maak custom menu items aan
                 break;
             case "Administrator":
-                //Maak custom menu items aan
+                voegMenuItemsToeAdministrator();
                 break;
             case "Technisch beheerder":
                 //Maak custom menu items aan
@@ -47,5 +47,12 @@ public class WelcomeController {
             }
         });*/
         taskMenuButton.getItems().add(taak1);
+    }
+
+    public void voegMenuItemsToeAdministrator(){
+        MenuItem taak1 = new MenuItem("Cursussen beheren");
+        MenuItem taak2 = new MenuItem("Groepen beheren");
+        taskMenuButton.getItems().add(taak1);
+        taskMenuButton.getItems().add(taak2);
     }
 }
