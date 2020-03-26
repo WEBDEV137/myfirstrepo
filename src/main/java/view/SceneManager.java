@@ -46,13 +46,12 @@ public class SceneManager {
     public void showLoginScene() {
         FXMLLoader loader = getScene("/view/fxml/login.fxml");
         LoginController controller = loader.getController();
+     }
 
-    }
-
-    public void showWelcomeScene() {
+    public void showWelcomeScene(String rol) {
         FXMLLoader loader = getScene("/view/fxml/welcomeScene.fxml");
         WelcomeController controller = loader.getController();
-        controller.setup();
+        controller.setup(rol);
     }
 
     public void showManageUserScene() {

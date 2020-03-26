@@ -19,6 +19,10 @@ public class LoginController {
         UserDAO userDAO = new UserDAO(Main.getDBaccess());
         User user = userDAO.getUserByInlognaamEnWachtwoord(nameTextField.getText(), passwordField.getText());
         System.out.println(user);
+        Main.getSceneManager().showWelcomeScene(user.getRol());
+        //WelcomeController.setup(user.getRol());
+
+        //primaryStage.show();
 
     }
 
