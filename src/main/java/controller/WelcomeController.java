@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import model.User;
 import view.Main;
 
 public class WelcomeController {
@@ -17,8 +18,10 @@ public class WelcomeController {
 
 
 
-    public void setup(String rol) {
-        switch (rol) {
+    public void setup(User user) {
+        welcomeLabel.setText("Welkom " + user.getInlognaam() + "\nUw rol is: " + user.getRol());
+
+        switch (user.getRol()) {
             case "Student":
                voegMenuItemsToeStudent();
                 break;
@@ -38,7 +41,9 @@ public class WelcomeController {
                 break;
         }
     }
-    public void doLogout() {}
+    public void doLogout() {
+        Main.getSceneManager().showLoginScene();
+    }
 
     public void voegMenuItemsToeStudent(){
         MenuItem taak1 = new MenuItem("Quiz invullen");
@@ -80,10 +85,12 @@ public class WelcomeController {
             }
         });*/
         taskMenuButton.getItems().add(taak1);
+        MenuItem taak2 = new MenuItem("Beheer bestaande gebruiker");
+        taskMenuButton.getItems().add(taak2);
 
     }
     public void voegMenuItemsToeDocent(){
-        MenuItem taak1 = new MenuItem("Bekijk voor gaan");
+        MenuItem taak1 = new MenuItem("Bekijk voortgang");
        /* taak1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -91,8 +98,5 @@ public class WelcomeController {
             }
         });*/
         taskMenuButton.getItems().add(taak1);
-
-        MenuItem taak2 = new MenuItem("Beheer bestaande gebruiker");
-        taskMenuButton.getItems().add(taak2);
     }
 }
