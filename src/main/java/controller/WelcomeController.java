@@ -23,7 +23,7 @@ public class WelcomeController {
                voegMenuItemsToeStudent();
                 break;
             case "Docent":
-                //Maak custom menu items aan
+                voegMenuItemsToeDocent();
                 break;
             case "Administrator":
                 //Maak custom menu items aan
@@ -44,6 +44,17 @@ public class WelcomeController {
             @Override
             public void handle(ActionEvent actionEvent) {
                 Main.getSceneManager().showFillOutQuiz();
+            }
+        });*/
+        taskMenuButton.getItems().add(taak1);
+
+    }
+    public void voegMenuItemsToeDocent(){
+        MenuItem taak1 = new MenuItem("Bekijk voor gaan");
+       /* taak1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Main.getSceneManager().showManageGroupsScene();
             }
         });*/
         taskMenuButton.getItems().add(taak1);
