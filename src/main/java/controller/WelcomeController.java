@@ -29,7 +29,7 @@ public class WelcomeController {
                 voegMenuItemsToeAdministrator();
                 break;
             case "Technisch beheerder":
-                //Maak custom menu items aan
+                voegMenuItemsToeTechnischBeheerder();
                 break;
             case "Coordinator":
                 voegMenuItemsToeCoordinator();
@@ -66,6 +66,22 @@ public class WelcomeController {
         MenuItem taak1 = new MenuItem("Cursussen beheren");
         MenuItem taak2 = new MenuItem("Groepen beheren");
         taskMenuButton.getItems().add(taak1);
+        taskMenuButton.getItems().add(taak2);
+    }
+
+
+// toevoegen taken technisch beheerder
+    public void voegMenuItemsToeTechnischBeheerder(){
+        MenuItem taak1 = new MenuItem("Voeg nieuwe gebruiker toe");
+       /* taak1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Main.getSceneManager().showFillOutQuiz();
+            }
+        });*/
+        taskMenuButton.getItems().add(taak1);
+
+        MenuItem taak2 = new MenuItem("Beheer bestaande gebruiker");
         taskMenuButton.getItems().add(taak2);
     }
 }
