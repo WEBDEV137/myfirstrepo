@@ -48,10 +48,10 @@ public class SceneManager {
         LoginController controller = loader.getController();
      }
 
-    public void showWelcomeScene(String rol) {
+    public void showWelcomeScene(User user) {
         FXMLLoader loader = getScene("/view/fxml/welcomeScene.fxml");
         WelcomeController controller = loader.getController();
-        controller.setup(rol);
+        controller.setup(user);
     }
 
     public void showManageUserScene() {

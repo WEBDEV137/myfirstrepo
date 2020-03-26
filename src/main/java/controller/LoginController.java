@@ -17,14 +17,23 @@ public class LoginController {
         Main.getDBaccess().openConnection();
         System.out.println("Connection open");
         UserDAO userDAO = new UserDAO(Main.getDBaccess());
-        User user = userDAO.getUserByInlognaamEnWachtwoord(nameTextField.getText(), passwordField.getText());
-        System.out.println(user);
-        Main.getSceneManager().showWelcomeScene(user.getRol());
+        try {
+            User user = userDAO.getUserByInlognaamEnWachtwoord(nameTextField.getText(), passwordField.getText());
+            System.out.println(user);
+            if (user != null) {
+                Main.getSceneManager().showWelcomeScene(user);
+            }
+        }
+        catch (Exception fout){
+            fout.getMessage();
+        }
         //WelcomeController.setup(user.getRol());
 
         //primaryStage.show();
 
     }
 
-    public void doQuit() {}
+    public void doQuit() {
+        System.exit(0);
+    }
 }
