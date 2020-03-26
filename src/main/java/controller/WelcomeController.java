@@ -39,7 +39,7 @@ public class WelcomeController {
     public void doLogout() {}
 
     public void voegMenuItemsToeStudent(){
-        MenuItem taak1 = new MenuItem("Quiz Selecteren");
+        MenuItem taak1 = new MenuItem("Quiz invullen");
        /* taak1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -47,5 +47,7 @@ public class WelcomeController {
             }
         });*/
         taskMenuButton.getItems().add(taak1);
+        MenuItem taak2 = new MenuItem("In- en uitschrijven cursus");
+        taskMenuButton.getItems().add(taak2);
     }
 }
