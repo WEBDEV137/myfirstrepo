@@ -19,7 +19,8 @@ public class WelcomeController {
 
 
     public void setup(User user) {
-        welcomeLabel.setText("Welkom " + user.getInlognaam() + "\nUw rol is: " + user.getRol());
+        char userName = user.getInlognaam().toUpperCase().charAt(0);
+        welcomeLabel.setText("Welkom "  + userName + user.getInlognaam().toLowerCase().substring(1) + "\nUw rol is: " + user.getRol());
 
         switch (user.getRol()) {
             case "Student":
