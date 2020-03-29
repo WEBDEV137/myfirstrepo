@@ -6,6 +6,4 @@ public class Student extends User{
         super(inlognaam, wachtwoord, rol);
     }
 
-
-
 }

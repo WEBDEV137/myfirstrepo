@@ -8,7 +8,7 @@ public class Coordinator extends User{
     public Coordinator(String inlognaam, String wachtwoord, String rol) {
         super(inlognaam, wachtwoord, rol);
         tasks = new ArrayList<>();
-        getAllTasks().add("Quiz aanmaken/wijzigen");
-        getAllTasks().add("Quiz beheer");
+        getAllTasks().add(QUIZ_BEHEREN);
+        getAllTasks().add(QUIZ_AANMAKEN_WIJZIGEN);
     }
 }

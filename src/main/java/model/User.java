@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class User {
+    //CONSTANTEN
+    protected final static String QUIZ_BEHEREN = "Quiz beheren";
+    protected final static String QUIZ_AANMAKEN_WIJZIGEN = "Quiz aanmaken/wijzigen";
 
     //VARIABELEN
     private String inlognaam;
@@ -23,11 +26,9 @@ public class User {
     public void setInlognaam(String inlognaam) {
         this.inlognaam = inlognaam;
     }
-
     public void setWachtwoord(String wachtwoord) {
         this.wachtwoord = wachtwoord;
     }
-
     public void setRol(String rol) {
         this.rol = rol;
     }
@@ -38,38 +39,14 @@ public class User {
     public String getWachtwoord() {
         return wachtwoord;
     }
-
     public String getRol() {
         return rol;
     }
-
     public ArrayList<String> getAllTasks() {
-        Collections.sort(tasks);
         return tasks;
     }
-    //METHODEN
-    public User createSubUserFromUser(){
-        switch(rol) {
-            case "Student":
-                Student student = new Student(inlognaam, wachtwoord, rol);
-                return student;
-            case "Docent":
-                Docent docent = new Docent(inlognaam, wachtwoord, rol);
-                return docent;
-            case "Coordinator":
-                Coordinator coordinator = new Coordinator(inlognaam, wachtwoord, rol);
-                return coordinator;
-            case "Administrator":
-                Administrator administrator = new Administrator(inlognaam, wachtwoord, rol);
-                return administrator;
-            case "Technisch beheerder":
-                TechnischBeheerder technischBeheerder = new TechnischBeheerder(inlognaam, wachtwoord, rol);
-                return technischBeheerder;
-            default:
-                return null;
-        }
-    }
 
+    //METHODEN
 
     @Override
     public String toString() {
