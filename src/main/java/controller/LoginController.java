@@ -34,7 +34,7 @@ public class LoginController extends AbstractController{
             }
             else{
                 Main.getSceneManager().showWelcomeScene(user);
-                showAlert(STATUSBERICHT_INGELOGD,WELKOMS_GROET ,ALERTTYPE_INFORMATION);
+                showAlert(WELKOMS_GROET, STATUSBERICHT_INGELOGD,ALERTTYPE_INFORMATION);
             }
        /// }
       //  catch (Exception fout){

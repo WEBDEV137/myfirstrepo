@@ -112,7 +112,7 @@ public abstract class AbstractController {
      * geef alert aan de gebruiker dat quizmaster gaat afgesloten word. En sluit quismaster af.
      */
     public void doQuit() {
-        showAlert(STATUSBERICHT_AFSLUITEN, TOTZIENS_GROET, ALERTTYPE_INFORMATION);
+        showAlert(TOTZIENS_GROET, STATUSBERICHT_AFSLUITEN, ALERTTYPE_INFORMATION);
         try {
             TimeUnit.SECONDS.sleep(PAUZEER_LENGTE);  //laat java aantal seconden pauzeren
         }
