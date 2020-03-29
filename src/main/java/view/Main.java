@@ -1,6 +1,9 @@
 package view;
 
 
+//Dit programma is gemaakt als opdracht voor MIW cohort 19, Het is gemaakt door, Tom , Joelle, Minke, Umrullah, En Suzanne.
+// Met dit programma kunnen gebruikers alles omtrent cursussen beheren.
+
 import controller.LoginController;
 import database.mysql.DBAccess;
 import javafx.application.Application;
@@ -8,21 +11,19 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    //VARIABELEN
+    //Object declaratie
     private static SceneManager sceneManager = null;
     private static Stage primaryStage = null;
-
-    //DbAccess
     private static DBAccess dbAccess = null;
-
-
-    //METHODEN
 
     public static void main(String[] args) {
         launch(args);
     }
 
-    //create DBAccess Object voor verbinding met database
+    /**
+     * Deze methode geeft het DBAccess object terug als die al is aangemaakt. Anders wordt die eerste aangemaakt en dan
+     * teruggegeven.
+     * */
     public static DBAccess getDBaccess() {
         if (dbAccess == null) {
             dbAccess = new DBAccess("quizmaster", "userQuizmaster", "pwQuizmaster");
@@ -33,8 +34,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         Main.primaryStage = primaryStage;
-        //primaryStage.setTitle("Make IT Work - Project 1");
-        getSceneManager().showLoginScene();
+        primaryStage.setTitle("Make IT Work - Project 1");
+        getSceneManager().setWindowTool();
         primaryStage.show();
     }
 

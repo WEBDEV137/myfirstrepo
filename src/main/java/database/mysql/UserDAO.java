@@ -14,22 +14,19 @@ public class UserDAO extends AbstractDAO{
         super(dbAccess);
     }
 
-    public User getUserByInlognaamEnWachtwoord(String inlognaam, String wachtwoord) {
-        String query = "SELECT * FROM gebruiker WHERE inlognaam = ? AND wachtwoord = ?";
+    public User getUserByInlognaam(String inlognaam) {
+        String query = "SELECT * FROM gebruiker WHERE inlognaam = ?";
         User user = null;
         try {
             PreparedStatement preparedStatement = getStatement(query);
-            preparedStatement.setString(1, inlognaam);
-            preparedStatement.setString(2, wachtwoord);
+            preparedStatement.setString(1, inlognaam);;
             ResultSet resultSet = executeSelectPreparedStatement(preparedStatement);
             if (resultSet.next()) {
                 String rol = resultSet.getString("rol");
+                String wachtwoord = resultSet.getString("wachtwoord");
                 user = new User(inlognaam, wachtwoord, rol);
             } else {
-                System.out.println("Combinatie van inlognaam en wachtwoord komt niet voor in database");
-                Alert verkeerdeInlogGegevens = new Alert(Alert.AlertType.ERROR);
-                verkeerdeInlogGegevens.setContentText("Onjuiste inloggevens");
-                verkeerdeInlogGegevens.show();
+                System.out.println("Geen gebruiker opgehaald uit database");
             }
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
