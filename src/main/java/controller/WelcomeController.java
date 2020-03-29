@@ -15,12 +15,12 @@ public class WelcomeController extends AbstractController {
     @FXML
     private MenuButton taskMenuButton;
 
-
     public void setup(User user) {
         //Laat aangepaste welkomstekst zien
-        welcomeLabel.setText("Welkom " + user.getInlognaam() + "\nUw rol is: " + user.getRol());
+        String welkomsTekst = String.format("%s: %s\n%s: %s", WELKOMS_GROET , user.getInlognaam(), UW_ROL_IS, user.getRol() );
+        welcomeLabel.setText(welkomsTekst);
         //Maak aan de hand van de rol van de gebruiker het juiste type sub-gebruiker
-       User subUser = createSubUserFromUser(user);
+        User subUser = createSubUserFromUser(user);
         //Voeg alle knoppen toe aan het menu bijbehorend bijde rol van de gebruiker
         addAllButtonsToDropdownMenu(subUser, taskMenuButton);
 

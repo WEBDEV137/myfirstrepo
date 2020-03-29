@@ -22,24 +22,24 @@ public class LoginController extends AbstractController{
         DBAccess dbAccess = Main.getDBaccess();
         dbAccess.openConnection();
         UserDAO userDAO = new UserDAO(dbAccess);
-        try {
+       // try {
             User user = userDAO.getUserByInlognaam(nameTextField.getText()); //Haal user uit database
             //Geef een waarschuwing als de inlopgnaam onjuist is of als het wachtwoord fout is
             // Laat anders weten dat het gelukt is en laat het wvolgende scherm zien
             if (user == null || !user.getInlognaam().equals(nameTextField.getText())){
-               showAlert("Inloggen mislukt: Inlognaam komt niet voor in database", "information");
+               showAlert(FOUTMELDING_INLOGNAAM, MELDING_PROBEER_OPNIEUW,  ALERTTYPE_INFORMATION);
             }
             else if (!user.getWachtwoord().equals(passwordField.getText())){
-                showAlert("Inloggen mislukt: Wachtwoord onjuist", "warning");
+                showAlert(FOUTMELDING_WACHTWOORD, MELDING_PROBEER_OPNIEUW, ALERTTYPE_WAARSCHUWING);
             }
             else{
                 Main.getSceneManager().showWelcomeScene(user);
-                showAlert("Inloggen gelukt", "confirmation");
+                showAlert(STATUSBERICHT_INGELOGD,WELKOMS_GROET ,ALERTTYPE_INFORMATION);
             }
-        }
-        catch (Exception fout){
-            fout.getMessage();
-        }
+       /// }
+      //  catch (Exception fout){
+     //       fout.getMessage();
+      //  }
     }
 
 

@@ -11,7 +11,16 @@ import view.Main;
 import java.util.concurrent.TimeUnit;
 
 public abstract class AbstractController {
-    //VARIABELEN
+    //CONSTANTEN
+    protected static final String PROGRAMMA_NAAM = "Quizmaster";
+    protected static final String STATUSBERICHT_INGELOGD = "U bent succesvol ingelogd";
+    protected static final String STATUSBERICHT_AFSLUITEN = "U verlaat quizmaster";
+    protected static final String WELKOMS_GROET = "Welkom";
+    protected static final String TOTZIENS_GROET = "Tot ziens";
+    protected static final String FOUTMELDING_INLOGNAAM = "De opgegeven inlognaam is niet correct";
+    protected static final String FOUTMELDING_WACHTWOORD = "Het opgegeven wachtwoord is niet correct";
+    protected static final String MELDING_PROBEER_OPNIEUW = "Probeer het opnieuw";
+    protected static final String UW_ROL_IS = "Uw rol is";
     protected static final String ROL_STUDENT = "Student";
     protected static final String ROL_DOCENT = "Docent";
     protected static final String ROL_COORDINATOR = "Coordinator";
@@ -20,6 +29,8 @@ public abstract class AbstractController {
     protected static final String ALERTTYPE_WAARSCHUWING = "warning";
     protected static final String ALERTTYPE_FOUTMELDING = "error";
     protected static final String ALERTTYPE_BEVESTIGING = "confirmation";
+    protected static final String ALERTTYPE_INFORMATION = "information";
+    protected static final int PAUZEER_LENGTE = 10;
 
 
 
@@ -58,7 +69,7 @@ public abstract class AbstractController {
      * Kies als alerttype: "error" of "conformation" of "warning"
      * bij alle andere text input wordt het alerttype op information gezet.
      */
-    public static void showAlert(String alertText, String alertType){
+    public static void showAlert(String header, String content, String alertType){
         Alert alert;
         if  (alertType.toLowerCase().equals(ALERTTYPE_WAARSCHUWING))
             {alert = new Alert(Alert.AlertType.WARNING);}
@@ -68,7 +79,9 @@ public abstract class AbstractController {
              {alert = new Alert(Alert.AlertType.CONFIRMATION);}
         else
              {alert = new Alert(Alert.AlertType.INFORMATION);}
-        alert.setContentText(alertText);
+        alert.setTitle(PROGRAMMA_NAAM);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
         alert.show();
     }
 
@@ -81,20 +94,15 @@ public abstract class AbstractController {
     public User createSubUserFromUser(User user){
         switch(user.getRol()) {
             case ROL_STUDENT:
-                Student student = new Student(user.getInlognaam(), user.getWachtwoord(), user.getRol());
-                return student;
+                return new Student(user.getInlognaam(), user.getWachtwoord(), user.getRol());
             case ROL_DOCENT:
-                Docent docent = new Docent(user.getInlognaam(), user.getWachtwoord(), user.getRol());
-                return docent;
+                return new Docent(user.getInlognaam(), user.getWachtwoord(), user.getRol());
             case ROL_COORDINATOR:
-                Coordinator coordinator = new Coordinator(user.getInlognaam(), user.getWachtwoord(), user.getRol());
-                return coordinator;
+                return new Coordinator(user.getInlognaam(), user.getWachtwoord(), user.getRol());
                 case ROL_ADMINISTRATOR:
-                Administrator administrator = new Administrator(user.getInlognaam(), user.getWachtwoord(), user.getRol());
-                return  administrator;
+                    return new Administrator(user.getInlognaam(), user.getWachtwoord(), user.getRol());
             case ROL_TECHNISCH_BEHEERDER:
-                TechnischBeheerder technischBeheerder = new TechnischBeheerder(user.getInlognaam(), user.getWachtwoord(), user.getRol());
-                return technischBeheerder;
+                return new TechnischBeheerder(user.getInlognaam(), user.getWachtwoord(), user.getRol());
             default:
                 return null;
         }
@@ -104,14 +112,14 @@ public abstract class AbstractController {
      * geef alert aan de gebruiker dat quizmaster gaat afgesloten word. En sluit quismaster af.
      */
     public void doQuit() {
-        showAlert("U verlaat quizmaster, tot de volgende keer", "information");
+        showAlert(STATUSBERICHT_AFSLUITEN, TOTZIENS_GROET, ALERTTYPE_INFORMATION);
         try {
-            TimeUnit.SECONDS.sleep(3);  //laat java 3s pauzeren
+            TimeUnit.SECONDS.sleep(PAUZEER_LENGTE);  //laat java aantal seconden pauzeren
         }
         catch(Exception fout){
             fout.getMessage();
         }
-        Platform.exit(); // Replaced System.exit(0), wegens nettere afhandeling van afsluiten;
+        Platform.exit(); // Replaced System.exit(0), volgens Oracle docs the preferred way
 
     }
 
