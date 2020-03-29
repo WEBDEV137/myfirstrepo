@@ -4,6 +4,7 @@ package view;
 //Dit programma is gemaakt als opdracht voor MIW cohort 19, Het is gemaakt door, Tom , Joelle, Minke, Umrullah, En Suzanne.
 // Met dit programma kunnen gebruikers alles omtrent cursussen beheren.
 
+import controller.AbstractController;
 import controller.LoginController;
 import database.mysql.DBAccess;
 import javafx.application.Application;
@@ -31,8 +32,14 @@ public class Main extends Application {
         return dbAccess;
     }
 
+    /**
+     *Deze methode wordt automatisch gestart
+     *
+     */
+
     @Override
     public void start(Stage primaryStage) {
+        System.out.println(primaryStage);
         Main.primaryStage = primaryStage;
         primaryStage.setTitle("Make IT Work - Project 1");
         getSceneManager().setWindowTool();

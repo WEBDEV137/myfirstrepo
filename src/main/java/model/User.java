@@ -7,6 +7,9 @@ public class User {
     //CONSTANTEN
     protected final static String QUIZ_BEHEREN = "Quiz beheren";
     protected final static String QUIZ_AANMAKEN_WIJZIGEN = "Quiz aanmaken/wijzigen";
+    protected final static String VOORTGANG_BEKIJKEN = "Voortgang studenten bekijken";
+    protected final static String QUIZ_DASHBOARD = "Quiz Dashboard";
+    protected final static String VOORTGANG_DASHBOARD = "Voortgang Dashboard";
 
     //VARIABELEN
     private String inlognaam;

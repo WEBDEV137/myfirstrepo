@@ -13,11 +13,14 @@ public class SceneManager {
 
     private Stage primaryStage;
 
+    //CONSTRUCTOR
     public SceneManager(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
 
-    // Laadt een scene
+    /**
+     * laadt een scene In een FXMLLoader object
+     */
     public FXMLLoader getScene(String fxml) {
         Scene scene;
         try {

@@ -11,6 +11,12 @@ import java.sql.Statement;
  *
  */
 public abstract class AbstractDAO {
+	//CONSTANTEN
+	protected final static String TABEL_GEBRUIKER = "gebruiker";
+	protected final static String KOLOM_INLOGNAAM = "inlognaam";
+	protected final static String KOLOM_ROL = "rol";
+	protected final static String KOLOM_WACHTWOORD = "wachtwoord";
+	protected final static String NIKS_OPGEHAALD = "Geen record opgehaald uit database" ;
 
 	protected DBAccess dBaccess;
 
@@ -68,4 +74,14 @@ public abstract class AbstractDAO {
 		}
 		return gegenereerdeSleutel;
 	}
+
+	/** CODE WERKT NIET
+	 * Geeft een "SELECT * FROM"-query terug als string.
+	 * parameters: tabel-naam, te checken kolomnaam, attribuut-waarde .
+	 */
+	protected String getSelectAllQuery(String table, String columnName){
+		return String.format("SELECT * FROM %s WHERE %s = ?",table, columnName);
+	}
+
+
 }
