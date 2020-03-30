@@ -3,45 +3,114 @@ package model;
 public class User {
 
     //VARIABELEN
-    private String inlognaam;
-    private String wachtwoord;
-    private String rol;
+    private int userId;
+    private String rolName;
+    private String userName;
+    private String password;
+    private String name;
+    private String prefix;
+    private String surname;
+
 
     //CONSTRUCTOR
-    public User(String inlognaam, String wachtwoord, String rol){
-        setInlognaam(inlognaam);
-        setWachtwoord(wachtwoord);
-        setRol(rol);
+
+
+    public User(int userId, String rolName, String userName, String password, String name, String prefix, String surname) {
+        this.userId = userId;
+        this.rolName = rolName;
+        this.userName = userName;
+        this.password = password;
+        this.name = name;
+        this.prefix = prefix;
+        this.surname = surname;
     }
+
+    public User(String rolName, String userName, String password, String name, String prefix, String surname) {
+        this.rolName = rolName;
+        this.userName = userName;
+        this.password = password;
+        this.name = name;
+        this.prefix = prefix;
+        this.surname = surname;
+    }
+
+    public User(String rolName, String password, String name, String prefix, String surname) {
+        this.rolName = rolName;
+        this.password = password;
+        this.name = name;
+        this.prefix = prefix;
+        this.surname = surname;
+    }
+
+    //GETTERS
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     //SETTERS
-    public void setInlognaam(String inlognaam) {
-        this.inlognaam = inlognaam;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setWachtwoord(String wachtwoord) {
-        this.wachtwoord = wachtwoord;
+    public String getPrefix() {
+        if (prefix != null) {
+            return prefix;
+        } else {
+            return "";
+        }
+
     }
 
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
-   //GETTERS
-   public String getInlognaam() {
-        return inlognaam;
+    public void setPrefix(String prefix) {
+
+            this.prefix = prefix;
+
     }
 
-    public String getWachtwoord() {
-        return wachtwoord;
+    public String getSurname() {
+        return surname;
     }
 
-    public String getRol() {
-        return rol;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRolName() {
+        return rolName;
+    }
+
+    public void setRolName(String rolName) {
+        this.rolName = rolName;
+    }
+
+
     //METHODEN
-
-
     @Override
     public String toString() {
-        return  "inlognaam: " + inlognaam + "\nwachtwoord: " + wachtwoord + "\nrol: " + rol;
+        return "User Id: " + userId + "\nUser Name: " + userName + "\nName: " + name + "\nPrefix: " + getPrefix() + "\nSurname: " + surname + "\nRol: " + rolName + "\nPassword: " + password;
     }
 }

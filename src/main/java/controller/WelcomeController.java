@@ -19,10 +19,10 @@ public class WelcomeController {
 
 
     public void setup(User user) {
-        char userName = user.getInlognaam().toUpperCase().charAt(0);
-        welcomeLabel.setText("Welkom "  + userName + user.getInlognaam().toLowerCase().substring(1) + "\nUw rol is: " + user.getRol());
+        char userName = user.getName().toUpperCase().charAt(0);
+        welcomeLabel.setText("Welkom "  + userName + user.getName().toLowerCase().substring(1) + "\nUw rol is: " + user.getRolName());
 
-        switch (user.getRol()) {
+        switch (user.getRolName()) {
             case "Student":
                voegMenuItemsToeStudent();
                 break;
