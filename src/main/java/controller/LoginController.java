@@ -18,22 +18,22 @@ public class LoginController {
         Main.getDBaccess().openConnection();
         System.out.println("Connection open");
         UserDAO userDAO = new UserDAO(Main.getDBaccess());
-        try {
-            User user = userDAO.getUserByInlognaam(nameTextField.getText());
-            System.out.println(user);
-            if (nameTextField.getText().equals(user.getUserName()) && passwordField.getText().equals(user.getPassword())) {
-                Main.getSceneManager().showWelcomeScene(user);
-            }
-        }
-        catch (Exception fout){
-//            fout.getMessage();
+        User user = userDAO.getUserByInlognaam(nameTextField.getText());
+
+        if (user == null || !user.getUserName().equals(nameTextField.getText())){
             Alert verkeerdeInlogGegevens = new Alert(Alert.AlertType.ERROR);
-            verkeerdeInlogGegevens.setContentText("Onjuiste inloggevens");
+            verkeerdeInlogGegevens.setContentText("Please een juiste user name invoeren!!!");
             verkeerdeInlogGegevens.show();
         }
-        //WelcomeController.setup(user.getRol());
-
-        //primaryStage.show();
+        else if (!user.getPassword().equals(passwordField.getText())){
+            Alert verkeerdeInlogGegevens = new Alert(Alert.AlertType.ERROR);
+            verkeerdeInlogGegevens.setContentText("Please een juiste password invoeren!!!");
+            verkeerdeInlogGegevens.show();
+        }
+        else{
+            Main.getSceneManager().showWelcomeScene(user);
+            System.out.println(user);
+        }
 
     }
 

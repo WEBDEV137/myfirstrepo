@@ -29,12 +29,9 @@ public class UserDAO extends AbstractDAO{
                 String prefix = rs.getString("tussenvoegsels");
                 String surName = rs.getString("achternaam");
                 user = new User(userId,rolName,userName,password,name, prefix,surName);
-                user.setUserName(userName);
             } else {
                 System.out.println("Combinatie van inlognaam en wachtwoord komt niet voor in database");
-                /*Alert verkeerdeInlogGegevens = new Alert(Alert.AlertType.ERROR);
-                verkeerdeInlogGegevens.setContentText("Onjuiste inloggevens");
-                verkeerdeInlogGegevens.show();*/
+
             }
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());

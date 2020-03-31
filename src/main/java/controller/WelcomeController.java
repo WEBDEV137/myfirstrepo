@@ -19,9 +19,7 @@ public class WelcomeController {
 
 
     public void setup(User user) {
-        char userName = user.getName().toUpperCase().charAt(0);
-        welcomeLabel.setText("Welkom "  + userName + user.getName().toLowerCase().substring(1) + "\nUw rol is: " + user.getRolName());
-
+        welcomeLabel.setText("Welcome " + user.getName() + "\nUw rol is " + user.getRolName());
         switch (user.getRolName()) {
             case "Student":
                voegMenuItemsToeStudent();
@@ -33,7 +31,13 @@ public class WelcomeController {
                 voegMenuItemsToeAdministrator();
                 break;
             case "Technisch beheerder":
-                voegMenuItemsToeTechnischBeheerder();
+//                voegMenuItemsToeTechnischBeheerder();
+                MenuItem taak1 = new MenuItem("Voeg nieuwe gebruiker toe");
+                taak1.setOnAction(e -> Main.getSceneManager().showCreateUpdateUserScene(user));
+                taskMenuButton.getItems().add(taak1);
+                MenuItem taak2 = new MenuItem("Beheer bestaande gebruiker");
+                taak2.setOnAction(e -> Main.getSceneManager().showManageUserScene());
+                taskMenuButton.getItems().add(taak2);
                 break;
             case "Coordinator":
                 voegMenuItemsToeCoordinator();
@@ -77,19 +81,19 @@ public class WelcomeController {
 
 
 // toevoegen taken technisch beheerder
-    public void voegMenuItemsToeTechnischBeheerder(){
+   /* public void voegMenuItemsToeTechnischBeheerder(){
         MenuItem taak1 = new MenuItem("Voeg nieuwe gebruiker toe");
-       /* taak1.setOnAction(new EventHandler<ActionEvent>() {
+        taak1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                Main.getSceneManager().showFillOutQuiz();
+                Main.getSceneManager().showCreateUpdateUserScene();
             }
-        });*/
+        });
         taskMenuButton.getItems().add(taak1);
         MenuItem taak2 = new MenuItem("Beheer bestaande gebruiker");
         taskMenuButton.getItems().add(taak2);
 
-    }
+    }*/
     public void voegMenuItemsToeDocent(){
         MenuItem taak1 = new MenuItem("Bekijk voortgang");
        /* taak1.setOnAction(new EventHandler<ActionEvent>() {
