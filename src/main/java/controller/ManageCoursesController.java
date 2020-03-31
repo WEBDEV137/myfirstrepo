@@ -15,40 +15,36 @@ public class ManageCoursesController {
     private DBAccess dbAccess;
 
     @FXML
-    private ListView <Course> courseList;
+    private ListView<Course> courseList;
     private Button newCourseButton;
-
 
 
     // connectie maken met dbase om courses te laten zien in het scherm listview
     public void setup() {
         dbAccess = Main.getDBaccess();
         dbAccess.openConnection();
-        this.courseDAO = new CourseDAO (dbAccess);
-        List <Course> allCourses = courseDAO.getAllCourses();
-//        courseList = new ListView<>();
-        for (Course course : allCourses){
+        this.courseDAO = new CourseDAO(dbAccess);
+        List<Course> allCourses = courseDAO.getAllCourses();
+        for (Course course : allCourses) {
             courseList.getItems().add(course);
-
         }
-//
 
     }
 
 
+    public void doMenu() {
+    }
 
-
-
-
-
-    public void doMenu(){}
-//nieuwe cursus maken: doorgaan naar scherm createupdatecourse
-    public void doCreateCourse(){Main.getSceneManager().showCreateUpdateCourseScene(null);
+    //nieuwe cursus maken: doorgaan naar scherm createupdatecourse
+    public void doCreateCourse() {
+        Main.getSceneManager().showCreateUpdateCourseScene(null);
     }
 
 
-    public void doUpdateCourse(){}
+    public void doUpdateCourse() {
+    }
 
-    public void doDeleteCourse(){}
+    public void doDeleteCourse() {
+    }
 
 }
