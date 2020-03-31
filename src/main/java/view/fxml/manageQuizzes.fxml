@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManageQuizzesController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManageQuizzesController">
     <Label layoutX="14.0" layoutY="14.0" text="Quizbeheer">
         <font>
             <Font size="18.0" />
@@ -12,28 +15,47 @@
     </Label>
     <Label layoutX="14.0" layoutY="49.0" text="Selecteer quiz">
         <font>
-            <Font size="18.0" />
+            <Font name="Calibri" size="17.0" />
         </font>
     </Label>
-    <ListView fx:id="quizList" layoutX="14.0" layoutY="78.0" prefHeight="200.0" prefWidth="281.0" />
-    <Button layoutX="13.0" layoutY="285.0" mnemonicParsing="false" onAction="#doCreateQuiz" text="Nieuw">
+    <ListView fx:id="quizList" layoutX="14.0" layoutY="78.0" prefHeight="336.0" prefWidth="874.0" style="-fx-background-radius: 11; -fx-effect: innershadow( gaussian, rgba( 10, 0, 0, 0.5 ), 20, 0, 5, 5);">
+      <opaqueInsets>
+         <Insets />
+      </opaqueInsets>
+      <effect>
+         <DropShadow height="53.37" offsetX="10.0" offsetY="10.0" radius="12.8425" spread="0.5" width="0.0" />
+      </effect></ListView>
+    <Button layoutX="487.0" layoutY="456.0" mnemonicParsing="false" onAction="#doCreateQuiz" prefHeight="30.0" prefWidth="225.0" text="Maak nieuwe quiz aan">
         <font>
             <Font size="14.0" />
         </font>
     </Button>
-    <Button layoutX="113.0" layoutY="285.0" mnemonicParsing="false" onAction="#doUpdateQuiz" text="Wijzig">
+    <Button cacheShape="false" layoutX="255.0" layoutY="456.0" mnemonicParsing="false" onAction="#doUpdateQuiz" prefHeight="30.0" prefWidth="225.0" text="Wijzig">
         <font>
             <Font size="14.0" />
         </font>
     </Button>
-    <Button layoutX="217.0" layoutY="285.0" mnemonicParsing="false" onAction="#doDeleteQuiz" text="Verwijder">
+    <Button layoutX="775.0" layoutY="456.0" mnemonicParsing="false" onAction="#doDeleteQuiz" prefHeight="30.0" prefWidth="92.0" text="Verwijder">
         <font>
             <Font size="14.0" />
         </font>
     </Button>
-    <Button layoutX="14.0" layoutY="329.0" mnemonicParsing="false" onAction="#doMenu" text="Menu">
+    <Button cancelButton="true" layoutX="22.0" layoutY="539.0" mnemonicParsing="false" onAction="#doMenu" prefHeight="30.0" prefWidth="225.0" text="Terug naar Overzicht">
         <font>
             <Font size="14.0" />
         </font>
     </Button>
+   <Slider layoutX="862.0" layoutY="102.0" orientation="VERTICAL" prefHeight="296.0" prefWidth="24.0" />
+   <Button defaultButton="true" layoutX="22.0" layoutY="456.0" mnemonicParsing="false" onAction="#doUpdateQuiz" prefWidth="225.0" text="Details" textOverrun="LEADING_WORD_ELLIPSIS">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Button>
+   <Button layoutX="824.0" layoutY="22.0" mnemonicParsing="false" text="Log uit" />
+   <effect>
+      <Blend />
+   </effect>
+   <cursor>
+      <Cursor fx:constant="DEFAULT" />
+   </cursor>
 </AnchorPane>
