@@ -26,9 +26,6 @@ public class WelcomeController extends AbstractController {
         addAllButtonsToDropdownMenu(subUser, taskMenuButton);
 
         System.out.println(user.getAllTasks());
-=======
-        char userName = user.getInlognaam().toUpperCase().charAt(0);
-        welcomeLabel.setText("Welkom "  + userName + user.getInlognaam().toLowerCase().substring(1) + "\nUw rol is: " + user.getRol());
 
         switch (user.getRol()) {
             case "Student":
