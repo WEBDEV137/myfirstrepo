@@ -38,17 +38,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         Main.primaryStage = primaryStage;
-        //primaryStage.setTitle("Make IT Work - Project 1");
-        getSceneManager().showLoginScene();
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/fxml/WindowTool.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        primaryStage.setTitle("Make IT Work - Project 1");
+        getSceneManager().setWindowTool();
         primaryStage.show();
     }
 

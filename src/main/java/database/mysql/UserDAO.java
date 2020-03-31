@@ -2,6 +2,7 @@ package database.mysql;
 
 import javafx.scene.control.Alert;
 import model.User;
+import view.Main;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

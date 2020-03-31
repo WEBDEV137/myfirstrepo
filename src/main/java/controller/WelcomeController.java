@@ -63,9 +63,13 @@ public class WelcomeController {
         MenuItem taak1 = new MenuItem("Beheer quizzen");
         MenuItem taak2 = new MenuItem("Beheer vragen quiz");
         MenuItem taak3 = new MenuItem("Ga naar Dashboard");
+        MenuItem taak4 = new MenuItem("Create/Update quiz");
+        taak1.setOnAction(e -> Main.getSceneManager().showManageQuizScene());
+        taak4.setOnAction(e -> Main.getSceneManager().showCreateUpdateQuizScene(null));
         taskMenuButton.getItems().add(taak1);
         taskMenuButton.getItems().add(taak2);
         taskMenuButton.getItems().add(taak3);
+        taskMenuButton.getItems().add(taak4);
     }
 
     public void voegMenuItemsToeAdministrator(){
