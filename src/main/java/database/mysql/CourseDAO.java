@@ -2,6 +2,7 @@
 package database.mysql;
 
 import model.Course;
+import model.Quiz;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -30,15 +31,28 @@ public class CourseDAO extends AbstractDAO {
                 course = new Course(id, coursename, coordinatorid);
                 courseSheet.add (course);
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             System.out.println(" SQL error " + e.getMessage());
         }
-
         return courseSheet;
-
-
-
-
+    }
+    public Course getOneById (int id) {
+        String query = "SELECT * FROM cursus WHERE id = ?;";
+        Course course = null;
+        try {
+            PreparedStatement preparedStatement = getStatement(query);
+            preparedStatement.setInt(1,id);
+            ResultSet resultSet = executeSelectPreparedStatement(preparedStatement);
+            if (resultSet.next()) {
+                String name = resultSet.getString("naam");
+                int coordinatorId = resultSet.getInt("coordinatorid");
+                course = new Course(id, name, coordinatorId);
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+        return course;
     }
 
 }

@@ -2,6 +2,7 @@ package database.mysql;
 
 import controller.AbstractController;
 import model.User;
+import view.Main;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
