@@ -16,7 +16,7 @@ public class WelcomeController extends AbstractController {
     private MenuButton taskMenuButton;
 
     public void setup(User user) {
-<<<<<<< HEAD
+
         //Laat aangepaste welkomstekst zien
         String welkomsTekst = String.format("%s: %s\n%s: %s", WELKOMS_GROET , user.getInlognaam(), UW_ROL_IS, user.getRol() );
         welcomeLabel.setText(welkomsTekst);
@@ -27,26 +27,7 @@ public class WelcomeController extends AbstractController {
 
         System.out.println(user.getAllTasks());
 
-        switch (user.getRol()) {
-            case "Student":
-               voegMenuItemsToeStudent();
-                break;
-            case "Docent":
-                voegMenuItemsToeDocent();
-                break;
-            case "Administrator":
-                voegMenuItemsToeAdministrator();
-                break;
-            case "Technisch beheerder":
-                voegMenuItemsToeTechnischBeheerder();
-                break;
-            case "Coordinator":
-                voegMenuItemsToeCoordinator();
-                // voegMenuItemsToeDocent(); // Een coordinator is een docent en heeft zijn opties.
-                //Maak custom menu items aan
-                break;
-        }
->>>>>>> 68c1d728af8a4f8add6db7a31572f21be424f4ea
+
     }
 
     public void doLogout() {
