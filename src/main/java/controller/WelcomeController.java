@@ -31,13 +31,7 @@ public class WelcomeController {
                 voegMenuItemsToeAdministrator();
                 break;
             case "Technisch beheerder":
-//                voegMenuItemsToeTechnischBeheerder();
-                MenuItem taak1 = new MenuItem("Voeg nieuwe gebruiker toe");
-                taak1.setOnAction(e -> Main.getSceneManager().showCreateUpdateUserScene(user));
-                taskMenuButton.getItems().add(taak1);
-                MenuItem taak2 = new MenuItem("Beheer bestaande gebruiker");
-                taak2.setOnAction(e -> Main.getSceneManager().showManageUserScene());
-                taskMenuButton.getItems().add(taak2);
+                voegMenuItemsToeTechnischBeheerder();
                 break;
             case "Coordinator":
                 voegMenuItemsToeCoordinator();
@@ -81,19 +75,16 @@ public class WelcomeController {
 
 
 // toevoegen taken technisch beheerder
-   /* public void voegMenuItemsToeTechnischBeheerder(){
+    public void voegMenuItemsToeTechnischBeheerder(){
         MenuItem taak1 = new MenuItem("Voeg nieuwe gebruiker toe");
-        taak1.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                Main.getSceneManager().showCreateUpdateUserScene();
-            }
-        });
+        taak1.setOnAction(e -> Main.getSceneManager().showCreateUpdateUserScene());
         taskMenuButton.getItems().add(taak1);
         MenuItem taak2 = new MenuItem("Beheer bestaande gebruiker");
+        taak2.setOnAction(e -> Main.getSceneManager().showManageUserScene());
         taskMenuButton.getItems().add(taak2);
+    }
 
-    }*/
+
     public void voegMenuItemsToeDocent(){
         MenuItem taak1 = new MenuItem("Bekijk voortgang");
        /* taak1.setOnAction(new EventHandler<ActionEvent>() {

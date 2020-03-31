@@ -107,6 +107,17 @@ public class User {
     //METHODEN
     @Override
     public String toString() {
-        return "User Id: " + userId + "\nUser Name: " + userName + "\nName: " + name + "\nPrefix: " + getPrefix() + "\nSurname: " + surname + "\nRol: " + rolName + "\nPassword: " + password;
+        StringBuilder resultString = new StringBuilder("");
+        resultString.append(userId + " ");
+        resultString.append(name + " ");
+        if (prefix != null) {
+            resultString.append(prefix + " ");
+        }
+        resultString.append(surname + " => ");
+        resultString.append(rolName + " ");
+        return resultString.toString();
     }
+    /*public String toString() {
+        return "User Id: " + userId + "\nUser Name: " + userName + "\nName: " + name + "\nPrefix: " + getPrefix() + "\nSurname: " + surname + "\nRol: " + rolName + "\nPassword: " + password;
+    }*/
 }

@@ -32,6 +32,20 @@ public class SceneManager {
         }
     }
 
+    public void showExistingCustomerScene() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/fxml/createUpdateUser.fxml"));
+            Parent root = loader.load();
+            CreateUpdateUserController controller = loader.getController();
+            controller.setup();
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void setWindowTool() {
         FXMLLoader loader = getScene("/view/fxml/windowTool.fxml");
         if (loader != null) {
@@ -60,10 +74,10 @@ public class SceneManager {
         controller.setup();
     }
 
-    public void showCreateUpdateUserScene(User user) {
+    public void showCreateUpdateUserScene() {
         FXMLLoader loader = getScene("/view/fxml/createUpdateUser.fxml");
         CreateUpdateUserController controller = loader.getController();
-        controller.setup(user);
+        controller.setup();
     }
 
     public void showManageCoursesScene() {
