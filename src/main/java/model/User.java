@@ -13,8 +13,6 @@ public class User {
 
 
     //CONSTRUCTOR
-
-
     public User(int userId, String rolName, String userName, String password, String name, String prefix, String surname) {
         this.userId = userId;
         this.rolName = rolName;
@@ -78,9 +76,7 @@ public class User {
     }
 
     public void setPrefix(String prefix) {
-
             this.prefix = prefix;
-
     }
 
     public String getSurname() {
