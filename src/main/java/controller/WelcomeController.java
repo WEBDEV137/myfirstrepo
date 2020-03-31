@@ -68,7 +68,9 @@ public class WelcomeController {
 
     public void voegMenuItemsToeAdministrator() {
         MenuItem taak1 = new MenuItem("Cursussen beheren");
+        taak1.setOnAction(e -> Main.getSceneManager().showManageCoursesScene());
         MenuItem taak2 = new MenuItem("Groepen beheren");
+        taak2.setOnAction(e -> Main.getSceneManager().showManageGroupsScene());
         taskMenuButton.getItems().add(taak1);
         taskMenuButton.getItems().add(taak2);
     }
@@ -76,6 +78,7 @@ public class WelcomeController {
     public void voegMenuItemsToeTechnischBeheerder() {
         MenuItem taak1 = new MenuItem("Voeg nieuwe gebruiker toe");
         taskMenuButton.getItems().add(taak1);
+        taak1.setOnAction(e -> Main.getSceneManager().showCreateUpdateUserScene(null));
         MenuItem taak2 = new MenuItem("Beheer bestaande gebruiker");
         taskMenuButton.getItems().add(taak2);
     }

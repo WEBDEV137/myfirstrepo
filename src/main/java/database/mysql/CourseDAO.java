@@ -19,14 +19,14 @@ public class CourseDAO extends AbstractDAO {
 
     public  List <Course> getAllCourses() {
         List<Course> courseSheet = new ArrayList<>();
-        String query = "SELECT * FROM course";
+        String query = "SELECT * FROM cursus";
         Course course = null;
         try {
             PreparedStatement preparedStatement = getStatement(query);
             ResultSet resultSet = executeSelectPreparedStatement(preparedStatement);
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
-                String coursename = resultSet.getString("coursename");
+                String coursename = resultSet.getString("naam");
                 int coordinatorid = resultSet.getInt("coordinatorid");
                 course = new Course(id, coursename, coordinatorid);
                 courseSheet.add (course);
