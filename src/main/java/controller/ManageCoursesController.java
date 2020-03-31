@@ -1,12 +1,51 @@
 package controller;
 
-public class ManageCoursesController {
+import database.mysql.CourseDAO;
+import database.mysql.DBAccess;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import model.Course;
+import view.Main;
 
-    public void setup() {}
+import java.util.List;
+
+public class ManageCoursesController {
+    private CourseDAO courseDAO;
+    private DBAccess dbAccess;
+
+    @FXML
+    private ListView <Course> courseList;
+    private Button newCourseButton;
+
+
+
+    // connectie maken met dbase om courses te laten zien in het scherm listview
+    public void setup() {
+        dbAccess = Main.getDBaccess();
+        dbAccess.openConnection();
+        this.courseDAO = new CourseDAO (dbAccess);
+        List <Course> allCourses = courseDAO.getAllCourses();
+//        courseList = new ListView<>();
+        for (Course course : allCourses){
+            courseList.getItems().add(course);
+
+        }
+//
+
+    }
+
+
+
+
+
+
 
     public void doMenu(){}
+//nieuwe cursus maken: doorgaan naar scherm createupdatecourse
+    public void doCreateCourse(){Main.getSceneManager().showCreateUpdateCourseScene(null);
+    }
 
-    public void doCreateCourse(){}
 
     public void doUpdateCourse(){}
 
