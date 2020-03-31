@@ -28,6 +28,21 @@ public class WelcomeController extends AbstractController {
         System.out.println(user.getAllTasks());
 
 
+<<<<<<< HEAD
+=======
+    public void voegMenuItemsToeAdministrator(){
+        MenuItem taak1 = new MenuItem("Cursussen beheren");
+        taak1.setOnAction((new EventHandler<ActionEvent>() {
+   //MP doorklikken naar scherm managecourses
+           @Override
+            public void handle(ActionEvent event) {
+                Main.getSceneManager().showManageCoursesScene();
+            }
+        }));
+        MenuItem taak2 = new MenuItem("Groepen beheren");
+        taskMenuButton.getItems().add(taak1);
+        taskMenuButton.getItems().add(taak2);
+>>>>>>> course
     }
 
     public void doLogout() {
