@@ -1,5 +1,6 @@
 package database.mysql;
 
+import controller.AbstractController;
 import model.User;
 
 import java.sql.PreparedStatement;
@@ -32,6 +33,7 @@ public class UserDAO extends AbstractDAO{
             }
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
+            AbstractController.showAlert("x", "x", "x");
         }
         return user;
     }
