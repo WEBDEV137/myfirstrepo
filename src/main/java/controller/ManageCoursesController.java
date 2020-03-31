@@ -16,6 +16,7 @@ public class ManageCoursesController {
 
     @FXML
     private ListView<Course> courseList;
+    @FXML
     private Button newCourseButton;
 
 
