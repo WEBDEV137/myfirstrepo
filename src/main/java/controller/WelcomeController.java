@@ -18,7 +18,7 @@ public class WelcomeController extends AbstractController {
     public void setup(User user) {
 
         //Laat aangepaste welkomstekst zien
-        String welkomsTekst = String.format("%s: %s\n%s: %s", WELKOMS_GROET , user.getInlognaam(), UW_ROL_IS, user.getRol() );
+        String welkomsTekst = String.format("%s: %s\n%s: %s", WELKOMS_GROET, user.getInlognaam(), UW_ROL_IS, user.getRol());
         welcomeLabel.setText(welkomsTekst);
         //Maak aan de hand van de rol van de gebruiker het juiste type sub-gebruiker
         User subUser = createSubUserFromUser(user);
@@ -28,21 +28,6 @@ public class WelcomeController extends AbstractController {
         System.out.println(user.getAllTasks());
 
 
-<<<<<<< HEAD
-=======
-    public void voegMenuItemsToeAdministrator(){
-        MenuItem taak1 = new MenuItem("Cursussen beheren");
-        taak1.setOnAction((new EventHandler<ActionEvent>() {
-   //MP doorklikken naar scherm managecourses
-           @Override
-            public void handle(ActionEvent event) {
-                Main.getSceneManager().showManageCoursesScene();
-            }
-        }));
-        MenuItem taak2 = new MenuItem("Groepen beheren");
-        taskMenuButton.getItems().add(taak1);
-        taskMenuButton.getItems().add(taak2);
->>>>>>> course
     }
 
     public void doLogout() {
