@@ -17,14 +17,14 @@ public class WelcomeController {
     private MenuButton taskMenuButton;
 
 
-
     public void setup(User user) {
         char userName = user.getInlognaam().toUpperCase().charAt(0);
-        welcomeLabel.setText("Welkom "  + userName + user.getInlognaam().toLowerCase().substring(1) + "\nUw rol is: " + user.getRol());
+        welcomeLabel.setText("Welkom " + userName + user.getInlognaam().toLowerCase().substring(1) + "\nUw rol is: " + user.getRol());
+
 
         switch (user.getRol()) {
             case "Student":
-               voegMenuItemsToeStudent();
+                voegMenuItemsToeStudent();
                 break;
             case "Docent":
                 voegMenuItemsToeDocent();
@@ -37,29 +37,23 @@ public class WelcomeController {
                 break;
             case "Coordinator":
                 voegMenuItemsToeCoordinator();
-                // voegMenuItemsToeDocent(); // Een coordinator is een docent en heeft zijn opties.
-                //Maak custom menu items aan
+                voegMenuItemsToeDocent();
                 break;
         }
     }
+
     public void doLogout() {
         Main.getSceneManager().showLoginScene();
     }
 
-    public void voegMenuItemsToeStudent(){
+    public void voegMenuItemsToeStudent() {
         MenuItem taak1 = new MenuItem("Quiz invullen");
-       /* taak1.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                Main.getSceneManager().showFillOutQuiz();
-            }
-        });*/
         taskMenuButton.getItems().add(taak1);
         MenuItem taak2 = new MenuItem("In- en uitschrijven cursus");
         taskMenuButton.getItems().add(taak2);
     }
 
-    public void voegMenuItemsToeCoordinator(){
+    public void voegMenuItemsToeCoordinator() {
         MenuItem taak1 = new MenuItem("Beheer quizzen");
         MenuItem taak2 = new MenuItem("Beheer vragen quiz");
         MenuItem taak3 = new MenuItem("Ga naar Dashboard");
@@ -72,36 +66,25 @@ public class WelcomeController {
         taskMenuButton.getItems().add(taak4);
     }
 
-    public void voegMenuItemsToeAdministrator(){
+    public void voegMenuItemsToeAdministrator() {
         MenuItem taak1 = new MenuItem("Cursussen beheren");
         MenuItem taak2 = new MenuItem("Groepen beheren");
         taskMenuButton.getItems().add(taak1);
         taskMenuButton.getItems().add(taak2);
     }
 
-
-// toevoegen taken technisch beheerder
-    public void voegMenuItemsToeTechnischBeheerder(){
+    public void voegMenuItemsToeTechnischBeheerder() {
         MenuItem taak1 = new MenuItem("Voeg nieuwe gebruiker toe");
-       /* taak1.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                Main.getSceneManager().showFillOutQuiz();
-            }
-        });*/
         taskMenuButton.getItems().add(taak1);
         MenuItem taak2 = new MenuItem("Beheer bestaande gebruiker");
         taskMenuButton.getItems().add(taak2);
-
     }
-    public void voegMenuItemsToeDocent(){
-        MenuItem taak1 = new MenuItem("Bekijk voortgang");
-       /* taak1.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                Main.getSceneManager().showManageGroupsScene();
-            }
-        });*/
-        taskMenuButton.getItems().add(taak1);
-    }
+    public void voegMenuItemsToeDocent () {
+            MenuItem taak1 = new MenuItem("Bekijk voortgang");
+            taskMenuButton.getItems().add(taak1);
+        }
 }
+
+
+
+
