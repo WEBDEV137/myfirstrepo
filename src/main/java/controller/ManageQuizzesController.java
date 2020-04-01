@@ -13,7 +13,7 @@ import view.Main;
 
 import java.util.List;
 
-public class ManageQuizzesController {
+public class ManageQuizzesController extends AbstractController {
     private QuizDAO quizDAO;
     private CourseDAO courseDAO;
     private DBAccess dbAccess;
@@ -27,6 +27,7 @@ public class ManageQuizzesController {
 
     // connectie maken met dbase om courses te laten zien in het scherm listview
     public void setup(User user) {
+        super.user = user;
         dbAccess = Main.getDBaccess();
         dbAccess.openConnection();
         this.quizDAO = new QuizDAO(dbAccess);
@@ -47,19 +48,27 @@ public class ManageQuizzesController {
 
 
     public void doMenu() {
+        Main.getSceneManager().showWelcomeScene(user);
     }
 
 
     public void doCreateQuiz() {
-        Main.getSceneManager().showCreateUpdateQuizScene(null);
+        Main.getSceneManager().showCreateUpdateQuizScene(user, null);
     }
 
 
     public void doUpdateQuiz() {
         Quiz quiz = quizList.getSelectionModel().getSelectedItem();
-            Main.getSceneManager().showCreateUpdateQuizScene(quiz);
+            Main.getSceneManager().showCreateUpdateQuizScene(user, quiz);
     }
 
     public void doDeleteQuiz() {
+       Quiz quiz =  quizList.getSelectionModel().getSelectedItem();
+       QuizDAO quizDAO = new QuizDAO(dbAccess);
+       quizDAO.removeOneById(quiz.getId());
+
+    }
+    public void doLogOut() {
+        Main.getSceneManager().showLoginScene();
     }
 }

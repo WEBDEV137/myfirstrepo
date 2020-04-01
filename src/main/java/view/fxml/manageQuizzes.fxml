@@ -41,7 +41,7 @@
       <font>
          <Font size="23.0" />
       </font></Button>
-   <Button layoutX="747.0" layoutY="8.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="136.0" text="Log uit" textFill="#656472">
+   <Button layoutX="747.0" layoutY="8.0" mnemonicParsing="false" onAction="#doLogOut" prefHeight="63.0" prefWidth="136.0" text="Log uit" textFill="#656472">
       <font>
          <Font size="18.0" />
       </font>

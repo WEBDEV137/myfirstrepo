@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateUpdateQuizController">
    <children>
       <AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: rgba(50, 115, 220, 0.3);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -16,16 +16,15 @@
                <font>
                   <Font size="48.0" />
                </font></Label>
-            <Button fx:id="opslaanKnop" layoutX="743.0" layoutY="498.0" mnemonicParsing="false" onAction="#doStore" prefHeight="88.0" prefWidth="142.0" text="Opslaan" />
-            <Button fx:id="voegNieuweVraagToe" layoutX="743.0" layoutY="391.0" mnemonicParsing="false" onAction="#doCreateNewQuestion" prefHeight="88.0" prefWidth="142.0" text="Voeg nieuwe vraag toe" />
-            <Button fx:id="Menu" layoutX="655.0" layoutY="4.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" text="Menu" />
+            <Button fx:id="opslaanKnop" layoutX="692.0" layoutY="410.0" mnemonicParsing="false" onAction="#doStore" prefHeight="88.0" prefWidth="194.0" text="Opslaan" />
+            <Button fx:id="voegNieuweVraagToe" layoutX="459.0" layoutY="410.0" mnemonicParsing="false" onAction="#doCreateNewQuestion" prefHeight="88.0" prefWidth="211.0" text="Voeg nieuwe vraag toe" />
+            <Button fx:id="Menu" layoutX="689.0" layoutY="538.0" mnemonicParsing="false" onAction="#doMenu" prefHeight="40.0" prefWidth="194.0" text="Terug naar Menu" />
             <Label layoutX="52.0" layoutY="498.0" prefHeight="40.0" prefWidth="166.0" text="Succesfactor" textFill="#474765">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
             <Label layoutX="672.0" layoutY="69.0" />
-            <Button fx:id="lopUitKnop" layoutX="776.0" layoutY="4.0" mnemonicParsing="false" onAction="#doLogOut" prefHeight="40.0" prefWidth="110.0" text="Log uit" />
             <TextField layoutX="183.0" layoutY="498.0" prefHeight="40.0" prefWidth="110.0" promptText="succesfactor here" />
             <Label layoutX="63.0" layoutY="427.0" prefHeight="40.0" prefWidth="166.0" text="Quiznaam" textFill="#474765">
                <font>
@@ -43,6 +42,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
+            <Button fx:id="doGoToQuizbeheer" layoutX="459.0" layoutY="538.0" mnemonicParsing="false" onAction="#doManageQuizzes" prefHeight="40.0" prefWidth="211.0" text="Terug naar Quizbeheer" />
 
          </children></AnchorPane>
    </children>

@@ -15,6 +15,8 @@ public class QuizDAO extends AbstractDAO {
     public QuizDAO(DBAccess dbAccess){
         super(dbAccess);
      }
+
+
     public Quiz getOneById (int id) {
         String query = "SELECT * FROM quiz WHERE id = ?;";
     Quiz quiz = null;
@@ -33,6 +35,7 @@ public class QuizDAO extends AbstractDAO {
         }
         return quiz;
     }
+
     public ArrayList<Quiz> getAll () {
         String query = "SELECT * FROM quiz ; ";
         ArrayList<Quiz> quizzes = null;
@@ -85,5 +88,15 @@ public class QuizDAO extends AbstractDAO {
             System.out.println("SQL error " + e.getMessage());
         }
         return quizzes;
+    }
+    public void removeOneById (int id) {
+        String query = " DELETE FROM quiz WHERE id = ?;";
+        try {
+            PreparedStatement preparedStatement = getStatement(query);
+            preparedStatement.setInt(1,id);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
     }
 }
