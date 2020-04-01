@@ -10,23 +10,35 @@
          <children>
             <ListView layoutX="21.0" layoutY="91.0" prefHeight="235.0" prefWidth="429.0" style="-fx-background-radius: 3 3 3 3; -fx-effect: innershadow( gaussian, rgba( 0, 0, 0, 0.5 ), 10, 0, 5, 5 );" />
             <ListView layoutX="457.0" layoutY="91.0" prefHeight="235.0" prefWidth="429.0" style="-fx-effect: innershadow( gaussian, rgba( 0, 0, 0, 0.5 ), 10, 0, 5, 5 ); -fx-background-radius: 3 3 3 3;" />
-            <Button layoutX="21.0" layoutY="333.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="429.0" text="Verwijder uit quiz &gt;" />
-            <Button layoutX="457.0" layoutY="333.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="429.0" text="&lt; Voeg toe aan quiz" />
-            <Label fx:id="titleLabel" layoutX="319.0" layoutY="6.0" prefHeight="76.0" prefWidth="303.0" text="Wijzig quiz" textFill="WHITE">
+            <Button layoutX="21.0" layoutY="333.0" mnemonicParsing="false" onAction="#doRemoveFromQuiz" prefHeight="40.0" prefWidth="429.0" text="Verwijder uit quiz &gt;" />
+            <Button layoutX="457.0" layoutY="333.0" mnemonicParsing="false" onAction="#doAddToQuiz" prefHeight="40.0" prefWidth="429.0" text="&lt; Voeg toe aan quiz" />
+            <Label fx:id="titleLabel" layoutX="326.0" layoutY="6.0" prefHeight="76.0" prefWidth="303.0" text="wijzig quiz" textFill="WHITE">
                <font>
                   <Font size="48.0" />
                </font></Label>
-            <Label layoutX="183.0" layoutY="55.0" text="Quizvragen" textFill="WHITE">
+            <Button fx:id="opslaanKnop" layoutX="743.0" layoutY="498.0" mnemonicParsing="false" onAction="#doStore" prefHeight="88.0" prefWidth="142.0" text="Opslaan" />
+            <Button fx:id="voegNieuweVraagToe" layoutX="743.0" layoutY="391.0" mnemonicParsing="false" onAction="#doCreateNewQuestion" prefHeight="88.0" prefWidth="142.0" text="Voeg nieuwe vraag toe" />
+            <Button fx:id="Menu" layoutX="655.0" layoutY="4.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" text="Menu" />
+            <Label layoutX="52.0" layoutY="498.0" prefHeight="40.0" prefWidth="166.0" text="Succesfactor" textFill="#474765">
                <font>
-                  <Font size="18.0" />
+                  <Font size="20.0" />
                </font>
             </Label>
-            <Button fx:id="opslaanKnop" layoutX="743.0" layoutY="498.0" mnemonicParsing="false" prefHeight="88.0" prefWidth="142.0" text="Opslaan" />
-            <ListView layoutX="236.0" layoutY="415.0" prefHeight="88.0" prefWidth="166.0" />
-            <Button fx:id="voegNieuweVraagToe"layoutX="743.0" layoutY="391.0" mnemonicParsing="false" prefHeight="88.0" prefWidth="142.0" text="Voeg nieuwe vraag toe" />
-            <Button fx:id="terugKnop"layoutX="788.0" layoutY="32.0" mnemonicParsing="false" text="Terug" />
-            <Button fx:id="lopUitKnop"layoutX="726.0" layoutY="32.0" mnemonicParsing="false" text="Log uit" />
-            <Label layoutX="70.0" layoutY="439.0" prefHeight="40.0" prefWidth="166.0" text="Succesfactor" textFill="#474765">
+            <Label layoutX="672.0" layoutY="69.0" />
+            <Button fx:id="lopUitKnop" layoutX="776.0" layoutY="4.0" mnemonicParsing="false" onAction="#doLogOut" prefHeight="40.0" prefWidth="110.0" text="Log uit" />
+            <TextField layoutX="183.0" layoutY="498.0" prefHeight="40.0" prefWidth="110.0" promptText="succesfactor here" />
+            <Label layoutX="63.0" layoutY="427.0" prefHeight="40.0" prefWidth="166.0" text="Quiznaam" textFill="#474765">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <TextField layoutX="183.0" layoutY="427.0" prefHeight="40.0" prefWidth="110.0" promptText="Quiznaam hier" />
+            <Label layoutX="177.0" layoutY="58.0" prefHeight="40.0" prefWidth="166.0" text="Quizvragen" textFill="#474765">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="601.0" layoutY="58.0" prefHeight="40.0" prefWidth="194.0" text="Beschikbare vragen" textFill="#474765">
                <font>
                   <Font size="20.0" />
                </font>
