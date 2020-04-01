@@ -32,12 +32,12 @@ public class SceneManager {
         }
     }
 
-    public void showExistingCustomerScene() {
+    public void showExistingCustomerScene(User user) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/fxml/createUpdateUser.fxml"));
             Parent root = loader.load();
             CreateUpdateUserController controller = loader.getController();
-            controller.setup();
+            controller.setup(user);
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -74,10 +74,10 @@ public class SceneManager {
         controller.setup();
     }
 
-    public void showCreateUpdateUserScene() {
+    public void showCreateUpdateUserScene(User user) {
         FXMLLoader loader = getScene("/view/fxml/createUpdateUser.fxml");
         CreateUpdateUserController controller = loader.getController();
-        controller.setup();
+        controller.setup(user);
     }
 
     public void showManageCoursesScene() {

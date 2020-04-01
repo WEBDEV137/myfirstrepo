@@ -33,17 +33,17 @@ public class ManageUsersController {
 
     @FXML
     public void doMenu(ActionEvent e) {
-//        Main.getSceneManager().showWelcomeScene(user);
+//        Main.getSceneManager().showWelcomeScene(null);
         Main.getSceneManager().setWindowTool();
     }
     @FXML
     public void doCreateUser(ActionEvent e) {
-        Main.getSceneManager().showCreateUpdateUserScene();
+        Main.getSceneManager().showCreateUpdateUserScene(null);
     }
     @FXML
     public void doUpdateUser(ActionEvent e) {
         User user = userList.getSelectionModel().getSelectedItem();
-        Main.getSceneManager().showExistingCustomerScene();
+        Main.getSceneManager().showExistingCustomerScene(user);
     }
     @FXML
     public void doDeleteUser() {}

@@ -11,11 +11,10 @@ import model.User;
 import view.Main;
 
 public class CreateUpdateUserController {
-
-
     private UserDAO udao;
     private DBAccess db;
     private User user;
+
     @FXML
     public Label titleLabel;
     @FXML
@@ -35,11 +34,12 @@ public class CreateUpdateUserController {
 
     public CreateUpdateUserController() {
         super();
-        this.udao = udao;
-        this.db = db;
+        this.db = Main.getDBaccess();
+        this.udao = new UserDAO(db);
+
     }
 
-    public void setup() {
+    public void setup(User user) {
         titleLabel.setText("Update user");
         userIdTextfield.setText(String.valueOf(user.getUserId()));
         userNameTextfield.setText(user.getUserName());
@@ -51,7 +51,7 @@ public class CreateUpdateUserController {
     }
 
     public void doMenu(ActionEvent e) {
-        Main.getSceneManager().showWelcomeScene(user);
+        Main.getSceneManager().setWindowTool();
     }
 
     public void doCreateUpdateUser(ActionEvent e) {
