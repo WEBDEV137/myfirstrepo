@@ -16,11 +16,7 @@ public class WelcomeController {
     @FXML
     private MenuButton taskMenuButton;
 
-
-
     public void setup(User user) {
-
-
         welcomeLabel.setText("Welcome " + user.getName() + "\nUw rol is " + user.getRolName());
         switch (user.getRolName()) {
             case "Student":
@@ -72,9 +68,9 @@ public class WelcomeController {
     public void voegMenuItemsToeAdministrator() {
         MenuItem taak1 = new MenuItem("Cursussen beheren");
         taak1.setOnAction(e -> Main.getSceneManager().showManageCoursesScene());
+        taskMenuButton.getItems().add(taak1);
         MenuItem taak2 = new MenuItem("Groepen beheren");
         taak2.setOnAction(e -> Main.getSceneManager().showManageGroupsScene());
-        taskMenuButton.getItems().add(taak1);
         taskMenuButton.getItems().add(taak2);
     }
 
@@ -85,7 +81,6 @@ public class WelcomeController {
         MenuItem taak1 = new MenuItem("Voeg nieuwe gebruiker toe");
         taak1.setOnAction(e -> Main.getSceneManager().showCreateUpdateUserScene(user));
         taskMenuButton.getItems().add(taak1);
-        taak1.setOnAction(e -> Main.getSceneManager().showCreateUpdateUserScene(null));
         MenuItem taak2 = new MenuItem("Beheer bestaande gebruiker");
         taak2.setOnAction(e -> Main.getSceneManager().showManageUserScene());
         taskMenuButton.getItems().add(taak2);

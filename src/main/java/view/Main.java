@@ -7,11 +7,13 @@ package view;
 import controller.AbstractController;
 import controller.LoginController;
 import database.mysql.DBAccess;
+import database.mysql.GroupDAO;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.w3c.dom.ls.LSOutput;
 
 import java.io.IOException;
 
@@ -37,6 +39,7 @@ public class Main extends Application {
         return dbAccess;
     }
 
+
     /**
      *Deze methode wordt automatisch gestart
      *
@@ -46,7 +49,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         System.out.println(primaryStage);
         Main.primaryStage = primaryStage;
-        primaryStage.setTitle("Make IT Work - Project 1");
+        //primaryStage.setTitle("Make IT Work - Project 1");
         getSceneManager().setWindowTool();
         primaryStage.show();
     }
