@@ -70,7 +70,7 @@ public class CourseDAO extends AbstractDAO {
     }
 
     public void updateCourse(Course course) {
-        String sql = "Update cursus Set naam = ?, coordinatorid = ? where id = ?;";
+        String sql = "Update cursus Set naam = ?, coordinatorid = ? where id = ?";
         try {
             PreparedStatement ps = getStatement(sql);
             ps.setString(1, course.getCoursename());
