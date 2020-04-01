@@ -75,6 +75,6 @@ public class Quiz {
 
     @Override
     public String toString() {
-        return String.format("id:   %d            |              Quiz name:   %s            |              Course name:     %s", id, name, course.getCoursename());
+        return String.format("id:  %-5d     Quiz name:  %-14s   Course name:  %-20s", id, name, course.getCoursename());
     }
 }

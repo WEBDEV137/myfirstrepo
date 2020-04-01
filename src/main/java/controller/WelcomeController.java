@@ -32,7 +32,7 @@ public class WelcomeController {
                 voegMenuItemsToeTechnischBeheerder(user);
                 break;
             case "Coordinator":
-                voegMenuItemsToeCoordinator();
+                voegMenuItemsToeCoordinator(user);
                 voegMenuItemsToeDocent();
                 break;
         }
@@ -49,14 +49,14 @@ public class WelcomeController {
         taskMenuButton.getItems().add(taak2);
     }
 
-    public void voegMenuItemsToeCoordinator() {
+    public void voegMenuItemsToeCoordinator(User user) {
         MenuItem taak1 = new MenuItem("Ga naar Dashboard");
         MenuItem taak2 = new MenuItem("Beheer quizzen");
         MenuItem taak3 = new MenuItem("Beheer vragen");
         MenuItem taak4 = new MenuItem("Create/Update quiz");
         MenuItem taak5 = new MenuItem("Create/Update vraag");
         taak1.setOnAction(actionEvent -> Main.getSceneManager().showCoordinatorDashboard());
-        taak2.setOnAction(actionEvent -> Main.getSceneManager().showManageQuizScene());
+        taak2.setOnAction(actionEvent -> Main.getSceneManager().showManageQuizScene(user));
         taak3.setOnAction(actionEvent -> Main.getSceneManager().showManageQuestionsScene());
         taak4.setOnAction(e -> Main.getSceneManager().showCreateUpdateQuizScene(null));
         taak5.setOnAction(e -> Main.getSceneManager().showCreateUpdateQuizScene(null));
