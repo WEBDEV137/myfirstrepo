@@ -68,18 +68,30 @@ public class WelcomeController {
         taskMenuButton.getItems().add(taak3);
     }
 
+    // hier knop invoegen om naar controlscherm te gaan
     public void voegMenuItemsToeAdministrator(){
         MenuItem taak1 = new MenuItem("Cursussen beheren");
-        MenuItem taak2 = new MenuItem("Groepen beheren");
+        taak1.setOnAction((new EventHandler<ActionEvent>() {
+                    public void handle(ActionEvent event) {
+                        Main.getSceneManager().showManageCoursesScene();
+                    }
+                }));
         taskMenuButton.getItems().add(taak1);
+        MenuItem taak2 = new MenuItem("Groepen beheren");
+        taak1.setOnAction((new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                Main.getSceneManager().showManageGroupsScene();
+            }
+        }));
         taskMenuButton.getItems().add(taak2);
     }
+
 
 
 // toevoegen taken technisch beheerder
     public void voegMenuItemsToeTechnischBeheerder(){
         MenuItem taak1 = new MenuItem("Voeg nieuwe gebruiker toe");
-       /* taak1.setOnAction(new EventHandler<ActionEvent>() {
+/*        taak1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 Main.getSceneManager().showFillOutQuiz();
