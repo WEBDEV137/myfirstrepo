@@ -61,8 +61,11 @@ public class WelcomeController {
 
     public void voegMenuItemsToeCoordinator(){
         MenuItem taak1 = new MenuItem("Beheer quizzen");
+         taak1.setOnAction(actionEvent -> Main.getSceneManager().showManageQuizScene());
         MenuItem taak2 = new MenuItem("Beheer vragen quiz");
+        taak2.setOnAction(actionEvent -> Main.getSceneManager().showManageQuestionsScene());
         MenuItem taak3 = new MenuItem("Ga naar Dashboard");
+        taak3.setOnAction(actionEvent -> Main.getSceneManager().showCoordinatorDashboard());
         taskMenuButton.getItems().add(taak1);
         taskMenuButton.getItems().add(taak2);
         taskMenuButton.getItems().add(taak3);

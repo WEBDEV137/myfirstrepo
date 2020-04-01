@@ -6,6 +6,9 @@ public class Question {
     private String wrongAnswer2;
     private String wrongAnswer3;
 
+    public Question(String rightAnswer) {
+        this.rightAnswer = rightAnswer;
+    }
 
     public Question(String rightAnswer, String wrongAnswer1, String wrongAnswer2, String wrongAnswer3) {
         this.rightAnswer = rightAnswer;
