@@ -35,6 +35,20 @@ public class SceneManager {
         }
     }
 
+    public void showExistingCustomerScene(User user) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/fxml/createUpdateUser.fxml"));
+            Parent root = loader.load();
+            CreateUpdateUserController controller = loader.getController();
+            controller.setup(user);
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void setWindowTool() {
         FXMLLoader loader = getScene("/view/fxml/windowTool.fxml");
         if (loader != null) {

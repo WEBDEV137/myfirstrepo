@@ -17,29 +17,25 @@ public class LoginController extends AbstractController{
     private TextField passwordField;
 
     public void doLogin() {
-        //maak verbinding met database met behulp van het dDBaccess object dat in de Main is aangemaakt.
-        //maak userDAO met behulp van het dbAccess object
-        DBAccess dbAccess = Main.getDBaccess();
-        dbAccess.openConnection();
-        UserDAO userDAO = new UserDAO(dbAccess);
-       // try {
-            User user = userDAO.getUserByInlognaam(nameTextField.getText()); //Haal user uit database
-            //Geef een waarschuwing als de inlopgnaam onjuist is of als het wachtwoord fout is
-            // Laat anders weten dat het gelukt is en laat het wvolgende scherm zien
-            if (user == null || !user.getInlognaam().equals(nameTextField.getText())){
-               showAlert(FOUTMELDING_INLOGNAAM, MELDING_PROBEER_OPNIEUW,  ALERTTYPE_INFORMATION);
-            }
-            else if (!user.getWachtwoord().equals(passwordField.getText())){
-                showAlert(FOUTMELDING_WACHTWOORD, MELDING_PROBEER_OPNIEUW, ALERTTYPE_WAARSCHUWING);
-            }
-            else{
-                Main.getSceneManager().showWelcomeScene(user);
-                showAlert(STATUSBERICHT_INGELOGD,WELKOMS_GROET ,ALERTTYPE_INFORMATION);
-            }
-       /// }
-      //  catch (Exception fout){
-     //       fout.getMessage();
-      //  }
+
+        Main.getDBaccess().openConnection();
+        System.out.println("Connection open");
+        UserDAO userDAO = new UserDAO(Main.getDBaccess());
+        User user = userDAO.getUserByInlognaam(nameTextField.getText());
+        if (user == null || !user.getUserName().equals(nameTextField.getText())){
+            Alert verkeerdeInlogGegevens = new Alert(Alert.AlertType.ERROR);
+            verkeerdeInlogGegevens.setContentText("Please een juiste user name invoeren!!!");
+            verkeerdeInlogGegevens.show();
+        }
+        else if (!user.getPassword().equals(passwordField.getText())){
+            Alert verkeerdeInlogGegevens = new Alert(Alert.AlertType.ERROR);
+            verkeerdeInlogGegevens.setContentText("Please een juiste password invoeren!!!");
+            verkeerdeInlogGegevens.show();
+        }
+        else{
+            Main.getSceneManager().showWelcomeScene(user);
+            System.out.println(user);
+        }
     }
 
 

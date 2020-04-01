@@ -19,10 +19,10 @@ public class WelcomeController {
 
 
     public void setup(User user) {
-        char userName = user.getInlognaam().toUpperCase().charAt(0);
-        welcomeLabel.setText("Welkom " + userName + user.getInlognaam().toLowerCase().substring(1) + "\nUw rol is: " + user.getRol());
 
-        switch (user.getRol()) {
+
+        welcomeLabel.setText("Welcome " + user.getName() + "\nUw rol is " + user.getRolName());
+        switch (user.getRolName()) {
             case "Student":
                 voegMenuItemsToeStudent();
                 break;
@@ -33,7 +33,7 @@ public class WelcomeController {
                 voegMenuItemsToeAdministrator();
                 break;
             case "Technisch beheerder":
-                voegMenuItemsToeTechnischBeheerder();
+                voegMenuItemsToeTechnischBeheerder(user);
                 break;
             case "Coordinator":
                 voegMenuItemsToeCoordinator();
@@ -78,15 +78,28 @@ public class WelcomeController {
         taskMenuButton.getItems().add(taak2);
     }
 
-    public void voegMenuItemsToeTechnischBeheerder() {
+
+
+// toevoegen taken technisch beheerder
+    public void voegMenuItemsToeTechnischBeheerder(User user){
         MenuItem taak1 = new MenuItem("Voeg nieuwe gebruiker toe");
+        taak1.setOnAction(e -> Main.getSceneManager().showCreateUpdateUserScene(user));
         taskMenuButton.getItems().add(taak1);
         taak1.setOnAction(e -> Main.getSceneManager().showCreateUpdateUserScene(null));
         MenuItem taak2 = new MenuItem("Beheer bestaande gebruiker");
+        taak2.setOnAction(e -> Main.getSceneManager().showManageUserScene());
         taskMenuButton.getItems().add(taak2);
     }
-    public void voegMenuItemsToeDocent () {
-            MenuItem taak1 = new MenuItem("Bekijk voortgang");
-            taskMenuButton.getItems().add(taak1);
-        }
+
+
+    public void voegMenuItemsToeDocent() {
+        MenuItem taak1 = new MenuItem("Bekijk voortgang");
+       /* taak1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Main.getSceneManager().showManageGroupsScene();
+            }
+        });*/
+        taskMenuButton.getItems().add(taak1);
+    }
 }
