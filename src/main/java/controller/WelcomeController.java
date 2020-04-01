@@ -66,17 +66,48 @@ public class WelcomeController {
         taskMenuButton.getItems().add(taak4);
     }
 
+<<<<<<< HEAD
     public void voegMenuItemsToeAdministrator() {
         MenuItem taak1 = new MenuItem("Cursussen beheren");
         taak1.setOnAction(e -> Main.getSceneManager().showManageCoursesScene());
         MenuItem taak2 = new MenuItem("Groepen beheren");
         taak2.setOnAction(e -> Main.getSceneManager().showManageGroupsScene());
+=======
+    // hier knop invoegen om naar controlscherm te gaan
+    public void voegMenuItemsToeAdministrator(){
+        MenuItem taak1 = new MenuItem("Cursussen beheren");
+        taak1.setOnAction((new EventHandler<ActionEvent>() {
+                    public void handle(ActionEvent event) {
+                        Main.getSceneManager().showManageCoursesScene();
+                    }
+                }));
+>>>>>>> suzanne
         taskMenuButton.getItems().add(taak1);
+        MenuItem taak2 = new MenuItem("Groepen beheren");
+        taak1.setOnAction((new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                Main.getSceneManager().showManageGroupsScene();
+            }
+        }));
         taskMenuButton.getItems().add(taak2);
     }
 
+<<<<<<< HEAD
     public void voegMenuItemsToeTechnischBeheerder() {
         MenuItem taak1 = new MenuItem("Voeg nieuwe gebruiker toe");
+=======
+
+
+// toevoegen taken technisch beheerder
+    public void voegMenuItemsToeTechnischBeheerder(){
+        MenuItem taak1 = new MenuItem("Voeg nieuwe gebruiker toe");
+/*        taak1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Main.getSceneManager().showFillOutQuiz();
+            }
+        });*/
+>>>>>>> suzanne
         taskMenuButton.getItems().add(taak1);
         taak1.setOnAction(e -> Main.getSceneManager().showCreateUpdateUserScene(null));
         MenuItem taak2 = new MenuItem("Beheer bestaande gebruiker");

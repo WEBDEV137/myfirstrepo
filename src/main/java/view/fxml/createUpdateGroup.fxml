@@ -3,6 +3,56 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.geometry.Insets?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
-            prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+            prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateUpdateGroupController">
+    <children>
+        <Label fx:id="titleLabel" layoutX="254.0" layoutY="65.0" text="Groep aanmaken of wijzigen">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <GridPane layoutX="129.0" layoutY="142.0" prefHeight="146.0" prefWidth="341.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.0" minWidth="10.0" prefWidth="148.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="193.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label text="Naam" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                    <GridPane.margin>
+                        <Insets right="5.0" />
+                    </GridPane.margin></Label>
+                <Label text="Cursus" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                    <GridPane.margin>
+                        <Insets right="5.0" />
+                    </GridPane.margin></Label>
+                <Label text="Docent" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                    <GridPane.margin>
+                        <Insets right="5.0" />
+                    </GridPane.margin></Label>
+                <TextField fx:id="groupNameTextfield" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <MenuButton fx:id="courseMenuButton" GridPane.columnIndex="1" GridPane.rowIndex="2" mnemonicParsing="false" text="Kies cursus"/>
+                <MenuButton fx:id="teacherMenuButton" GridPane.columnIndex="1" GridPane.rowIndex="3" mnemonicParsing="false" text="Kies docent"/>
+                <Label text="Groepnummer" GridPane.halignment="RIGHT">
+                    <GridPane.margin>
+                        <Insets right="5.0" />
+                    </GridPane.margin>
+                </Label>
+                <TextField fx:id="groupNumberTextfield" disable="true" editable="false" text="groepnummer" GridPane.columnIndex="1" />
+            </children>
+        </GridPane>
+        <Button fx:id="saveButton" layoutX="276.0" layoutY="304.0" mnemonicParsing="false" onAction="#doStore" text="Save" />
+        <Button fx:id="lijstButton" layoutX="327.0" layoutY="304.0" mnemonicParsing="false" onAction="#doBackToList" text="Groepenlijst" />
+        <Button fx:id="menuButton" layoutX="420.0" layoutY="304.0" mnemonicParsing="false" onAction="#doBackToMenu" text="Menu" />
+    </children>
 </AnchorPane>
