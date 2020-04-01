@@ -4,6 +4,7 @@ import database.mysql.DBAccess;
 import database.mysql.UserDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import model.User;
 import view.Main;
@@ -43,6 +44,12 @@ public class ManageUsersController {
     @FXML
     public void doUpdateUser(ActionEvent e) {
         User user = userList.getSelectionModel().getSelectedItem();
+        if (user == null) {
+            Alert verkeerdeInlogGegevens = new Alert(Alert.AlertType.INFORMATION);
+            verkeerdeInlogGegevens.setContentText("Je moet een user kiezen!!!");
+            verkeerdeInlogGegevens.show();
+            return;
+        }
         Main.getSceneManager().showExistingCustomerScene(user);
     }
     @FXML

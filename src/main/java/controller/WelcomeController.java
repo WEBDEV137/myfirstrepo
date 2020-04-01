@@ -81,7 +81,7 @@ public class WelcomeController {
 // toevoegen taken technisch beheerder
     public void voegMenuItemsToeTechnischBeheerder(User user){
         MenuItem taak1 = new MenuItem("Voeg nieuwe gebruiker toe");
-        taak1.setOnAction(e -> Main.getSceneManager().showCreateUpdateUserScene(user));
+        taak1.setOnAction(e -> Main.getSceneManager().showCreateUpdateUserScene(null));
         taskMenuButton.getItems().add(taak1);
         MenuItem taak2 = new MenuItem("Beheer bestaande gebruiker");
         taak2.setOnAction(e -> Main.getSceneManager().showManageUserScene());

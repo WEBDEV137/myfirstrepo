@@ -49,17 +49,35 @@ public class UserDAO extends AbstractDAO{
 
 
     public void storeUser(User user) {
-        String sql = "Insert into Gebruiker(rol,inlognaam,wachtwoord,voornaam,tussenvoegsels,achternaam) values(?,?,?,?,?,?) ;";
+        String sql = "Insert into Gebruiker values(DEFAULT,?, ?, ?, ?, ?, ?) ;";
         try {
-            PreparedStatement ps = getStatementWithKey(sql);
+            PreparedStatement ps = getStatement(sql);
             ps.setString(1, user.getRolName());
             ps.setString(2, user.getUserName());
             ps.setString(3, user.getPassword());
             ps.setString(4, user.getName());
             ps.setString(5, user.getPrefix());
             ps.setString(6, user.getSurname());
-            int key = executeInsertPreparedStatement(ps);
-            user.setUserId(key);
+            ps.execute();
+//            int key = executeInsertPreparedStatement(ps);
+//            user.setUserId(key);
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+    }
+
+    public void updateUser(User user) {
+        String sql = "Update Gebruiker Set rol = ?, inlognaam = ?, wachtwoord = ?, voornaam = ?, tussenvoegsels = ?, achternaam = ? where id = ?;";
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setString(1, user.getRolName());
+            ps.setString(2, user.getUserName());
+            ps.setString(3, user.getPassword());
+            ps.setString(4, user.getName());
+            ps.setString(5, user.getPrefix());
+            ps.setString(6, user.getSurname());
+            ps.setInt(7, user.getUserId());
+            executeManipulatePreparedStatement(ps);
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
         }
@@ -90,20 +108,4 @@ public class UserDAO extends AbstractDAO{
         return  result;
     }
 
-    public void updateUser(User user) {
-        String sql = "Update Gebruiker Set rol = ?, inlognaam = ?, wachtwoord = ?, voornaam = ?, tussenvoegsels = ?, achternaam = ? where id = ?;";
-        try {
-            PreparedStatement ps = getStatement(sql);
-            ps.setString(1, user.getRolName());
-            ps.setString(2, user.getUserName());
-            ps.setString(3, user.getPassword());
-            ps.setString(4, user.getName());
-            ps.setString(5, user.getPrefix());
-            ps.setString(6, user.getSurname());
-            ps.setInt(7, user.getUserId());
-            executeManipulatePreparedStatement(ps);
-        } catch (SQLException e) {
-            System.out.println("SQL error " + e.getMessage());
-        }
-    }
 }
