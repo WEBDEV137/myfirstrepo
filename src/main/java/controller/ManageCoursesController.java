@@ -2,6 +2,7 @@ package controller;
 
 import database.mysql.CourseDAO;
 import database.mysql.DBAccess;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -38,7 +39,8 @@ public class ManageCoursesController {
     }
 
     //nieuwe cursus maken: doorgaan naar scherm createupdatecourse
-    public void doCreateCourse() {
+    @FXML
+    public void doCreateCourse(ActionEvent e) {
         Main.getSceneManager().showCreateUpdateCourseScene(null);
     }
 

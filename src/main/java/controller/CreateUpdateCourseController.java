@@ -6,12 +6,14 @@ import database.mysql.DBAccess;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.Course;
 import view.Main;
 
 public class CreateUpdateCourseController {
+    public Button saveButton;
     private CourseDAO courseDAO;
     private DBAccess dbAccess;
     private Course course;
@@ -31,25 +33,8 @@ public class CreateUpdateCourseController {
         this.dbAccess = Main.getDBaccess();
     }
 
-    private void createCourse() {
-        StringBuilder warningText = new StringBuilder();
-        boolean correcteInvoer = true;
-        String cursusnaam = cursusnaamTextfield.getText();
-        int coordinatoridnr = Integer.parseInt(coordinatorIdTextfield.getText());
 
-        if (cursusnaam.isEmpty()) {
-            warningText.append("Je moet de cursusnaam invullen\n");
-            correcteInvoer = false;
-        }
-        if (!correcteInvoer) {
-            Alert foutmelding = new Alert(Alert.AlertType.ERROR);
-            foutmelding.setContentText(warningText.toString());
-            foutmelding.show();
-            course = null;
-        } else {
-            course = new Course(cursusnaam, coordinatoridnr);
-        }
-    }
+
 
     @FXML
     public void doStore(ActionEvent actionEvent) {
@@ -72,6 +57,26 @@ public class CreateUpdateCourseController {
         }
     }
 
+    private void createCourse() {
+        StringBuilder warningText = new StringBuilder();
+        boolean correcteInvoer = true;
+        String cursusnaam = cursusnaamTextfield.getText();
+        int coordinatoridnr = Integer.parseInt(coordinatorIdTextfield.getText());
+
+        if (cursusnaam.isEmpty()) {
+            warningText.append("Je moet de cursusnaam invullen\n");
+            correcteInvoer = false;
+        }
+        if (!correcteInvoer) {
+            Alert foutmelding = new Alert(Alert.AlertType.ERROR);
+            foutmelding.setContentText(warningText.toString());
+            foutmelding.show();
+            course = null;
+        } else {
+            course = new Course(cursusnaam, coordinatoridnr);
+        }
+    }
+
 
 
 
@@ -84,6 +89,5 @@ public class CreateUpdateCourseController {
     public void doMenu() {
     }
 
-    public void doCreateUpdateCourse() {
-    }
+
 }
