@@ -40,7 +40,6 @@ public class ManageQuizzesController extends AbstractController {
             quiz.setCourseName(courseName);
             //Voeg toe aan quizlist
             quizList.getItems().add(quiz);
-            System.out.println(quiz);
         }
 
 

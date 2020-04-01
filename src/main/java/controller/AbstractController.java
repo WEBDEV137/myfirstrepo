@@ -31,7 +31,9 @@ public abstract class AbstractController {
     protected static final String ALERTTYPE_BEVESTIGING = "confirmation";
     protected static final String ALERTTYPE_INFORMATION = "information";
     protected static final int PAUZEER_LENGTE = 3;
+
     protected User user;
+    protected Quiz quiz;
 
 
     //CONSTRUCTOR

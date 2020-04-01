@@ -8,10 +8,10 @@
    <children>
       <AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: rgba(50, 115, 220, 0.3);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ListView layoutX="21.0" layoutY="91.0" prefHeight="235.0" prefWidth="429.0" style="-fx-background-radius: 3 3 3 3; -fx-effect: innershadow( gaussian, rgba( 0, 0, 0, 0.5 ), 10, 0, 5, 5 );" />
-            <ListView layoutX="457.0" layoutY="91.0" prefHeight="235.0" prefWidth="429.0" style="-fx-effect: innershadow( gaussian, rgba( 0, 0, 0, 0.5 ), 10, 0, 5, 5 ); -fx-background-radius: 3 3 3 3;" />
-            <Button layoutX="21.0" layoutY="333.0" mnemonicParsing="false" onAction="#doRemoveFromQuiz" prefHeight="40.0" prefWidth="429.0" text="Verwijder uit quiz &gt;" />
-            <Button layoutX="457.0" layoutY="333.0" mnemonicParsing="false" onAction="#doAddToQuiz" prefHeight="40.0" prefWidth="429.0" text="&lt; Voeg toe aan quiz" />
+            <ListView fx:id="selectedQuestions" layoutX="21.0" layoutY="91.0" prefHeight="235.0" prefWidth="429.0" style="-fx-background-radius: 3 3 3 3; -fx-effect: innershadow( gaussian, rgba( 0, 0, 0, 0.5 ), 10, 0, 5, 5 );" />
+            <ListView fx:id="availableQuestions" layoutX="457.0" layoutY="91.0" prefHeight="235.0" prefWidth="429.0" style="-fx-effect: innershadow( gaussian, rgba( 0, 0, 0, 0.5 ), 10, 0, 5, 5 ); -fx-background-radius: 3 3 3 3;" />
+            <Button layoutX="21.0" layoutY="333.0" mnemonicParsing="false" onAction="#doRemoveQuestionFromQuiz" prefHeight="40.0" prefWidth="429.0" text="Verwijder uit quiz &gt;" />
+            <Button layoutX="457.0" layoutY="333.0" mnemonicParsing="false" onAction="#doAddQuestionToQuiz" prefHeight="40.0" prefWidth="429.0" text="&lt; Voeg toe aan quiz" />
             <Label fx:id="titleLabel" layoutX="326.0" layoutY="6.0" prefHeight="76.0" prefWidth="303.0" text="wijzig quiz" textFill="WHITE">
                <font>
                   <Font size="48.0" />
