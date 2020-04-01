@@ -6,6 +6,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import model.Question;
+import model.QuizResult;
+
+import java.util.List;
 
 public class ManageQuestionsController {
     private QuestionDAO questionDAO;
@@ -19,6 +22,12 @@ public class ManageQuestionsController {
 
     public void setup() {
         this.questionDAO = new QuestionDAO(dbAccess);
+        List<Question> allQuestions = questionDAO.getQuestionList();
+        for (Question question :
+                allQuestions) {
+            questionList.getItems().add(question);
+        }
+        
     }
 
     public void doMenu(){}
