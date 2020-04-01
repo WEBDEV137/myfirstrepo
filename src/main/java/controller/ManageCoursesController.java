@@ -28,6 +28,7 @@ public class ManageCoursesController {
         List<Course> allCourses = courseDAO.getAllCourses();
         for (Course course : allCourses) {
             courseList.getItems().add(course);
+            System.out.println(course.getCoursename());
         }
 
     }

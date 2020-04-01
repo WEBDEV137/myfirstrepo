@@ -44,25 +44,27 @@ public class WelcomeController {
 
     public void voegMenuItemsToeStudent() {
         MenuItem taak1 = new MenuItem("Quiz invullen");
-        taskMenuButton.getItems().add(taak1);
         MenuItem taak2 = new MenuItem("In- en uitschrijven cursus");
+        taskMenuButton.getItems().add(taak1);
         taskMenuButton.getItems().add(taak2);
     }
 
     public void voegMenuItemsToeCoordinator() {
-        MenuItem taak1 = new MenuItem("Beheer quizzen");
-         taak1.setOnAction(actionEvent -> Main.getSceneManager().showManageQuizScene());
-        MenuItem taak2 = new MenuItem("Beheer vragen quiz");
-        taak2.setOnAction(actionEvent -> Main.getSceneManager().showManageQuestionsScene());
-        MenuItem taak3 = new MenuItem("Ga naar Dashboard");
+        MenuItem taak1 = new MenuItem("Ga naar Dashboard");
+        MenuItem taak2 = new MenuItem("Beheer quizzen");
+        MenuItem taak3 = new MenuItem("Beheer vragen");
         MenuItem taak4 = new MenuItem("Create/Update quiz");
-        taak1.setOnAction(e -> Main.getSceneManager().showManageQuizScene());
+        MenuItem taak5 = new MenuItem("Create/Update vraag");
+        taak1.setOnAction(actionEvent -> Main.getSceneManager().showCoordinatorDashboard());
+        taak2.setOnAction(actionEvent -> Main.getSceneManager().showManageQuizScene());
+        taak3.setOnAction(actionEvent -> Main.getSceneManager().showManageQuestionsScene());
         taak4.setOnAction(e -> Main.getSceneManager().showCreateUpdateQuizScene(null));
-        taak3.setOnAction(actionEvent -> Main.getSceneManager().showCoordinatorDashboard());
+        taak5.setOnAction(e -> Main.getSceneManager().showCreateUpdateQuizScene(null));
         taskMenuButton.getItems().add(taak1);
         taskMenuButton.getItems().add(taak2);
         taskMenuButton.getItems().add(taak3);
         taskMenuButton.getItems().add(taak4);
+        taskMenuButton.getItems().add(taak5);
     }
 
     public void voegMenuItemsToeAdministrator() {
@@ -89,12 +91,6 @@ public class WelcomeController {
 
     public void voegMenuItemsToeDocent() {
         MenuItem taak1 = new MenuItem("Bekijk voortgang");
-       /* taak1.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                Main.getSceneManager().showManageGroupsScene();
-            }
-        });*/
         taskMenuButton.getItems().add(taak1);
     }
 }

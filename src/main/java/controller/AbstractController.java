@@ -52,22 +52,11 @@ public abstract class AbstractController {
     public  void addMenuItemToMenuButton(MenuItem menuItem, MenuButton dropdownMenu){
         dropdownMenu.getItems().add(menuItem);
     }
-    /**
-     * Voegt alle menuitems toe aan een dropdown menu waar een gebruiker naar toe kan gaan
-     *
-     */
-    public  void addAllButtonsToDropdownMenu(User user, MenuButton dropdownMenu){
-        for (int index = 0; index < user.getAllTasks().size() ; index++) {
-            String buttonLabel = user.getAllTasks().get(index);
-            MenuItem menuItemToAdd = createMenuItem(buttonLabel);
-            addMenuItemToMenuButton(menuItemToAdd, dropdownMenu);
-        }
-    }
 
     /**
-     * Laat een alert zien met de ingegeven tekst als 1e parameter en ingegeven alerttype (als String) als tweede
-     * Kies als alerttype: "error" of "conformation" of "warning"
-     * bij alle andere text input wordt het alerttype op information gezet.
+     * Laat een alert zien met de ingegeven tekst als 1e en 2e parameter en ingegeven alerttype (als String) als derde
+     * Kies als alerttype: "error" of "conformation" of "warning" "information"
+     *
      */
     public static void showAlert(String header, String content, String alertType){
         Alert alert;
@@ -85,28 +74,6 @@ public abstract class AbstractController {
         alert.show();
     }
 
-    /**
-     *Maakt een sub-klasse object aan (Student, Docent, Coordinator, Administrator, TechnischBeheerder)"
-     * Aan de hand van de rol van de meegegeven gebruiker.
-     *
-     */
-
-    public User createSubUserFromUser(User user){
-        switch(user.getRol()) {
-            case ROL_STUDENT:
-                return new Student(user.getInlognaam(), user.getWachtwoord(), user.getRol());
-            case ROL_DOCENT:
-                return new Docent(user.getInlognaam(), user.getWachtwoord(), user.getRol());
-            case ROL_COORDINATOR:
-                return new Coordinator(user.getInlognaam(), user.getWachtwoord(), user.getRol());
-                case ROL_ADMINISTRATOR:
-                    return new Administrator(user.getInlognaam(), user.getWachtwoord(), user.getRol());
-            case ROL_TECHNISCH_BEHEERDER:
-                return new TechnischBeheerder(user.getInlognaam(), user.getWachtwoord(), user.getRol());
-            default:
-                return null;
-        }
-    }
 
     /**
      * geef alert aan de gebruiker dat quizmaster gaat afgesloten word. En sluit quismaster af.
