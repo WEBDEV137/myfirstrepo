@@ -1,6 +1,7 @@
 package database.mysql;
 
 import controller.AbstractController;
+import model.Group;
 import model.User;
 import view.Main;
 
@@ -38,7 +39,6 @@ public class UserDAO extends AbstractDAO{
             } else {
                 System.out.println("Combinatie van inlognaam en wachtwoord komt niet voor in database");
 
-
             }
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
@@ -59,8 +59,6 @@ public class UserDAO extends AbstractDAO{
             ps.setString(5, user.getPrefix());
             ps.setString(6, user.getSurname());
             ps.execute();
-//            int key = executeInsertPreparedStatement(ps);
-//            user.setUserId(key);
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
         }
@@ -106,6 +104,18 @@ public class UserDAO extends AbstractDAO{
             System.out.println("SQL error " + e.getMessage());
         }
         return  result;
+    }
+
+    public void deleteUser(User user){
+        String sql = "DELETE FROM gebruiker WHERE id = ?;";
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setInt(1, user.getUserId());
+            ps.executeUpdate();
+        } catch (SQLException e){
+            System.out.println("SQL Error "+e.getMessage());
+        }
+
     }
 
 }

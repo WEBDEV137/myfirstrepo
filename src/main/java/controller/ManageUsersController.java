@@ -1,11 +1,13 @@
 package controller;
 
 import database.mysql.DBAccess;
+import database.mysql.GroupDAO;
 import database.mysql.UserDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
+import model.Group;
 import model.User;
 import view.Main;
 
@@ -22,6 +24,7 @@ public class ManageUsersController {
     public ManageUsersController() {
         super();
         this.db = Main.getDBaccess();
+        this.udao = new UserDAO(db);
     }
 
     public void setup() {
@@ -34,7 +37,7 @@ public class ManageUsersController {
 
     @FXML
     public void doMenu(ActionEvent e) {
-//        Main.getSceneManager().showWelcomeScene(null);
+//        Main.getSceneManager().showWelcomeScene(user);
         Main.getSceneManager().setWindowTool();
     }
     @FXML
@@ -53,5 +56,19 @@ public class ManageUsersController {
         Main.getSceneManager().showExistingCustomerScene(user);
     }
     @FXML
-    public void doDeleteUser() {}
+    public void doDeleteUser(ActionEvent e) {
+        User user = userList.getSelectionModel().getSelectedItem();
+        System.out.println(user);
+        if (user == null) {
+            Alert niksGeselecteerdFout = new Alert(Alert.AlertType.ERROR);
+            niksGeselecteerdFout.setContentText("Je moet een user kiezen!!!");
+            niksGeselecteerdFout.show();
+        } else {
+            UserDAO userDAO = new UserDAO(Main.getDBaccess());
+            userDAO.deleteUser(user);
+            Alert verwijder = new Alert(Alert.AlertType.INFORMATION);
+            verwijder.setContentText("User is verwijderd.");
+            verwijder.show();
+        }
+    }
 }
