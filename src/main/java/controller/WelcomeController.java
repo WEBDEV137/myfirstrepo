@@ -17,10 +17,10 @@ public class WelcomeController {
     private MenuButton taskMenuButton;
 
 
+
     public void setup(User user) {
         char userName = user.getInlognaam().toUpperCase().charAt(0);
         welcomeLabel.setText("Welkom " + userName + user.getInlognaam().toLowerCase().substring(1) + "\nUw rol is: " + user.getRol());
-
 
         switch (user.getRol()) {
             case "Student":
@@ -55,11 +55,14 @@ public class WelcomeController {
 
     public void voegMenuItemsToeCoordinator() {
         MenuItem taak1 = new MenuItem("Beheer quizzen");
+         taak1.setOnAction(actionEvent -> Main.getSceneManager().showManageQuizScene());
         MenuItem taak2 = new MenuItem("Beheer vragen quiz");
+        taak2.setOnAction(actionEvent -> Main.getSceneManager().showManageQuestionsScene());
         MenuItem taak3 = new MenuItem("Ga naar Dashboard");
         MenuItem taak4 = new MenuItem("Create/Update quiz");
         taak1.setOnAction(e -> Main.getSceneManager().showManageQuizScene());
         taak4.setOnAction(e -> Main.getSceneManager().showCreateUpdateQuizScene(null));
+        taak3.setOnAction(actionEvent -> Main.getSceneManager().showCoordinatorDashboard());
         taskMenuButton.getItems().add(taak1);
         taskMenuButton.getItems().add(taak2);
         taskMenuButton.getItems().add(taak3);
@@ -87,7 +90,3 @@ public class WelcomeController {
             taskMenuButton.getItems().add(taak1);
         }
 }
-
-
-
-
