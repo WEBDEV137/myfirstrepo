@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.User;
 import org.w3c.dom.ls.LSOutput;
 
 import java.io.IOException;
@@ -23,6 +24,15 @@ public class Main extends Application {
     private static SceneManager sceneManager = null;
     private static Stage primaryStage = null;
     private static DBAccess dbAccess = null;
+    private static User currentUser = null;
+
+    public static void setCurrentUser(User currentUser) {
+        Main.currentUser = currentUser;
+    }
+
+    public static User getCurrentUser() {
+        return currentUser;
+    }
 
     public static void main(String[] args) {
         launch(args);

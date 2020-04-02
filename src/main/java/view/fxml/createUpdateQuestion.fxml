@@ -4,6 +4,16 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
-            xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+            prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.CreateUpdateQuestionController">
+   <Button layoutX="500.0" layoutY="325.0" mnemonicParsing="false" text="Voeg vraag  toe"/>
+   <Button layoutX="625.0" layoutY="111.0" mnemonicParsing="false" text="Sla wijziging op"/>
+   <Label layoutX="47.0" layoutY="37.0" text="Vraagtekst">
+      <font>
+         <Font size="18.0"/>
+      </font>
+   </Label>
+   <TextField layoutX="47.0" layoutY="191.0" prefHeight="26.0" prefWidth="276.0"/>
+   <ListView layoutX="47.0" layoutY="110.0" opacity="0.0" prefHeight="26.0" prefWidth="248.0"/>
 </AnchorPane>

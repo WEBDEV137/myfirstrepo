@@ -33,10 +33,9 @@ public class LoginController extends AbstractController{
             verkeerdeInlogGegevens.show();
         }
         else{
+            Main.setCurrentUser(user);
             Main.getSceneManager().showWelcomeScene(user);
             System.out.println(user);
         }
     }
-
-
 }
