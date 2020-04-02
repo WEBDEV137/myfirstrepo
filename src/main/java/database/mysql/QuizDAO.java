@@ -1,25 +1,25 @@
 package database.mysql;
 
-import javafx.scene.control.Alert;
-import model.Quiz;
-import model.User;
+        import javafx.scene.control.Alert;
+        import model.Quiz;
+        import model.User;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+        import java.sql.PreparedStatement;
+        import java.sql.ResultSet;
+        import java.sql.SQLException;
+        import java.util.ArrayList;
 
 public class QuizDAO extends AbstractDAO {
 
     //CONSTRUCTOR
     public QuizDAO(DBAccess dbAccess){
         super(dbAccess);
-     }
+    }
 
 
     public Quiz getOneById (int id) {
         String query = "SELECT * FROM quiz WHERE id = ?;";
-    Quiz quiz = null;
+        Quiz quiz = null;
         try {
             PreparedStatement preparedStatement = getStatement(query);
             preparedStatement.setInt(1,id);
@@ -37,23 +37,23 @@ public class QuizDAO extends AbstractDAO {
     }
 
     public ArrayList<Quiz> getAll () {
-            String query = "SELECT * FROM quiz ; ";
-            ArrayList<Quiz> quizzes = null;
-            try {
-                PreparedStatement preparedStatement = getStatement(query);
-                ResultSet resultSet = executeSelectPreparedStatement(preparedStatement);
-                while (resultSet.next()) {
-                    if(quizzes == null){ quizzes = new ArrayList<>();}
-                    int id = resultSet.getInt("id");
-                    String name = resultSet.getString("naam");
-                    int succesDefinition = resultSet.getInt("succesdefinitie");
-                    int courseId = resultSet.getInt("cursusid");
-                    quizzes.add(new Quiz(id, name, succesDefinition, courseId));
-                }
-            } catch (SQLException e) {
-                System.out.println("SQL error " + e.getMessage());
+        String query = "SELECT * FROM quiz ; ";
+        ArrayList<Quiz> quizzes = null;
+        try {
+            PreparedStatement preparedStatement = getStatement(query);
+            ResultSet resultSet = executeSelectPreparedStatement(preparedStatement);
+            while (resultSet.next()) {
+                if(quizzes == null){ quizzes = new ArrayList<>();}
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("naam");
+                int succesDefinition = resultSet.getInt("succesdefinitie");
+                int courseId = resultSet.getInt("cursusid");
+                quizzes.add(new Quiz(id, name, succesDefinition, courseId));
             }
-            return quizzes;
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+        return quizzes;
     }
     public void storeOne(Quiz quiz){
         String query = "INSERT INTO quiz VALUES (DEFAULT, ?, ?, ?);";
@@ -65,16 +65,17 @@ public class QuizDAO extends AbstractDAO {
             preparedStatement.execute();
         }
         catch (SQLException e) {
-        System.out.println("SQL error " + e.getMessage());
+            System.out.println("SQL error " + e.getMessage());
         }
     }
     public void updateOne(Quiz quiz){
-        String query = "UPDATE quiz SET naam = ?, succesdefinitie = ? WHERE id = ?;";
+        String query = "UPDATE quiz SET naam = ?, succesdefinitie = ? , cursusid = ?  WHERE id = ?;";
         try {
             PreparedStatement preparedStatement = getStatement(query);
             preparedStatement.setString(1, quiz.getName());
             preparedStatement.setInt(2, quiz.getSuccesDefinition());
-            preparedStatement.setInt(3, quiz.getId());
+            preparedStatement.setInt(3, quiz.getCourseId());
+            preparedStatement.setInt(4, quiz.getId());
             preparedStatement.execute();
         }
         catch (SQLException e) {

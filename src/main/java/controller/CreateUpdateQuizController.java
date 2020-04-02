@@ -24,8 +24,8 @@ public class CreateUpdateQuizController extends AbstractController{
     private User user;
     private Quiz quiz;
     private List<Question> allQuizQuestions;
-   // private List<Question> selectedQuizQuestions;
-    private List<Question> availableQuizQuestions = new  ArrayList<>();
+    private List<Question> selectedQuizQuestions;
+    private List<Question> availableQuizQuestions;
 
     @FXML
     private ListView<Question> selectedQuestions;
@@ -56,7 +56,7 @@ public class CreateUpdateQuizController extends AbstractController{
     public void setupUpdateQuiz(){
         quizNameField.setText(quiz.getName());
         succesDefinitionField.setText(Integer.toString(quiz.getSuccesDefinition()));
-        quiz.setSelectedQuestions(questionDAO.getSelectedQuestionsByQuizId(quiz.getId()));
+        selectedQuizQuestions = (questionDAO.getSelectedQuestionsByQuizId(quiz.getId()));
         allQuizQuestions = null;
         allQuizQuestions = questionDAO.getAllQuestionsByQuizId(quiz.getId());
 
@@ -64,25 +64,28 @@ public class CreateUpdateQuizController extends AbstractController{
         populateAvailableQuizQuestionsList();
         populateRightListView();
         populateCourseMenuButton();
+
     }
     public void setupCreateNewQuiz(){
-       questionDAO.getQuestionList();
+
+;
     }
 
     public void populateLeftListView() {
-        for (Question question : quiz.getQuestions()) {
-            //System.out.println(question);
+        for (Question question : selectedQuizQuestions) {
+            System.out.println(question);
             selectedQuestions.getItems().add(question);
         }
     }
     public void populateAvailableQuizQuestionsList() {
         // Step 1:
+        availableQuizQuestions = new  ArrayList<>();
         for (Question question : allQuizQuestions) {
             //System.out.println(question);
             availableQuizQuestions.add(question);
         }
         //step 2:
-        for (Question selectedQuestion : quiz.getQuestions()) {
+        for (Question selectedQuestion : selectedQuizQuestions) {
             //System.out.println(selectedQuestion);
             availableQuizQuestions.remove(selectedQuestion);
         }
@@ -94,6 +97,7 @@ public class CreateUpdateQuizController extends AbstractController{
         }
     }
     public void populateCourseMenuButton(){
+
         ArrayList<Course> coordinatorCourses = courseDAO.getAllByCoordinatorId(user.getUserId());
        for(Course course : coordinatorCourses) {
            MenuItem menuItem = new MenuItem(course.getCoursename());
@@ -101,6 +105,8 @@ public class CreateUpdateQuizController extends AbstractController{
            coursesMenuButton.setText(course.getCoursename());
            coursesMenuButton.getItems().add(menuItem);
        }
+       Course currentQuizCourse = courseDAO.getOneById(quiz.getCourseId());
+       coursesMenuButton.setText(currentQuizCourse.getCoursename());
     }
     public void changeQuizCourse(Course course){
         quiz.setCourseName(course.getCoursename());
@@ -112,8 +118,11 @@ public class CreateUpdateQuizController extends AbstractController{
     public void doAddQuestionToQuiz(){
         Question selectedQuestion = availableQuestions.getSelectionModel().getSelectedItem();
         if(selectedQuestion != null) {
-            availableQuestions.getItems().remove(selectedQuestion);
-            selectedQuestions.getItems().add(selectedQuestion);
+            selectedQuestions.getItems().add(selectedQuestion); //Listview
+            selectedQuizQuestions.add(selectedQuestion); //chosen questions arraylist
+            availableQuizQuestions.remove(selectedQuestion); //Listview
+            availableQuestions.getItems().remove(selectedQuestion); // available questions arraylist
+
         }
     }
     @FXML
@@ -121,7 +130,9 @@ public class CreateUpdateQuizController extends AbstractController{
         Question selectedQuestion = selectedQuestions.getSelectionModel().getSelectedItem();
         if(selectedQuestion != null) {
             selectedQuestions.getItems().remove(selectedQuestion);
+            selectedQuizQuestions.remove(selectedQuestion);
             availableQuestions.getItems().add(selectedQuestion);
+            availableQuizQuestions.remove(selectedQuestion);
         }
     }
     @FXML
@@ -140,6 +151,7 @@ public class CreateUpdateQuizController extends AbstractController{
     public void doCreateNewQuestion (){
         if (questionDAO == null) {questionDAO = new QuestionDAO(dbAccess);}
         questionDAO.storeEmptyQuestionByQuizId(quiz);
+
         Main.getSceneManager().showCreateUpdateQuizScene(quiz);
         }
 
@@ -167,6 +179,15 @@ public class CreateUpdateQuizController extends AbstractController{
                 };
             }return true;
     }
+
+    public boolean doesArraylistContainNumber(ArrayList<Integer> list, Integer number) {
+        for (int index = 0; index < list.size(); index++) {
+            if (list.get(index) == number) {
+                return true;
+            }
+        }
+        return false;
+    }
     public void updateQuizQuestionTable() {
         QuizQuestionDAO quizQuestionDAO = new QuizQuestionDAO(dbAccess);
         ArrayList<Integer> selectedQuizQuestionIdsInDb = quizQuestionDAO.getAllbyQuizId(quiz);
@@ -189,16 +210,6 @@ public class CreateUpdateQuizController extends AbstractController{
             }
         }
     }
-    public boolean doesArraylistContainNumber(ArrayList<Integer> list, Integer number) {
-        for (int index = 0; index < list.size(); index++) {
-            if (list.get(index) == number) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
     public void updateQuizAttributes(){
         final String NOT_ALLOWED_CHARACTERS = "%$@~`?;:*^#!+}{[]=\\|";
         final String SUCCESFACTOR_TOO_HIGH = "De succesfactor mag niet hoger zijn dan het aantal vragen";
@@ -225,6 +236,7 @@ public class CreateUpdateQuizController extends AbstractController{
         quizDAO = new QuizDAO(dbAccess);
         quizDAO.updateOne(quiz);
     }
+
 
 
 }

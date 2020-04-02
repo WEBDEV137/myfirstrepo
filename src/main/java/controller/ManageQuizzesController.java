@@ -55,13 +55,13 @@ public class ManageQuizzesController extends AbstractController {
 
 
     public void doCreateQuiz() {
-        Main.getSceneManager().showCreateUpdateQuizScene( null);
+        Main.getSceneManager().showCreateUpdateQuizScene(null);
     }
 
 
         public void doUpdateQuiz() {
         Quiz quiz = quizList.getSelectionModel().getSelectedItem();
-            Main.getSceneManager().showCreateUpdateQuizScene( quiz);
+            Main.getSceneManager().showCreateUpdateQuizScene(quiz);
     }
 
     public void doDeleteQuiz() {
