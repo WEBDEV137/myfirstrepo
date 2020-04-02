@@ -15,11 +15,12 @@ import view.Main;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateUpdateQuizController extends AbstractController{
+public class CreateUpdateQuizController extends AbstractController {
 
     private QuestionDAO questionDAO;
     private QuizDAO quizDAO;
     private CourseDAO courseDAO;
+    private QuizQuestionDAO quizQuestionDAO;
     private DBAccess dbAccess;
     private User user;
     private Quiz quiz;
@@ -45,15 +46,17 @@ public class CreateUpdateQuizController extends AbstractController{
         dbAccess.openConnection();
         questionDAO = new QuestionDAO(dbAccess);
         courseDAO = new CourseDAO(dbAccess);
+        quizQuestionDAO = new QuizQuestionDAO(dbAccess);
 
-        if(quiz != null) {
+
+        if (quiz != null) {
             setupUpdateQuiz();
-        }
-        else{
+        } else {
             setupCreateNewQuiz();
         }
     }
-    public void setupUpdateQuiz(){
+
+    public void setupUpdateQuiz() {
         quizNameField.setText(quiz.getName());
         succesDefinitionField.setText(Integer.toString(quiz.getSuccesDefinition()));
         selectedQuizQuestions = (questionDAO.getSelectedQuestionsByQuizId(quiz.getId()));
@@ -66,9 +69,10 @@ public class CreateUpdateQuizController extends AbstractController{
         populateCourseMenuButton();
 
     }
-    public void setupCreateNewQuiz(){
 
-;
+    public void setupCreateNewQuiz() {
+
+        ;
     }
 
     public void populateLeftListView() {
@@ -77,47 +81,55 @@ public class CreateUpdateQuizController extends AbstractController{
             selectedQuestions.getItems().add(question);
         }
     }
+
     public void populateAvailableQuizQuestionsList() {
         // Step 1:
-        availableQuizQuestions = new  ArrayList<>();
+        availableQuizQuestions = new ArrayList<>();
         for (Question question : allQuizQuestions) {
             //System.out.println(question);
             availableQuizQuestions.add(question);
         }
         //step 2:
-        for (Question selectedQuestion : selectedQuizQuestions) {
-            //System.out.println(selectedQuestion);
-            availableQuizQuestions.remove(selectedQuestion);
+        for (int index = 0; index < selectedQuizQuestions.size(); index++) {
+        RemoveQuestionFromArrayList(availableQuizQuestions, selectedQuizQuestions.get(index));
+            System.out.println("selected question to remove" + selectedQuizQuestions.get(index));
+
+        }
+        for (Question available : availableQuizQuestions) {
+            System.out.println("available qquestion: " + available);
         }
     }
+
     public void populateRightListView() {
         for (Question availableQuestion : availableQuizQuestions) {
-            //System.out.println(availableQuestion);
+            System.out.println("selected question to populate right screen" + availableQuestion);
             availableQuestions.getItems().add(availableQuestion);
         }
     }
-    public void populateCourseMenuButton(){
+
+    public void populateCourseMenuButton() {
 
         ArrayList<Course> coordinatorCourses = courseDAO.getAllByCoordinatorId(user.getUserId());
-       for(Course course : coordinatorCourses) {
-           MenuItem menuItem = new MenuItem(course.getCoursename());
-           menuItem.setOnAction(event -> changeQuizCourse(course));
-           coursesMenuButton.setText(course.getCoursename());
-           coursesMenuButton.getItems().add(menuItem);
-       }
-       Course currentQuizCourse = courseDAO.getOneById(quiz.getCourseId());
-       coursesMenuButton.setText(currentQuizCourse.getCoursename());
+        for (Course course : coordinatorCourses) {
+            MenuItem menuItem = new MenuItem(course.getCoursename());
+            menuItem.setOnAction(event -> changeQuizCourse(course));
+            coursesMenuButton.setText(course.getCoursename());
+            coursesMenuButton.getItems().add(menuItem);
+        }
+        Course currentQuizCourse = courseDAO.getOneById(quiz.getCourseId());
+        coursesMenuButton.setText(currentQuizCourse.getCoursename());
     }
-    public void changeQuizCourse(Course course){
+
+    public void changeQuizCourse(Course course) {
         quiz.setCourseName(course.getCoursename());
         quiz.setCourseId(course);
         coursesMenuButton.setText(course.getCoursename());
     }
 
     @FXML
-    public void doAddQuestionToQuiz(){
+    public void doAddQuestionToQuiz() {
         Question selectedQuestion = availableQuestions.getSelectionModel().getSelectedItem();
-        if(selectedQuestion != null) {
+        if (selectedQuestion != null) {
             selectedQuestions.getItems().add(selectedQuestion); //Listview
             selectedQuizQuestions.add(selectedQuestion); //chosen questions arraylist
             availableQuizQuestions.remove(selectedQuestion); //Listview
@@ -125,59 +137,69 @@ public class CreateUpdateQuizController extends AbstractController{
 
         }
     }
+
     @FXML
-    public void doRemoveQuestionFromQuiz(){
+    public void doRemoveQuestionFromQuiz() {
         Question selectedQuestion = selectedQuestions.getSelectionModel().getSelectedItem();
-        if(selectedQuestion != null) {
+        if (selectedQuestion != null) {
             selectedQuestions.getItems().remove(selectedQuestion);
             selectedQuizQuestions.remove(selectedQuestion);
             availableQuestions.getItems().add(selectedQuestion);
             availableQuizQuestions.remove(selectedQuestion);
         }
     }
+
     @FXML
     public void doMenu() {
         Main.getSceneManager().showWelcomeScene(user);
     }
+
     @FXML
     public void doManageQuizzes() {
         Main.getSceneManager().showManageQuizScene();
     }
 
 
-    public void doCreateUpdateQuiz() {}
+    public void doCreateUpdateQuiz() {
+    }
 
     @FXML
-    public void doCreateNewQuestion (){
-        if (questionDAO == null) {questionDAO = new QuestionDAO(dbAccess);}
-        questionDAO.storeEmptyQuestionByQuizId(quiz);
-
-        Main.getSceneManager().showCreateUpdateQuizScene(quiz);
+    public void doCreateNewQuestion() {
+        if (questionDAO == null) {
+            questionDAO = new QuestionDAO(dbAccess);
         }
+        int vraagId = questionDAO.storeEmptyQuestionByQuizId(quiz);
+        quizQuestionDAO.storeOne(quiz.getId(), vraagId);
+        Main.getSceneManager().showCreateUpdateQuizScene(quiz);
+    }
 
     @FXML
-    public void doChangeQuestion(){
+    public void doChangeQuestion() {
         Question selectedQuestion = selectedQuestions.getSelectionModel().getSelectedItem();
         Main.getSceneManager().showCreateUpdateQuestionScene(selectedQuestion);
     }
 
     @FXML
-    public void doStore () {
+    public void doStore() {
         updateQuizAttributes();
         updateQuizQuestionTable();
     }
-        /**
+
+    /**
      * Checks if an input String contains any of the not allowed characters. returns false if it does
+     *
      * @param inputText
      * @param notAllowedCharacters
      * @return true if the String is allowed
      */
-    public boolean checkIfNameAllowed(String inputText, String notAllowedCharacters){
-            for (int index = 0; index < notAllowedCharacters.length() ; index++) {
-                if (inputText.indexOf(notAllowedCharacters.charAt(index)) != -1){
-                    return false;
-                };
-            }return true;
+    public boolean checkIfNameAllowed(String inputText, String notAllowedCharacters) {
+        for (int index = 0; index < notAllowedCharacters.length(); index++) {
+            if (inputText.indexOf(notAllowedCharacters.charAt(index)) != -1) {
+                return false;
+            }
+            ;
+        }
+        return true;
     }
 
     public boolean doesArraylistContainNumber(ArrayList<Integer> list, Integer number) {
@@ -188,6 +210,7 @@ public class CreateUpdateQuizController extends AbstractController{
         }
         return false;
     }
+
     public void updateQuizQuestionTable() {
         QuizQuestionDAO quizQuestionDAO = new QuizQuestionDAO(dbAccess);
         ArrayList<Integer> selectedQuizQuestionIdsInDb = quizQuestionDAO.getAllbyQuizId(quiz);
@@ -210,26 +233,30 @@ public class CreateUpdateQuizController extends AbstractController{
             }
         }
     }
-    public void updateQuizAttributes(){
+
+    public void updateQuizAttributes() {
         final String NOT_ALLOWED_CHARACTERS = "%$@~`?;:*^#!+}{[]=\\|";
         final String SUCCESFACTOR_TOO_HIGH = "De succesfactor mag niet hoger zijn dan het aantal vragen";
         final String SUCCESFACTOR_TOO_LOW = "De succesfactor moet minimaal 1 zijn";
         final String STORING_SUCCES = "De gegevens zijn opgeslagen";
-        final String SOME_CHARACTERS_NOT_ALLOWED =  "De volgende karakters zijn niet toegestaan: %$@~`?;:*^#!+}{[]=\\|";
+        final String SOME_CHARACTERS_NOT_ALLOWED = "De volgende karakters zijn niet toegestaan: %$@~`?;:*^#!+}{[]=\\|";
         final String GIVE_OTHER_VALUE = "Geef een andere waarde op.";
         final String CHOOSE_OTHER_NAME = "Geef een andere naam op.";
 
         String newQuizName = quizNameField.getText();
         boolean nameIsAllowed = checkIfNameAllowed(newQuizName, NOT_ALLOWED_CHARACTERS);
-        if(nameIsAllowed) {
+        if (nameIsAllowed) {
             quiz.setName(quizNameField.getText());
         } else showAlert(SOME_CHARACTERS_NOT_ALLOWED, CHOOSE_OTHER_NAME, "WARNING");
 
         int newSuccesDefinition = Integer.valueOf(succesDefinitionField.getText());
         int numberOfQuestions = selectedQuestions.getItems().size();
-        if (newSuccesDefinition < 1) {showAlert(SUCCESFACTOR_TOO_LOW, GIVE_OTHER_VALUE, "Warning");}
-        else if (newSuccesDefinition > numberOfQuestions){showAlert(SUCCESFACTOR_TOO_HIGH, GIVE_OTHER_VALUE, "Warning");}
-        else { quiz.setSuccesDefinition(newSuccesDefinition);
+        if (newSuccesDefinition < 1) {
+            showAlert(SUCCESFACTOR_TOO_LOW, GIVE_OTHER_VALUE, "Warning");
+        } else if (newSuccesDefinition > numberOfQuestions) {
+            showAlert(SUCCESFACTOR_TOO_HIGH, GIVE_OTHER_VALUE, "Warning");
+        } else {
+            quiz.setSuccesDefinition(newSuccesDefinition);
             showAlert(STORING_SUCCES, null, "INFORMATION");
         }
 
@@ -238,5 +265,11 @@ public class CreateUpdateQuizController extends AbstractController{
     }
 
 
-
+    public List<Question> RemoveQuestionFromArrayList(List<Question> list, Question question) {
+        for (int index = 0; index < list.size(); index++) {
+            if (list.get(index).getQuestionText().equals(question.getQuestionText())) {
+                list.remove(index);
+            }
+        } return list;
+    }
 }
