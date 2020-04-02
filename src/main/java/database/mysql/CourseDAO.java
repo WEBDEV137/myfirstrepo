@@ -38,6 +38,9 @@ public class CourseDAO extends AbstractDAO {
         }
         return courseSheet;
     }
+
+
+
     public Course getOneById (int id) {
         String query = "SELECT * FROM cursus WHERE id = ?;";
         Course course = null;
@@ -55,9 +58,13 @@ public class CourseDAO extends AbstractDAO {
         }
         return course;
     }
-//Wegschrijven van nieuwe course naar SQL
+
+    /**
+     * Wegschrijven van nieuwe course naar SQL TO DO: Bewaren lukt nog niet
+     */
+
     public void storeCourse(Course course) {
-        String sql = "Insert into cursus(naam, coordinatorid) values(?,?) ;";
+        String sql = "Insert into cursus values(?,?) ;";
         try {
             PreparedStatement ps = getStatementWithKey(sql);
             ps.setString(1, course.getCoursename());
@@ -70,7 +77,7 @@ public class CourseDAO extends AbstractDAO {
     }
 
     public void updateCourse(Course course) {
-        String sql = "Update cursus Set naam = ?, coordinatorid = ? where id = ?;";
+        String sql = "Update cursus Set (naam = ?, coordinatorid = ? where id = ?;)";
         try {
             PreparedStatement ps = getStatement(sql);
             ps.setString(1, course.getCoursename());

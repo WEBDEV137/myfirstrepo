@@ -39,9 +39,12 @@
                         <Font size="14.0" />
                     </font>
                 </Label>
-                <TextField fx:id="cursusnaamTextfield" minWidth="-Infinity" prefHeight="25.0" prefWidth="175.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <TextField fx:id="coordinatorIdTextfield" minWidth="-Infinity" prefHeight="25.0" prefWidth="175.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <TextField fx:id="cursusnaamTextfield" minWidth="-Infinity" prefHeight="25.0" prefWidth="155.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <TextField fx:id="cursusnummerTextfield" disable="true" editable="false" text="cursusnummer" GridPane.columnIndex="1" />
+            <MenuButton fx:id="coordinatorIdTextfield" mnemonicParsing="false" onAction="#doCreateUpdateCourse" prefHeight="25.0" prefWidth="154.0" text="Kies Coordinator" GridPane.columnIndex="1" GridPane.rowIndex="3">
+              <items>
+              </items>
+            </MenuButton>
             </children>
         </GridPane>
         <Button fx:id="saveButton" layoutX="127.0" layoutY="311.0" mnemonicParsing="false" onAction="#doCreateUpdateCourse" prefHeight="0.0" prefWidth="60.0" text="Save" />
