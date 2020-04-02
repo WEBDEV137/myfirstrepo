@@ -261,3 +261,11 @@ VALUES(DEFAULT, 'Data1',20, 9),
 (DEFAULT, 'Data6',20, 14),
 (DEFAULT, 'Data7',20, 15),
 (DEFAULT, 'Data8',100, 16);
+
+INSERT INTO groep
+VALUES(DEFAULT, 'Groen1', 1, 2), 
+(DEFAULT, 'Blauw1', 2, 3),
+(DEFAULT, 'Rood1', 3, 4),
+(DEFAULT, 'Groen2', 4, 5),
+(DEFAULT, 'Blauw2', 5, 6),
+(DEFAULT, 'Rood2', 6, 7);

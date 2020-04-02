@@ -18,15 +18,19 @@ public class GroupDAO extends AbstractDAO {
         super(dbAccess);
     }
 
-    public ArrayList<Group> getAllGroupsByName() {
-        String sql = "SELECT naam FROM groep";
-        ArrayList result = new ArrayList();
+    public ArrayList<Group> getAll() {
+        String sql = "SELECT * FROM groep;";
+        ArrayList<Group> result = new ArrayList();
         try {
-            PreparedStatement ps = this.getStatement(sql);
+            PreparedStatement ps = getStatement(sql);
             ResultSet rs = super.executeSelectPreparedStatement(ps);
             while(rs.next()) {
                 String groupName = rs.getString("naam");
-                result.add(groupName);
+                int groupId = rs.getInt("id");
+                int teacherId = rs.getInt("docentid");
+                int courseId = rs.getInt("cursusid");
+                Group group = new Group(groupId, groupName, courseId, teacherId);
+                result.add(group);
             }
         } catch (SQLException errormessage) {
             System.out.println("SQL error " + errormessage.getMessage());
