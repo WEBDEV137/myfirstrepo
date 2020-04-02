@@ -35,7 +35,6 @@ public class GroupDAO extends AbstractDAO {
         } catch (SQLException errormessage) {
             System.out.println("SQL error " + errormessage.getMessage());
         }
-
         return result;
     }
 

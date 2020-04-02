@@ -42,15 +42,11 @@ public class CreateUpdateGroupController extends AbstractController {
     private Label titleLabel;
 
 
-
     public void setup(Group group) {
         dbAccess = Main.getDBaccess();
         dbAccess.openConnection();
-
-        if (group == null) {
-            CourseDAO courseDAO = new CourseDAO(dbAccess);
-            UserDAO userDAO = new UserDAO(dbAccess);
-            titleLabel.setText("Nieuwe groep aanmaken");
+        CourseDAO courseDAO = new CourseDAO(dbAccess);
+        UserDAO userDAO = new UserDAO(dbAccess);
             List<Course> allCourses = courseDAO.getAllCourses();
             List<User> allUsers = userDAO.getUsersByRole("docent");
             for (int i = 0; i < allCourses.size(); i++) {
@@ -65,13 +61,16 @@ public class CreateUpdateGroupController extends AbstractController {
                 teacherMenuButton.getItems().add(menuItem);
                 menuItem.setOnAction(e -> setTeachername(teachername));
             }
+        if (group == null) {
+            titleLabel.setText("Nieuwe groep aanmaken");
         } else {
             titleLabel.setText("Groep wijzigen");
             groupNameTextfield.setText(group.getGroupName());
-            courseMenuButton.getItems();
-            teacherMenuButton.getItems();
+/*            courseMenuButton.getItems();
+            teacherMenuButton.getItems();*/
         }
-        }
+    }
+
 
 public void setCoursename(String coursename){
         this.coursename = coursename;
@@ -103,7 +102,6 @@ public void setTeachername(String teachername){
                 gewijzigd.show();
             }
         }
-
     }
 
 
@@ -135,8 +133,6 @@ public void setTeachername(String teachername){
 
     @FXML
     public void doBackToList(ActionEvent actionEvent) {
-/*        this.db.closeConnection();
-        System.out.println("Connection closed");*/
         Main.getSceneManager().showManageGroupsScene();
     }
 
