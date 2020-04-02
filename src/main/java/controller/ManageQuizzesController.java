@@ -6,14 +6,14 @@ import database.mysql.QuizDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Slider;
 import model.Course;
 import model.Quiz;
+import model.User;
 import view.Main;
 
 import java.util.List;
 
-public class ManageQuizzesController {
+public class ManageQuizzesController extends AbstractController {
     private QuizDAO quizDAO;
     private CourseDAO courseDAO;
     private DBAccess dbAccess;
@@ -22,25 +22,24 @@ public class ManageQuizzesController {
     private ListView<Quiz> quizList;
     @FXML
     private Button newQuizButton;
-    @FXML
-    private Slider slider;
+
 
 
     // connectie maken met dbase om courses te laten zien in het scherm listview
-    public void setup() {
+    public void setup(User user) {
+        super.user = user;
         dbAccess = Main.getDBaccess();
         dbAccess.openConnection();
         this.quizDAO = new QuizDAO(dbAccess);
         this.courseDAO = new CourseDAO(dbAccess);
-        List<Quiz> allQuizzes = quizDAO.getAll();
-        for (Quiz quiz : allQuizzes) {
+        List<Quiz> allQuizzesForUser = quizDAO.getAllByCoordinatorId(user.getUserId());
+        for (Quiz quiz : allQuizzesForUser) {
             //Haal bij iedere quiz de cursus op uit database en setCourseName()
             Course bijbehorendeCourse = courseDAO.getOneById(quiz.getCourseId());
             String courseName = bijbehorendeCourse.getCoursename();
             quiz.setCourseName(courseName);
             //Voeg toe aan quizlist
             quizList.getItems().add(quiz);
-            System.out.println(quiz);
         }
 
 
@@ -48,17 +47,27 @@ public class ManageQuizzesController {
 
 
     public void doMenu() {
+        Main.getSceneManager().showWelcomeScene(user);
     }
 
-    //nieuwe cursus maken: doorgaan naar scherm createupdatecourse
+
     public void doCreateQuiz() {
-        Main.getSceneManager().showCreateUpdateCourseScene(null);
+        Main.getSceneManager().showCreateUpdateQuizScene(user, null);
     }
 
 
     public void doUpdateQuiz() {
+        Quiz quiz = quizList.getSelectionModel().getSelectedItem();
+            Main.getSceneManager().showCreateUpdateQuizScene(user, quiz);
     }
 
     public void doDeleteQuiz() {
+       Quiz quiz =  quizList.getSelectionModel().getSelectedItem();
+       QuizDAO quizDAO = new QuizDAO(dbAccess);
+       quizDAO.removeOneById(quiz.getId());
+
+    }
+    public void doLogOut() {
+        Main.getSceneManager().showLoginScene();
     }
 }

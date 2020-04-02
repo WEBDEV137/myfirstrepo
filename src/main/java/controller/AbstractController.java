@@ -32,6 +32,8 @@ public abstract class AbstractController {
     protected static final String ALERTTYPE_INFORMATION = "information";
     protected static final int PAUZEER_LENGTE = 3;
 
+    protected User user;
+    protected Quiz quiz;
 
 
     //CONSTRUCTOR
@@ -87,6 +89,14 @@ public abstract class AbstractController {
             fout.getMessage();
         }
         Platform.exit(); // Replaced System.exit(0), volgens Oracle docs the preferred way
+
+    }
+
+    /**
+     * geef alert aan de gebruiker dat quizmaster gaat afgesloten word. En sluit quismaster af.
+     */
+    public void doLogOut() {
+        Main.getSceneManager().showWelcomeScene(user);
 
     }
 

@@ -1,39 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManageQuizzesController">
-    <Label layoutX="14.0" layoutY="14.0" text="Quizbeheer">
+<AnchorPane cache="true" cacheShape="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: rgba(50, 115, 220, 0.3);;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManageQuizzesController">
+    <Label graphicTextGap="10.0" layoutX="292.0" layoutY="5.0" lineSpacing="10.0" text="Quizbeheer" textFill="WHITE" wrapText="true">
+        <font>
+            <Font size="48.0" />
+        </font>
+    </Label>
+    <Label layoutX="25.0" layoutY="-67.0" text="Selecteer quiz" textFill="#1e2259d7">
+        <font>
+            <Font size="26.0" />
+        </font>
+    </Label>
+    <ListView fx:id="quizList" layoutX="14.0" layoutY="78.0" prefHeight="379.0" prefWidth="869.0" style="-fx-background-radius: 3 3 3 3; -fx-effect: innershadow( gaussian, rgba( 0, 0, 0, 0.5 ), 10, 0, 5, 5 ); }: ;" />
+    <Button layoutX="460.0" layoutY="483.0" mnemonicParsing="false" onAction="#doCreateQuiz" prefHeight="95.0" prefWidth="200.0" text="Nieuw" textFill="#656472">
+        <font>
+            <Font size="23.0" />
+        </font>
+    </Button>
+    <Button layoutX="242.0" layoutY="483.0" mnemonicParsing="false" onAction="#doUpdateQuiz" prefHeight="95.0" prefWidth="200.0" text="Wijzig" textFill="#656472">
+        <font>
+            <Font size="23.0" />
+        </font>
+    </Button>
+    <Button layoutX="791.0" layoutY="525.0" mnemonicParsing="false" onAction="#doDeleteQuiz" prefHeight="53.0" prefWidth="92.0" text="Verwijder" textFill="#656472">
+        <font>
+            <Font size="14.0" />
+        </font>
+    </Button>
+    <Button layoutX="747.0" layoutY="9.0" mnemonicParsing="false" onAction="#doMenu" prefHeight="53.0" prefWidth="136.0" text="Menu" textFill="#656472">
         <font>
             <Font size="18.0" />
         </font>
-    </Label>
-    <Label layoutX="14.0" layoutY="49.0" text="Selecteer quiz">
-        <font>
-            <Font size="18.0" />
-        </font>
-    </Label>
-    <ListView fx:id="quizList" layoutX="14.0" layoutY="78.0" prefHeight="200.0" prefWidth="869.0" style="-fx-background-radius: 3 3 3 3; -fx-effect: innershadow( gaussian, rgba( 0, 0, 0, 0.5 ), 10, 0, 5, 5 ); }: ;" />
-    <Button layoutX="13.0" layoutY="285.0" mnemonicParsing="false" onAction="#doCreateQuiz" text="Nieuw">
-        <font>
-            <Font size="14.0" />
-        </font>
     </Button>
-    <Button layoutX="113.0" layoutY="285.0" mnemonicParsing="false" onAction="#doUpdateQuiz" text="Wijzig">
-        <font>
-            <Font size="14.0" />
-        </font>
-    </Button>
-    <Button layoutX="217.0" layoutY="285.0" mnemonicParsing="false" onAction="#doDeleteQuiz" text="Verwijder">
-        <font>
-            <Font size="14.0" />
-        </font>
-    </Button>
-    <Button layoutX="14.0" layoutY="329.0" mnemonicParsing="false" onAction="#doMenu" text="Menu">
-        <font>
-            <Font size="14.0" />
-        </font>
-    </Button>
+   <Button layoutX="25.0" layoutY="483.0" mnemonicParsing="false" prefHeight="95.0" prefWidth="200.0" text="Bekijk" textFill="#656472">
+      <font>
+         <Font size="23.0" />
+      </font></Button>
+   <effect>
+      <Blend />
+   </effect>
 </AnchorPane>
