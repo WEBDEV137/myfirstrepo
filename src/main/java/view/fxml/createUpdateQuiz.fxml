@@ -17,21 +17,21 @@
                   <Font size="48.0" />
                </font></Label>
             <Button fx:id="opslaanKnop" layoutX="692.0" layoutY="410.0" mnemonicParsing="false" onAction="#doStore" prefHeight="88.0" prefWidth="194.0" text="Opslaan" />
-            <Button fx:id="voegNieuweVraagToe" layoutX="459.0" layoutY="410.0" mnemonicParsing="false" onAction="#doCreateNewQuestion" prefHeight="88.0" prefWidth="211.0" text="Voeg nieuwe vraag toe" />
+            <Button fx:id="voegNieuweVraagToe" layoutX="459.0" layoutY="410.0" mnemonicParsing="false" onAction="#doCreateNewQuestion" prefHeight="40.0" prefWidth="211.0" text="Voeg nieuwe vraag toe" />
             <Button fx:id="Menu" layoutX="689.0" layoutY="538.0" mnemonicParsing="false" onAction="#doMenu" prefHeight="40.0" prefWidth="194.0" text="Terug naar Menu" />
-            <Label layoutX="52.0" layoutY="498.0" prefHeight="40.0" prefWidth="166.0" text="Succesfactor" textFill="#474765">
+            <Label layoutX="30.0" layoutY="498.0" prefHeight="40.0" prefWidth="166.0" text="Succesfactor" textFill="#474765">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
             <Label layoutX="672.0" layoutY="69.0" />
-            <TextField fx:id="succesDefinitionField" layoutX="183.0" layoutY="498.0" prefHeight="40.0" prefWidth="110.0" promptText="succesfactor hier" />
-            <Label layoutX="63.0" layoutY="427.0" prefHeight="40.0" prefWidth="166.0" text="Quiznaam" textFill="#474765">
+            <TextField fx:id="succesDefinitionField" layoutX="150.0" layoutY="498.0" prefHeight="40.0" prefWidth="110.0" promptText="succesfactor hier" />
+            <Label layoutX="30.0" layoutY="424.0" prefHeight="40.0" prefWidth="102.0" text="Quiznaam" textFill="#474765">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <TextField fx:id="quizNameField" layoutX="183.0" layoutY="427.0" prefHeight="40.0" prefWidth="110.0" promptText="Quiznaam hier" />
+            <TextField fx:id="quizNameField" layoutX="150.0" layoutY="424.0" prefHeight="40.0" prefWidth="254.0" promptText="Quiznaam hier" />
             <Label layoutX="177.0" layoutY="58.0" prefHeight="40.0" prefWidth="166.0" text="Quizvragen" textFill="#474765">
                <font>
                   <Font size="20.0" />
@@ -43,6 +43,7 @@
                </font>
             </Label>
             <Button fx:id="doGoToQuizbeheer" layoutX="459.0" layoutY="538.0" mnemonicParsing="false" onAction="#doManageQuizzes" prefHeight="40.0" prefWidth="211.0" text="Terug naar Quizbeheer" />
+            <Button fx:id="wijzigVraagButton" layoutX="459.0" layoutY="457.0" mnemonicParsing="false" onAction="#doChangeQuestion" prefHeight="40.0" prefWidth="211.0" text="Wijzig vraag" />
          </children></AnchorPane>
    </children>
 </AnchorPane>

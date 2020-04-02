@@ -5,7 +5,6 @@ import database.mysql.DBAccess;
 import database.mysql.QuizDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import model.Course;
 import model.Quiz;
@@ -16,9 +15,11 @@ import java.util.List;
 import java.util.Optional;
 
 public class ManageQuizzesController extends AbstractController {
+
     private QuizDAO quizDAO;
     private CourseDAO courseDAO;
     private DBAccess dbAccess;
+    private User user;
 
     @FXML
     private ListView<Quiz> quizList;
@@ -28,8 +29,8 @@ public class ManageQuizzesController extends AbstractController {
 
 
     // connectie maken met dbase om courses te laten zien in het scherm listview
-    public void setup(User user) {
-        super.user = user;
+    public void setup() {
+        user = Main.getCurrentUser();
         dbAccess = Main.getDBaccess();
         dbAccess.openConnection();
         this.quizDAO = new QuizDAO(dbAccess);
@@ -54,20 +55,20 @@ public class ManageQuizzesController extends AbstractController {
 
 
     public void doCreateQuiz() {
-        Main.getSceneManager().showCreateUpdateQuizScene(user, null);
+        Main.getSceneManager().showCreateUpdateQuizScene( null);
     }
 
 
-    public void doUpdateQuiz() {
+        public void doUpdateQuiz() {
         Quiz quiz = quizList.getSelectionModel().getSelectedItem();
-            Main.getSceneManager().showCreateUpdateQuizScene(user, quiz);
+            Main.getSceneManager().showCreateUpdateQuizScene( quiz);
     }
 
     public void doDeleteQuiz() {
        Quiz quiz =  quizList.getSelectionModel().getSelectedItem();
        QuizDAO quizDAO = new QuizDAO(dbAccess);
        quizDAO.removeOneById(quiz.getId());
-        Main.getSceneManager().showManageQuizScene(user);
+        Main.getSceneManager().showManageQuizScene();
 
     }
     public void doLogOut() {

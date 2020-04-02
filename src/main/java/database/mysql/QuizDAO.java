@@ -68,6 +68,21 @@ public class QuizDAO extends AbstractDAO {
         System.out.println("SQL error " + e.getMessage());
         }
     }
+    public void updateOne(Quiz quiz){
+        String query = "UPDATE quiz SET naam = ?, succesdefinitie = ? WHERE id = ?;";
+        try {
+            PreparedStatement preparedStatement = getStatement(query);
+            preparedStatement.setString(1, quiz.getName());
+            preparedStatement.setInt(2, quiz.getSuccesDefinition());
+            preparedStatement.setInt(3, quiz.getId());
+            preparedStatement.execute();
+        }
+        catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+    }
+
+
     public ArrayList<Quiz> getAllByCoordinatorId(int coordinatoId) {
         ArrayList<Quiz> quizzes = null;
         String query = "SELECT * FROM quiz WHERE cursusid IN (SELECT id from cursus WHERE coordinatorid = ?)";

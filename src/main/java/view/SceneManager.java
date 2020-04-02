@@ -124,17 +124,17 @@ public class SceneManager {
         controller.setup(group);
     }
 
-    public void showManageQuizScene(User user) {
-        System.out.println("show manage quizscene methode");
+    public void showManageQuizScene() {
         FXMLLoader loader = getScene("/view/fxml/manageQuizzes.fxml");
         ManageQuizzesController controller = loader.getController();
-        controller.setup(user);
+        controller.setup();
     }
 
-    public void showCreateUpdateQuizScene(User user, Quiz quiz) {
+    public void showCreateUpdateQuizScene(Quiz quiz) {
         FXMLLoader loader = getScene("/view/fxml/createUpdateQuiz.fxml");
         CreateUpdateQuizController controller = loader.getController();
-        controller.setup(user, quiz);
+        System.out.println(quiz.getId());
+        controller.setup(quiz);
     }
 
     public void showManageQuestionsScene() {
