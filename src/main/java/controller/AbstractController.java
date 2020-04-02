@@ -2,12 +2,12 @@ package controller;
 
 
 import javafx.application.Platform;
-import javafx.scene.control.Alert;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
+import javafx.stage.Modality;
 import model.*;
 import view.Main;
 
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 public abstract class AbstractController {
@@ -75,6 +75,31 @@ public abstract class AbstractController {
         alert.setContentText(content);
         alert.show();
     }
+    /**
+     * Confirmation dialogue
+     * do you want to continue?
+     */
+    public static void showDialogueBox(String header, String content) {
+        Alert okCancelDialogue = new Alert(Alert.AlertType.CONFIRMATION);
+        okCancelDialogue.initModality(Modality.APPLICATION_MODAL); //Achtegrpond scherm wordt onbruikbaar gemaakt.
+        okCancelDialogue.initOwner(Main.getPrimaryStage()); //show,
+        okCancelDialogue.setTitle(PROGRAMMA_NAAM);
+        okCancelDialogue.setHeaderText(header);
+        okCancelDialogue.setContentText(content);
+
+        Optional<ButtonType> result = okCancelDialogue.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            //storeQuiz();
+        } else if (result.get() == ButtonType.CANCEL) {
+            //
+        }
+    }
+
+
+
+
+
+
 
 
     /**

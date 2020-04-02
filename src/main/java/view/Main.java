@@ -4,21 +4,19 @@ package view;
 //Dit programma is gemaakt als opdracht voor MIW cohort 19, Het is gemaakt door, Tom , Joelle, Minke, Umrullah, En Suzanne.
 // Met dit programma kunnen gebruikers alles omtrent cursussen beheren.
 
-import controller.AbstractController;
-import controller.LoginController;
 import database.mysql.DBAccess;
-import database.mysql.GroupDAO;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.User;
-import org.w3c.dom.ls.LSOutput;
 
-import java.io.IOException;
+import java.util.Optional;
 
 public class Main extends Application {
+    //CONSTANTS
+    public static final String QUISMASTER = "Quismaster";
 
     //Object declaratie
     private static SceneManager sceneManager = null;

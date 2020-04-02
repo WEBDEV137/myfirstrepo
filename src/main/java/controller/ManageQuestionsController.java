@@ -4,14 +4,18 @@ import database.mysql.DBAccess;
 import database.mysql.QuestionDAO;
 import database.mysql.UserDAO;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import model.Question;
 import model.QuizResult;
 import model.User;
 import view.Main;
 
 import java.util.List;
+import java.util.Optional;
 
 public class ManageQuestionsController {
     private QuestionDAO questionDAO;
@@ -38,4 +42,6 @@ public class ManageQuestionsController {
     public void doUpdateQuestion(){}
 
     public void doDeleteQuestion(){}
+
+
 }

@@ -20,7 +20,7 @@
             <Font size="14.0" />
         </font>
     </MenuButton>
-    <Button layoutX="14.0" layoutY="121.0" mnemonicParsing="false" onAction="#doLogout" text="Log out">
+    <Button layoutX="14.0" layoutY="121.0" mnemonicParsing="false" onAction="#doLogOutConfirmation" text="Log out">
         <font>
             <Font size="14.0" />
         </font>

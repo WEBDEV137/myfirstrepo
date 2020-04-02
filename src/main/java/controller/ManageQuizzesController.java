@@ -4,14 +4,16 @@ import database.mysql.CourseDAO;
 import database.mysql.DBAccess;
 import database.mysql.QuizDAO;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.stage.Modality;
 import model.Course;
 import model.Quiz;
 import model.User;
 import view.Main;
 
 import java.util.List;
+import java.util.Optional;
 
 public class ManageQuizzesController extends AbstractController {
     private QuizDAO quizDAO;
@@ -65,9 +67,32 @@ public class ManageQuizzesController extends AbstractController {
        Quiz quiz =  quizList.getSelectionModel().getSelectedItem();
        QuizDAO quizDAO = new QuizDAO(dbAccess);
        quizDAO.removeOneById(quiz.getId());
+        Main.getSceneManager().showManageQuizScene(user);
 
     }
     public void doLogOut() {
         Main.getSceneManager().showLoginScene();
     }
+    /**
+     * Confirmation dialogue
+     * do you want to Delete quiz?
+     */
+    public void doLogOutConfirmation() {
+        String ARE_YOU_SURE = "U staat op het punt een quiz te wissen!\nAlle bijbehorende vragen zullen ook worden verwijderd.";
+        String CLICK_CONTINUE = "Weet u zeker dat u wilt doorgaan?";
+
+        ButtonType jaKnop = new ButtonType("Ja", ButtonBar.ButtonData.YES);
+        ButtonType neeKnop = new ButtonType("Nee", ButtonBar.ButtonData.CANCEL_CLOSE);
+        Alert okCancelDialogue = new Alert(Alert.AlertType.WARNING, CLICK_CONTINUE, jaKnop, neeKnop);
+        okCancelDialogue.setTitle(Main.QUISMASTER);
+        okCancelDialogue.setHeaderText(ARE_YOU_SURE);
+        okCancelDialogue.initModality(Modality.APPLICATION_MODAL); //Achtegrpond scherm wordt onbruikbaar gemaakt.
+        okCancelDialogue.initOwner(Main.getPrimaryStage()); //show,
+        Optional<ButtonType> result = okCancelDialogue.showAndWait();
+        if (result.get() == jaKnop) {
+            doDeleteQuiz();
+        }
+        else if (!result.isPresent()){}
+    }
+
 }

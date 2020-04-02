@@ -3,11 +3,12 @@ package controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
+import javafx.stage.Modality;
 import model.User;
 import view.Main;
+
+import java.util.Optional;
 
 public class WelcomeController {
 
@@ -92,5 +93,26 @@ public class WelcomeController {
     public void voegMenuItemsToeDocent() {
         MenuItem taak1 = new MenuItem("Bekijk voortgang");
         taskMenuButton.getItems().add(taak1);
+    }
+
+    /**
+     * Confirmation dialogue
+     * do you want to logOUT?
+     */
+    public void doLogOutConfirmation() {
+         String ARE_YOU_SURE = "Weet u zeker dat u wilt uitloggen?";
+         String CLICK_CONTINUE ="klik OK om door te gaan";
+
+        Alert okCancelDialogue = new Alert(Alert.AlertType.CONFIRMATION);
+        okCancelDialogue.initModality(Modality.APPLICATION_MODAL); //Achtegrpond scherm wordt onbruikbaar gemaakt.
+        okCancelDialogue.initOwner(Main.getPrimaryStage()); //show,
+        okCancelDialogue.setTitle(Main.QUISMASTER);
+        okCancelDialogue.setHeaderText(ARE_YOU_SURE);
+        okCancelDialogue.setContentText(CLICK_CONTINUE);
+
+        Optional<ButtonType> result = okCancelDialogue.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            doLogout();
+        }
     }
 }

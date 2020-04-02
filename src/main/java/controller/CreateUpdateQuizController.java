@@ -4,6 +4,7 @@ import database.mysql.DBAccess;
 import database.mysql.QuestionDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import model.Question;
 import model.Quiz;
 import model.User;
@@ -21,6 +22,11 @@ public class CreateUpdateQuizController extends AbstractController{
     private ListView<Question> selectedQuestions;
     @FXML
     private ListView<Question> availableQuestions;
+    @FXML
+    private TextField quizNameField;
+    @FXML
+    private TextField succesDefinitionField;
+
 
     private List<Question> allQuizQuestions;
     private List<Question> selectedQuizQuestions;
@@ -33,6 +39,9 @@ public class CreateUpdateQuizController extends AbstractController{
 
         super.user = user;
         super.quiz = quiz;
+        quizNameField.setText(quiz.getName());
+        succesDefinitionField.setText(Integer.toString(quiz.getSuccesDefinition()));
+
         dbAccess = Main.getDBaccess();
         dbAccess.openConnection();
         questionDAO = new QuestionDAO(dbAccess);
@@ -40,24 +49,26 @@ public class CreateUpdateQuizController extends AbstractController{
         selectedQuizQuestions = questionDAO.getSelectedQuestionsByQuizId(quiz.getId());
         allQuizQuestions = questionDAO.getAllAvailableQuizQuestions(quiz.getId());
 
-        // LEFT LIST VIEW
+        // Populate Left ListView With
         for (Question question : selectedQuizQuestions) {
             System.out.println("1");
             System.out.println(question);
             selectedQuestions.getItems().add(question);
         }
-        //set available questions to ALL question
+        //Create the available question list
+        // Step 1:
         for (Question question : allQuizQuestions) {
             System.out.println("2");
             System.out.println(question);
-                availableQuizQuestions.add(question);
+             availableQuizQuestions.add(question);
         }
-        //REMOVE THE ALREADY SELECTED QUESTIONS
+        //step 2:
         for (Question selectedQuestion : selectedQuizQuestions) {
             System.out.println("3");
             System.out.println(selectedQuestion);
           availableQuizQuestions.remove(selectedQuestion);
         }
+        //Populate Right ListView with available questions
         for (Question availableQuestion : availableQuizQuestions){
             System.out.println("4");
             System.out.println(availableQuestion);
@@ -66,20 +77,6 @@ public class CreateUpdateQuizController extends AbstractController{
 
 
     }
-/*       titleLabel.setText(quiz.getName());
-        klantnummerTextfield.setText(String.valueOf(customer.getCustomerId()));
-        voorlettersTextfield.setText(customer.getInitials());
-        tussenvoegselTextfield.setText(customer.getPrefix());
-        achternaamTextfield.setText(customer.getSurName());
-        mobielTextfield.setText(customer.getMobilePhone());
-    }*/
-
-
-
-
-
-
-
     public void doAddQuestionToQuiz(){
         Question selectedQuestion = availableQuestions.getSelectionModel().getSelectedItem();
         if(selectedQuestion != null) {
@@ -112,6 +109,41 @@ public class CreateUpdateQuizController extends AbstractController{
 
     public void doCreateNewQuestion (){}
 
-    public void doStore (){}
+    public void doStore () {
+        final String NOT_ALLOWED_CHARACTERS = "%$@~`?;:*^#!+}{[]=\\|";
+        final String SUCCESFACTOR_TO_LOW = "De succesfactor mag niet hoger zijn dan het aantal vragen";
+        final String SOME_CHARACTERS_NOT_ALLOWED =  "De volgende karakters zijn niet toegestaan: %$@~`?;:*^#!+}{[]=\\|";
+        final String GIVE_OTHER_VALUE = "Geef een andere waarde op.";
+        final String CHOOSE_OTHER_NAME = "Geef een andere naam op.";
+        String quizNameInput = quizNameField.getText();
+        int succesDefinition = Integer.valueOf(succesDefinitionField.getText());
+        int numberOfQuestions = selectedQuestions.getItems().size();
+
+
+        boolean nameIsAllowed = checkIsNameAllowed(quizNameField.getText(), NOT_ALLOWED_CHARACTERS);
+        if(nameIsAllowed) {
+            super.quiz.setName(quizNameField.getText());
+        }
+        else showAlert(SOME_CHARACTERS_NOT_ALLOWED, CHOOSE_OTHER_NAME, "WARNING");
+
+       if (succesDefinition <= numberOfQuestions) {
+            super.quiz.setSuccesDefinition(Integer.valueOf(succesDefinitionField.getText()));
+        } else showAlert(SUCCESFACTOR_TO_LOW, GIVE_OTHER_VALUE,  "WARNING");
+        }
+
+    /**
+     * Checks if an input String contains eny of the not allowed characters. returns false if it does
+     * @param inputText
+     * @param notAllowedCharacters
+     * @return true if the String is allowed
+     */
+    public boolean checkIsNameAllowed(String inputText, String notAllowedCharacters){
+            for (int index = 0; index < notAllowedCharacters.length() ; index++) {
+                if (inputText.indexOf(notAllowedCharacters.charAt(index)) != -1){
+                    return false;
+                };
+            }return true;
+        }
+
 
 }
