@@ -1,7 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.Collections;
 
 public class User {
     //CONSTANTEN
@@ -28,8 +26,6 @@ public class User {
     private String name;
     private String prefix;
     private String surname;
-    //Taken ArrayList - deze wordt door iedere subuser override, met zijn eigen taken
-    protected ArrayList<String> tasks;
 
     //CONSTRUCTOR
     public User(int userId, String rolName, String userName, String password, String name, String prefix, String surname) {
@@ -123,7 +119,6 @@ public class User {
         this.rolName = rolName;
     }
 
-
     //METHODEN
     @Override
     public String toString() {
@@ -137,7 +132,4 @@ public class User {
         resultString.append(rolName + " ");
         return resultString.toString();
     }
-    /*public String toString() {
-        return "User Id: " + userId + "\nUser Name: " + userName + "\nName: " + name + "\nPrefix: " + getPrefix() + "\nSurname: " + surname + "\nRol: " + rolName + "\nPassword: " + password;
-    }*/
 }

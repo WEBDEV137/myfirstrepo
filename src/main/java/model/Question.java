@@ -79,6 +79,11 @@ public class Question {
         this.quizID = quizID;
     }
 
+    public int getQuestionID() {
+        return questionID;
+    }
+
+
     @Override
     public String toString() {
         return questionText;

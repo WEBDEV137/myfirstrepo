@@ -82,4 +82,28 @@ public class CourseDAO extends AbstractDAO {
         }
     }
 
+    public ArrayList<Course> getAllByCoordinatorId(int coordinatorId) {
+        ArrayList<Course> courses = null;
+        String query = "SELECT * FROM cursus WHERE coordinatorid = ? ;";
+        try {
+            PreparedStatement preparedStatement = getStatement(query);
+            preparedStatement.setInt(1, coordinatorId);
+            ResultSet resultSet = executeSelectPreparedStatement(preparedStatement);
+            while (resultSet.next()) {
+                System.out.println("check 111");
+                if(courses == null){ courses = new ArrayList<>();
+                    System.out.println("check 222");}
+                int id = resultSet.getInt("id");
+                System.out.println(id);
+                String name = resultSet.getString("naam");
+                System.out.println(name);
+                Course course = new Course(id, name, coordinatorId);
+                courses.add(course);
+                System.out.println(course);
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+        return courses;
+    }
 }

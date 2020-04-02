@@ -3,6 +3,7 @@ package model;
 import database.mysql.DBAccess;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Quiz {
 
@@ -11,7 +12,7 @@ public class Quiz {
     private String name;
     private int succesDefinition;
     private Course course;
-    private ArrayList<Question> questions;
+    private List<Question> questions;
 
     //CONSTRUCTOR
     public Quiz(int id, String naam, int succesDefinitie, int cursusId) {
@@ -33,12 +34,11 @@ public class Quiz {
             addQuestion(question);
         }
     }
-    public ArrayList<Question> getQuestions() {
+    public List<Question> getQuestions() {
         return questions;
     }
 
     //GETTERS
-
     public int getId() {
         return id;
     }
@@ -59,10 +59,14 @@ public class Quiz {
     public void setSuccesDefinition(int succesDefinition) {
         this.succesDefinition = succesDefinition;
     }
-
-    public void setAllQuestions(ArrayList<Question> questions) {
+    public void setSelectedQuestions(List<Question> questions) {
         this.questions = questions;
     }
+    public void setCourseId(Course course) {
+        this.course.setId(course.getId());
+    }
+
+
     //SETTERS voor de Course waar de quiz bij hoort
     public void setCourseName(String name) {
         course.setCoursename(name);

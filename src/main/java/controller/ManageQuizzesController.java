@@ -66,10 +66,11 @@ public class ManageQuizzesController extends AbstractController {
 
     public void doDeleteQuiz() {
        Quiz quiz =  quizList.getSelectionModel().getSelectedItem();
-       QuizDAO quizDAO = new QuizDAO(dbAccess);
-       quizDAO.removeOneById(quiz.getId());
-        Main.getSceneManager().showManageQuizScene();
-
+       if (quiz != null) {
+           QuizDAO quizDAO = new QuizDAO(dbAccess);
+           quizDAO.removeOneById(quiz.getId());
+           Main.getSceneManager().showManageQuizScene();
+       }
     }
     public void doLogOut() {
         Main.getSceneManager().showLoginScene();
@@ -78,7 +79,9 @@ public class ManageQuizzesController extends AbstractController {
      * Confirmation dialogue
      * do you want to Delete quiz?
      */
-    public void doLogOutConfirmation() {
+    public void doDeleteConfirmation() {
+        if(quizList.getSelectionModel().getSelectedItem() != null){
+
         String ARE_YOU_SURE = "U staat op het punt een quiz te wissen!\nAlle bijbehorende vragen zullen ook worden verwijderd.";
         String CLICK_CONTINUE = "Weet u zeker dat u wilt doorgaan?";
 
@@ -94,6 +97,7 @@ public class ManageQuizzesController extends AbstractController {
             doDeleteQuiz();
         }
         else if (!result.isPresent()){}
+        }
     }
 
 }
