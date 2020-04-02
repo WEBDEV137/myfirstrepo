@@ -27,9 +27,9 @@ public class QuestionDAO extends AbstractDAO{
             ResultSet resultSet = super.executeSelectPreparedStatement(preparedStatement);
             Question question;
             while (resultSet.next()) {
-                int questionId = resultSet.getInt("id");
+                //int questionId = resultSet.getInt("id");
                 String quizQuestion = resultSet.getString("tekst");
-                int quizId = resultSet.getInt("quizid");
+                //int quizId = resultSet.getInt("quizid");
                 question = new Question(quizQuestion);
                 result.add(question);
                 System.out.println(question);

@@ -4,6 +4,7 @@ import database.mysql.DBAccess;
 import database.mysql.QuestionDAO;
 import database.mysql.UserDAO;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import model.Question;
@@ -33,9 +34,18 @@ public class ManageQuestionsController {
         Main.getSceneManager().showWelcomeScene(Main.getCurrentUser());
     }
 
-    public void doCreateQuestion(){}
+    public void doCreateQuestion(){
+        Main.getSceneManager().showCreateUpdateQuestionScene(null);
+    }
 
-    public void doUpdateQuestion(){}
+    public void doUpdateQuestion(){
+        Main.getSceneManager().showCreateUpdateQuestionScene(questionList.getSelectionModel().getSelectedItem());
+    }
 
-    public void doDeleteQuestion(){}
+    public void doDeleteQuestion(){
+        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmation.setContentText("Weet u zeker dat u deze vraag wilt verwijderen?");
+        confirmation.show();
+        questionList.getSelectionModel().getSelectedItem();
+    }
 }
