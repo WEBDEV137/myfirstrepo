@@ -9,6 +9,7 @@ import model.Quiz;
 import model.User;
 import view.Main;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CreateUpdateQuizController extends AbstractController{
@@ -23,7 +24,7 @@ public class CreateUpdateQuizController extends AbstractController{
 
     private List<Question> allQuizQuestions;
     private List<Question> selectedQuizQuestions;
-    private List<Question> availableQuizQuestions;
+    private List<Question> availableQuizQuestions = new  ArrayList<>();
 
 
 
@@ -36,21 +37,33 @@ public class CreateUpdateQuizController extends AbstractController{
         dbAccess.openConnection();
         questionDAO = new QuestionDAO(dbAccess);
 
-        selectedQuizQuestions = questionDAO.getQuestionsByQuizId(quiz.getId());
-        allQuizQuestions = questionDAO.getAllQuestions();
-        for (Question question : allQuizQuestions){
-            System.out.println(question);
-        }
+        selectedQuizQuestions = questionDAO.getSelectedQuestionsByQuizId(quiz.getId());
+        allQuizQuestions = questionDAO.getAllAvailableQuizQuestions(quiz.getId());
 
         // LEFT LIST VIEW
         for (Question question : selectedQuizQuestions) {
+            System.out.println("1");
+            System.out.println(question);
             selectedQuestions.getItems().add(question);
-
         }
-        //GET AVAILABLE QUESTIONS
+        //set available questions to ALL question
+        for (Question question : allQuizQuestions) {
+            System.out.println("2");
+            System.out.println(question);
+                availableQuizQuestions.add(question);
+        }
+        //REMOVE THE ALREADY SELECTED QUESTIONS
         for (Question selectedQuestion : selectedQuizQuestions) {
-            allQuizQuestions.remove(selectedQuestion);
+            System.out.println("3");
+            System.out.println(selectedQuestion);
+          availableQuizQuestions.remove(selectedQuestion);
         }
+        for (Question availableQuestion : availableQuizQuestions){
+            System.out.println("4");
+            System.out.println(availableQuestion);
+            availableQuestions.getItems().add(availableQuestion);
+        }
+
 
     }
 /*       titleLabel.setText(quiz.getName());

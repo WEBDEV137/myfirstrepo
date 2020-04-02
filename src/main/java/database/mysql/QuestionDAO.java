@@ -44,7 +44,7 @@ public class QuestionDAO extends AbstractDAO{
      * Get all questions that belong to a quiz (insert QuizId)
      *
      */
-    public List<Question> getQuestionsByQuizId(int quizId) {
+    public List<Question> getSelectedQuestionsByQuizId(int quizId) {
         String query = "SELECT * FROM Vraag WHERE id IN (SELECT vraagid FROM quizvraag WHERE quizid = ?);";
         List<Question> questions = new ArrayList<>();
         Question question;
@@ -62,11 +62,31 @@ public class QuestionDAO extends AbstractDAO{
             System.out.println("SQL error " + e.getMessage());
         }
         return questions;
+    }
+
+        public List<Question> getAllAvailableQuizQuestions(int quizId) {
+            String query = "SELECT * FROM Vraag WHERE id = ?; ";
+            List<Question> questions = new ArrayList<>();
+            Question question;
+            try {
+                PreparedStatement preparedStatement = getStatement(query);
+                preparedStatement.setInt(1, quizId);
+                ResultSet resultSet = super.executeSelectPreparedStatement(preparedStatement);
+                while (resultSet.next()) {
+                    String questionText = resultSet.getString("tekst");
+                    int questionId = resultSet.getInt("id");
+                    question = new Question(questionId, questionText, quizId);
+                    questions.add(question);
+                }
+            } catch (SQLException e) {
+                System.out.println("SQL error " + e.getMessage());
+            }
+            return questions;
 
 
     }
     public ArrayList<Question> getAll () {
-        String query = "SELECT * FROM question ; ";
+        String query = "SELECT * FROM vraag; ";
         ArrayList<Question> questions = null;
         try {
             PreparedStatement preparedStatement = getStatement(query);

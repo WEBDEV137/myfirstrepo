@@ -43,7 +43,6 @@
                </font>
             </Label>
             <Button fx:id="doGoToQuizbeheer" layoutX="459.0" layoutY="538.0" mnemonicParsing="false" onAction="#doManageQuizzes" prefHeight="40.0" prefWidth="211.0" text="Terug naar Quizbeheer" />
-
          </children></AnchorPane>
    </children>
 </AnchorPane>
