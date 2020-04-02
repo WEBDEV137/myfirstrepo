@@ -1,14 +1,21 @@
 package controller;
 
+import database.mysql.CourseDAO;
 import database.mysql.DBAccess;
 import database.mysql.UserDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import model.Course;
+import model.Group;
 import model.User;
 import view.Main;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CreateUpdateUserController {
     private UserDAO udao;
@@ -42,7 +49,7 @@ public class CreateUpdateUserController {
 
     @FXML
     public void doMenu(ActionEvent e) {
-        Main.getSceneManager().setWindowTool();
+        Main.getSceneManager().showWelcomeScene(Main.getCurrentUser());
     }
     @FXML
     public void doCreateUpdateUser(ActionEvent e) {
@@ -110,4 +117,5 @@ public class CreateUpdateUserController {
             user = new User(rolName, userName, password, name, prefix, surname);
         }
     }
+
 }

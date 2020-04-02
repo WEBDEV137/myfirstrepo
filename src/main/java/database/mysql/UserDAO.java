@@ -59,10 +59,10 @@ public class UserDAO extends AbstractDAO{
         String sql = "Insert into Gebruiker values(DEFAULT,?, ?, ?, ?, ?, ?) ;";
         try {
             PreparedStatement ps = getStatement(sql);
-            ps.setString(1, user.getRolName());
+            ps.setString(1, user.getRolName().substring(0,1).toUpperCase() + user.getRolName().substring(1).toLowerCase());
             ps.setString(2, user.getUserName());
             ps.setString(3, user.getPassword());
-            ps.setString(4, user.getName());
+            ps.setString(4, user.getName().substring(0,1).toUpperCase() + user.getName().substring(1).toLowerCase());
             ps.setString(5, user.getPrefix());
             ps.setString(6, user.getSurname());
             ps.execute();
@@ -79,10 +79,10 @@ public class UserDAO extends AbstractDAO{
         String sql = "Update Gebruiker Set rol = ?, inlognaam = ?, wachtwoord = ?, voornaam = ?, tussenvoegsels = ?, achternaam = ? where id = ?;";
         try {
             PreparedStatement ps = getStatement(sql);
-            ps.setString(1, user.getRolName());
+            ps.setString(1, user.getRolName().substring(0,1).toUpperCase() + user.getRolName().substring(1).toLowerCase());
             ps.setString(2, user.getUserName());
             ps.setString(3, user.getPassword());
-            ps.setString(4, user.getName());
+            ps.setString(4, user.getName().substring(0,1).toUpperCase() + user.getName().substring(1).toLowerCase());
             ps.setString(5, user.getPrefix());
             ps.setString(6, user.getSurname());
             ps.setInt(7, user.getUserId());
