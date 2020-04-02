@@ -146,7 +146,9 @@ public class SceneManager {
     public void showCreateUpdateQuestionScene(Question question) {
         FXMLLoader loader = getScene("/view/fxml/createUpdateQuestion.fxml");
         CreateUpdateQuestionController controller = loader.getController();
-        controller.setup(question);
+        if (question != null) {
+            controller.setup(question);
+        }
     }
 
     public void showStudentSignInOutScene() {

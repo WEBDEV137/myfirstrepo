@@ -10,10 +10,13 @@ public class Question {
     private int quizID;
 
 
-    public Question(String rightAnswer) {
-        this.rightAnswer = rightAnswer;
-    }
+//    public Question(String rightAnswer) {
+//        this.rightAnswer = rightAnswer;
+//    }
 
+    public Question(String questionText) {
+        this.questionText = questionText;
+    }
 
     public Question(String questionText, String rightAnswer, String wrongAnswer1, String wrongAnswer2, String wrongAnswer3) {
         this.questionText = questionText;
