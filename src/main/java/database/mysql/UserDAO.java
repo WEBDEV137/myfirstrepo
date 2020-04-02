@@ -1,6 +1,7 @@
 package database.mysql;
 
 import controller.AbstractController;
+import model.Group;
 import model.User;
 import view.Main;
 
@@ -19,7 +20,11 @@ public class UserDAO extends AbstractDAO{
         super(dbAccess);
     }
 
-
+    /**
+     * om inlogen in quizmaster system
+     * @param userName
+     * @return
+     */
     public User getUserByInlognaam(String userName) {
         String query = "SELECT * FROM gebruiker WHERE inlognaam = ? ";
         User user = null;
@@ -38,7 +43,6 @@ public class UserDAO extends AbstractDAO{
             } else {
                 System.out.println("Combinatie van inlognaam en wachtwoord komt niet voor in database");
 
-
             }
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
@@ -47,24 +51,51 @@ public class UserDAO extends AbstractDAO{
         return user;
     }
 
-
+    /**
+     * om user in database opteslaan.
+     * @param user
+     */
     public void storeUser(User user) {
-        String sql = "Insert into Gebruiker(rol,inlognaam,wachtwoord,voornaam,tussenvoegsels,achternaam) values(?,?,?,?,?,?) ;";
+        String sql = "Insert into Gebruiker values(DEFAULT,?, ?, ?, ?, ?, ?) ;";
         try {
-            PreparedStatement ps = getStatementWithKey(sql);
+            PreparedStatement ps = getStatement(sql);
             ps.setString(1, user.getRolName());
             ps.setString(2, user.getUserName());
             ps.setString(3, user.getPassword());
             ps.setString(4, user.getName());
             ps.setString(5, user.getPrefix());
             ps.setString(6, user.getSurname());
-            int key = executeInsertPreparedStatement(ps);
-            user.setUserId(key);
+            ps.execute();
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
         }
     }
 
+    /**
+     * om user te update
+     * @param user
+     */
+    public void updateUser(User user) {
+        String sql = "Update Gebruiker Set rol = ?, inlognaam = ?, wachtwoord = ?, voornaam = ?, tussenvoegsels = ?, achternaam = ? where id = ?;";
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setString(1, user.getRolName());
+            ps.setString(2, user.getUserName());
+            ps.setString(3, user.getPassword());
+            ps.setString(4, user.getName());
+            ps.setString(5, user.getPrefix());
+            ps.setString(6, user.getSurname());
+            ps.setInt(7, user.getUserId());
+            executeManipulatePreparedStatement(ps);
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+    }
+
+    /**
+     * om all users te brengen in een lijst
+     * @return
+     */
     public List<User> getAllUsers() {
 
         String sql = "Select * From Gebruiker";
@@ -90,20 +121,20 @@ public class UserDAO extends AbstractDAO{
         return  result;
     }
 
-    public void updateUser(User user) {
-        String sql = "Update Gebruiker Set rol = ?, inlognaam = ?, wachtwoord = ?, voornaam = ?, tussenvoegsels = ?, achternaam = ? where id = ?;";
+    /**
+     * om user te werwijderen.
+     * @param user
+     */
+    public void deleteUser(User user){
+        String sql = "DELETE FROM gebruiker WHERE id = ?;";
         try {
             PreparedStatement ps = getStatement(sql);
-            ps.setString(1, user.getRolName());
-            ps.setString(2, user.getUserName());
-            ps.setString(3, user.getPassword());
-            ps.setString(4, user.getName());
-            ps.setString(5, user.getPrefix());
-            ps.setString(6, user.getSurname());
-            ps.setInt(7, user.getUserId());
-            executeManipulatePreparedStatement(ps);
-        } catch (SQLException e) {
-            System.out.println("SQL error " + e.getMessage());
+            ps.setInt(1, user.getUserId());
+            ps.executeUpdate();
+        } catch (SQLException e){
+            System.out.println("SQL Error "+e.getMessage());
         }
+
     }
+
 }

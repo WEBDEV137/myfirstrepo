@@ -2,10 +2,12 @@ package controller;
 
 import database.mysql.CourseDAO;
 import database.mysql.DBAccess;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import model.Course;
+import model.User;
 import view.Main;
 
 import java.util.List;
@@ -16,8 +18,6 @@ public class ManageCoursesController {
 
     @FXML
     private ListView<Course> courseList;
-    @FXML
-    private Button newCourseButton;
 
 
     // connectie maken met dbase om courses te laten zien in het scherm listview
@@ -38,12 +38,16 @@ public class ManageCoursesController {
     }
 
     //nieuwe cursus maken: doorgaan naar scherm createupdatecourse
-    public void doCreateCourse() {
+    @FXML
+    public void doCreateCourse(ActionEvent e) {
         Main.getSceneManager().showCreateUpdateCourseScene(null);
     }
 
 
-    public void doUpdateCourse() {
+    @FXML
+    public void doUpdateCourse(ActionEvent e) {
+        Course course = courseList.getSelectionModel().getSelectedItem();
+        Main.getSceneManager().showExistingCourseScene(course);
     }
 
     public void doDeleteCourse() {

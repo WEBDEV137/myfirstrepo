@@ -49,6 +49,23 @@ public class SceneManager {
         }
     }
 
+    /**
+    * laat bestaande courses zien
+     **/
+    public void showExistingCourseScene(Course course) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/fxml/createUpdateCourse.fxml"));
+            Parent root = loader.load();
+            CreateUpdateCourseController controller = loader.getController();
+            controller.setup(course);
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void setWindowTool() {
         FXMLLoader loader = getScene("/view/fxml/windowTool.fxml");
         if (loader != null) {
@@ -159,5 +176,8 @@ public class SceneManager {
         FXMLLoader loader = getScene("/view/fxml/coordinatorDashboard.fxml");
         CoordinatorDashboardController controller = loader.getController();
         controller.setup();
+    }
+
+    public void showWelcomeScene() {
     }
 }

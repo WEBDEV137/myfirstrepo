@@ -3,6 +3,7 @@ package database.mysql;
 
 import model.Course;
 import model.Quiz;
+import model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -53,6 +54,32 @@ public class CourseDAO extends AbstractDAO {
             System.out.println("SQL error " + e.getMessage());
         }
         return course;
+    }
+//Wegschrijven van nieuwe course naar SQL
+    public void storeCourse(Course course) {
+        String sql = "Insert into cursus(naam, coordinatorid) values(?,?) ;";
+        try {
+            PreparedStatement ps = getStatementWithKey(sql);
+            ps.setString(1, course.getCoursename());
+            ps.setInt(2, course.getCoordinatorid());
+            int key = executeInsertPreparedStatement(ps);
+            course.setId(key);
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+    }
+
+    public void updateCourse(Course course) {
+        String sql = "Update cursus Set naam = ?, coordinatorid = ? where id = ?;";
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setString(1, course.getCoursename());
+            ps.setInt(2, course.getCoordinatorid());
+            ps.setInt(3, course.getId());
+            executeManipulatePreparedStatement(ps);
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
     }
 
 }

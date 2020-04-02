@@ -14,6 +14,11 @@ package model;
             this.coordinatorid = coordinatorid;
         }
 
+        public Course (String coursename, int coordinatorid){
+            this.coursename = coursename;
+            this.coordinatorid = coordinatorid;
+        }
+
         public int getId() {
             return id;
         }
@@ -39,7 +44,7 @@ package model;
         }
 
         public String toString(){
-            return String.format("%d, %s", id, coursename );
+            return String.format("%d %s %d", id, coursename, coordinatorid );
         }
     }
 

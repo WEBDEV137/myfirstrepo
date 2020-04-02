@@ -1,19 +1,16 @@
 package controller;
 
-import com.mysql.cj.log.Log;
 import database.mysql.DBAccess;
 import database.mysql.GroupDAO;
-import database.mysql.UserDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import model.Group;
-import model.User;
 import view.Main;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -28,10 +25,12 @@ public class ManageGroupsController {
 // moet hier nog een warningText?
 
     public void setup() {
-        Main.getDBaccess().openConnection();
-        GroupDAO groupDAO = new GroupDAO(Main.getDBaccess());
+        dbAccess = Main.getDBaccess();
+        dbAccess.openConnection();
+        GroupDAO groupDAO = new GroupDAO(dbAccess);
+        System.out.println(groupDAO.getAll());
         try {
-            List<Group> allGroups = groupDAO.getAllGroupsByName();
+            ArrayList<Group> allGroups = groupDAO.getAll();
             Iterator i = allGroups.iterator();
             while (i.hasNext()) {
                 Group g = (Group) i.next();
@@ -55,13 +54,27 @@ public class ManageGroupsController {
         Main.getSceneManager().showLoginScene();
     }
 
+    @FXML
+    public void doCreateGroup(ActionEvent event) {
+        // deze null wegwerken
+        Main.getSceneManager().showCreateUpdateGroupScene(null);
+    }
 
-    public void doCreateGroup() {}
-
-    public void doUpdateGroup() {}
+    @FXML
+    public void doUpdateGroup(ActionEvent event) {
+        Group group = groupList.getSelectionModel().getSelectedItem();
+        // Let wel: Er is een Textfield 'warningText' beschikbaar. Die staat op invisible.
+        if (group == null) {
+            Alert nietGekozenFout = new Alert(Alert.AlertType.ERROR);
+            nietGekozenFout.setContentText("Selecteer een groep.");
+            nietGekozenFout.show();
+            return;
+        }
+        Main.getSceneManager().showCreateUpdateGroupScene(group);
+    }
 
     public void doDeleteGroup(ActionEvent event) {
-        Group group = (Group)this.groupList.getSelectionModel().getSelectedItems();
+        Group group = (Group)groupList.getSelectionModel().getSelectedItems();
         if (group == null) {
             Alert niksGeselecteerdFout = new Alert(Alert.AlertType.ERROR);
             niksGeselecteerdFout.setContentText("Selecteer een groep.");
@@ -71,6 +84,8 @@ public class ManageGroupsController {
             this.groupDAO.deleteGroup(group);
         }
     }
+
+
 
 
 }
