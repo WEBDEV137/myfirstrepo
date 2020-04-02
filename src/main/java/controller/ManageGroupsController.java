@@ -7,12 +7,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import model.Group;
+import model.User;
 import view.Main;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 public class ManageGroupsController {
 
@@ -47,21 +46,19 @@ public class ManageGroupsController {
     /*       wanneer deze: dBaccess.closeConnection(); ??? */
 
     @FXML
-    public void doMenu(ActionEvent event) {
-/*        // hoe krijg je hier de ingelogde user in?
-        User user = ;
-        Main.getSceneManager().showWelcomeScene(User user);*/
-        Main.getSceneManager().showLoginScene();
+    public void doMenu() {
+        Main.getSceneManager().showWelcomeScene(Main.getCurrentUser());
     }
 
+
     @FXML
-    public void doCreateGroup(ActionEvent event) {
+    public void doCreateGroup() {
         // deze null wegwerken
         Main.getSceneManager().showCreateUpdateGroupScene(null);
     }
 
     @FXML
-    public void doUpdateGroup(ActionEvent event) {
+    public void doUpdateGroup() {
         Group group = groupList.getSelectionModel().getSelectedItem();
         // Let wel: Er is een Textfield 'warningText' beschikbaar. Die staat op invisible.
         if (group == null) {
@@ -73,8 +70,8 @@ public class ManageGroupsController {
         Main.getSceneManager().showCreateUpdateGroupScene(group);
     }
 
-    public void doDeleteGroup(ActionEvent event) {
-        Group group = (Group)groupList.getSelectionModel().getSelectedItems();
+    public void doDeleteGroup() {
+        Group group = (Group) groupList.getSelectionModel().getSelectedItems();
         if (group == null) {
             Alert niksGeselecteerdFout = new Alert(Alert.AlertType.ERROR);
             niksGeselecteerdFout.setContentText("Selecteer een groep.");
@@ -83,6 +80,8 @@ public class ManageGroupsController {
             GroupDAO groupDAO = new GroupDAO(Main.getDBaccess());
             this.groupDAO.deleteGroup(group);
         }
+
+
     }
 
 

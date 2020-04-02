@@ -1,12 +1,12 @@
 package controller;
 
+import database.mysql.CourseDAO;
 import database.mysql.DBAccess;
 import database.mysql.GroupDAO;
+import database.mysql.UserDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import model.Group;
 import view.Main;
 
@@ -14,6 +14,7 @@ public class CreateUpdateGroupController {
 
     private GroupDAO groupDAO;
     private DBAccess dbAccess;
+
 
     @FXML
     private TextField groupNameTextfield;
@@ -27,17 +28,50 @@ public class CreateUpdateGroupController {
     @FXML
     private TextField groupNumber;
 
+    @FXML
+    private Label titleLabel;
+
+
 
     public void setup(Group group) {
-/*        // setup: moet anders zijn afhankelijk of er wel of niet een groep is geselecteerd
-        Group group = groupList.getSelectionModel().getSelectedItem();
-        if (group == null)
-        groupNameTextfield.setText(String.valueOf(customer.getCustomerId()));
-        courseMenuButton.setText(customer.getInitials());
-        teacherMenuButton.setText(customer.getPrefix());
-        groupNumber.setText(customer.getSurName());*/
-    }
+        dbAccess = Main.getDBaccess();
+        dbAccess.openConnection();
 
+
+        if (group == null) {
+            titleLabel.setText("Nieuwe groep aanmaken");
+            // hier inzetten dat dropdown menu's gevuld moeten worden met lijst, aparte methode voor maken
+        } else {
+            titleLabel.setText("Groep wijzigen");
+            groupNameTextfield.setText(group.getGroupName());
+            courseMenuButton.getItems();
+            teacherMenuButton.getItems();
+        }
+
+        }
+
+
+
+public void populateCourseMenuButton() {
+    CourseDAO courseDAO = new CourseDAO(dbAccess);
+
+    allCourses = courseDAO.getAllCourses();
+
+    MenuItem courseName = new MenuItem();
+    courseMenuButton.getItems().add(courseName);
+}
+
+    public void populateUserMenuButton() {
+        CourseDAO courseDAO = new CourseDAO(dbAccess);
+        UserDAO userDAO= new UserDAO(dbAccess);
+
+        allUsers = userDAO.getAllUsers();
+        getSelectedQuestionsByQuizId(quiz.getId());
+        allQuizQuestions = questionDAO.getAllAvailableQuizQuestions(quiz.getId());
+
+        MenuItem UserName = new MenuItem();
+        teacherMenuButton.getItems().add(UserName);
+    }
 
     public void doCreateUpdateGroup(ActionEvent event) {
     }
@@ -57,14 +91,8 @@ public class CreateUpdateGroupController {
     }
 
     @FXML
-    public void doBackToMenu(ActionEvent actionEvent) {
-        /*        // hoe krijg je hier de ingelogde user in?
-        User user = ;
-        Main.getSceneManager().showWelcomeScene(User user);*/
-        Main.getSceneManager().showLoginScene();
-/*        this.db.closeConnection();
-        System.out.println("Connection closed");
-        ApplicationLauncher.getSceneManager().showWelcomeScene();*/
+    public void doBackToMenu() {
+        Main.getSceneManager().showWelcomeScene(Main.getCurrentUser());
     }
 
 
