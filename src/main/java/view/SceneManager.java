@@ -49,7 +49,9 @@ public class SceneManager {
         }
     }
 
-    //laat bestaande courses zien MInke
+    /**
+    * laat bestaande courses zien
+     **/
     public void showExistingCourseScene(Course course) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/fxml/createUpdateCourse.fxml"));
@@ -174,5 +176,8 @@ public class SceneManager {
         FXMLLoader loader = getScene("/view/fxml/coordinatorDashboard.fxml");
         CoordinatorDashboardController controller = loader.getController();
         controller.setup();
+    }
+
+    public void showWelcomeScene() {
     }
 }
