@@ -13,7 +13,7 @@ import view.Main;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class ManageGroupsController {
+public class ManageGroupsController extends AbstractController{
 
     private GroupDAO groupDAO;
     private DBAccess dbAccess;
@@ -43,8 +43,6 @@ public class ManageGroupsController {
 
 
 
-    /*       wanneer deze: dBaccess.closeConnection(); ??? */
-
     @FXML
     public void doMenu() {
         Main.getSceneManager().showWelcomeScene(Main.getCurrentUser());
@@ -53,14 +51,12 @@ public class ManageGroupsController {
 
     @FXML
     public void doCreateGroup() {
-        // deze null wegwerken
         Main.getSceneManager().showCreateUpdateGroupScene(null);
     }
 
     @FXML
     public void doUpdateGroup() {
         Group group = groupList.getSelectionModel().getSelectedItem();
-        // Let wel: Er is een Textfield 'warningText' beschikbaar. Die staat op invisible.
         if (group == null) {
             Alert nietGekozenFout = new Alert(Alert.AlertType.ERROR);
             nietGekozenFout.setContentText("Selecteer een groep.");
@@ -70,8 +66,9 @@ public class ManageGroupsController {
         Main.getSceneManager().showCreateUpdateGroupScene(group);
     }
 
+    @FXML
     public void doDeleteGroup() {
-        Group group = (Group) groupList.getSelectionModel().getSelectedItems();
+        Group group = groupList.getSelectionModel().getSelectedItem();
         if (group == null) {
             Alert niksGeselecteerdFout = new Alert(Alert.AlertType.ERROR);
             niksGeselecteerdFout.setContentText("Selecteer een groep.");
@@ -83,6 +80,7 @@ public class ManageGroupsController {
 
 
     }
+
 
 
 

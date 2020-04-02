@@ -11,13 +11,21 @@ private User user; //dit is de docent
 private ArrayList<User> studenten; //dit zijn de studenten
 
     // all args constructor
-    public Group(int groupId, String groupName, int courseId, int userId) {
+    public Group(int groupId, String groupName, int cursusId, int userId) {
         this.groupId = groupId;
         this.groupName = groupName;
-        this.course = course;
-        this.user = user;
+        course = new Course(cursusId, "Vul in", 0);
+        user = new User(String.valueOf(userId), "Vul in", "Vul in", "Vul in", "Vul in");
         studenten = new ArrayList<>();
     }
+
+    public Group(String groupName, int cursusId, int userId) {
+        this.groupName = groupName;
+        course = new Course(cursusId, "Vul in", 0);
+        user = new User(String.valueOf(userId), "Vul in", "Vul in", "Vul in", "Vul in");
+        studenten = new ArrayList<>();
+    }
+
 
     // getters en setters
     public int getGroupId() {
