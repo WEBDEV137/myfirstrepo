@@ -1,19 +1,16 @@
 package controller;
 
-import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import database.mysql.CourseDAO;
 import database.mysql.DBAccess;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.Course;
 import view.Main;
 
 public class CreateUpdateCourseController {
-    public Button saveButton;
     private CourseDAO courseDAO;
     private DBAccess dbAccess;
     private Course course;
@@ -88,11 +85,9 @@ public class CreateUpdateCourseController {
 
 
 
-
-
-
-
     public void doMenu(ActionEvent e) {
+        dbAccess.closeConnection();
+        System.out.println("Connection closes");
         Main.getSceneManager().setWindowTool();
     }
 
