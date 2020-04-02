@@ -20,7 +20,11 @@ public class UserDAO extends AbstractDAO{
         super(dbAccess);
     }
 
-
+    /**
+     * om inlogen in quizmaster system
+     * @param userName
+     * @return
+     */
     public User getUserByInlognaam(String userName) {
         String query = "SELECT * FROM gebruiker WHERE inlognaam = ? ";
         User user = null;
@@ -47,7 +51,10 @@ public class UserDAO extends AbstractDAO{
         return user;
     }
 
-
+    /**
+     * om user in database opteslaan.
+     * @param user
+     */
     public void storeUser(User user) {
         String sql = "Insert into Gebruiker values(DEFAULT,?, ?, ?, ?, ?, ?) ;";
         try {
@@ -64,6 +71,10 @@ public class UserDAO extends AbstractDAO{
         }
     }
 
+    /**
+     * om user te update
+     * @param user
+     */
     public void updateUser(User user) {
         String sql = "Update Gebruiker Set rol = ?, inlognaam = ?, wachtwoord = ?, voornaam = ?, tussenvoegsels = ?, achternaam = ? where id = ?;";
         try {
@@ -81,6 +92,10 @@ public class UserDAO extends AbstractDAO{
         }
     }
 
+    /**
+     * om all users te brengen in een lijst
+     * @return
+     */
     public List<User> getAllUsers() {
 
         String sql = "Select * From Gebruiker";
@@ -106,6 +121,10 @@ public class UserDAO extends AbstractDAO{
         return  result;
     }
 
+    /**
+     * om user te werwijderen.
+     * @param user
+     */
     public void deleteUser(User user){
         String sql = "DELETE FROM gebruiker WHERE id = ?;";
         try {

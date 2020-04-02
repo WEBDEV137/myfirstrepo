@@ -93,14 +93,14 @@ public class CreateUpdateUserController {
         boolean correctInvoer = true;
         String rolName = rolNameTextfield.getText();
         String userName = userNameTextfield.getText();
-        String password = passwordTextfield.getText();
-        String name = nameTextfield.getText().substring(0,1).toUpperCase() + nameTextfield.getText().substring(1).toLowerCase();
-        String prefix = prefixTextfield.getText();
-        String surname = surnameTextfield.getText().toUpperCase();
         if (userName.isEmpty()) {
             warningText.append("Je moet user name invoelen!!\n");
             correctInvoer = false;
         }
+        String password = passwordTextfield.getText();
+        String name = nameTextfield.getText();
+        String prefix = prefixTextfield.getText();
+        String surname = surnameTextfield.getText().toUpperCase();
         if (!correctInvoer) {
             Alert foutmelding = new Alert(Alert.AlertType.ERROR);
             foutmelding.setContentText(warningText.toString());
