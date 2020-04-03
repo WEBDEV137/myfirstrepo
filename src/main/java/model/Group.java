@@ -15,14 +15,14 @@ private ArrayList<User> studenten; //dit zijn de studenten
         this.groupId = groupId;
         this.groupName = groupName;
         course = new Course(cursusId, "Vul in", 0);
-        user = new User(String.valueOf(userId), "Vul in", "Vul in", "Vul in", "Vul in");
+        user = new User(String.valueOf(userId), "Vul in", "Vul in", "Vul in", "Vul in", "Vul in");
         studenten = new ArrayList<>();
     }
 
     public Group(String groupName, int cursusId, int userId) {
         this.groupName = groupName;
         course = new Course(cursusId, "Vul in", 0);
-        user = new User(String.valueOf(userId), "Vul in", "Vul in", "Vul in", "Vul in");
+        user = new User(String.valueOf(userId), "Vul in", "Vul in", "Vul in", "Vul in", "Vul in");
         studenten = new ArrayList<>();
     }
 
