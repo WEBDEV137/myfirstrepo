@@ -6,9 +6,9 @@ import database.mysql.UserDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import model.Group;
-import model.User;
 import view.Main;
 
 import java.util.ArrayList;
@@ -21,12 +21,14 @@ public class ManageGroupsController extends AbstractController{
 
     @FXML
     private ListView<Group> groupList;
-
-    public ManageGroupsController() {
-        super();
-        this.dbAccess = Main.getDBaccess();
-        this.groupDAO = new GroupDAO(dbAccess);
-    }
+    @FXML
+    private Button newGroupButton;
+    @FXML
+    private Button updateGroupButton;
+    @FXML
+    private Button deleteGroupButton;
+    @FXML
+    private Button doMenuButton;
 
     public void setup() {
         dbAccess = Main.getDBaccess();
@@ -47,7 +49,7 @@ public class ManageGroupsController extends AbstractController{
     }
 
 
-
+// met menuknop terug naar WelcomeScene (inlog wordt behouden)
     @FXML
     public void doMenu(ActionEvent event) {
         Main.getSceneManager().showWelcomeScene(Main.getCurrentUser());
@@ -72,7 +74,7 @@ public class ManageGroupsController extends AbstractController{
     }
 
     @FXML
-    public void doDeleteGroup(ActionEvent event) {
+    public void doDeleteGroup() {
         Group group = groupList.getSelectionModel().getSelectedItem();
         System.out.println(group);
         if (group == null) {
@@ -81,10 +83,11 @@ public class ManageGroupsController extends AbstractController{
             niksGeselecteerdFout.show();
         } else {
             GroupDAO groupDAO = new GroupDAO(Main.getDBaccess());
-            this.groupDAO.deleteGroup(group);
+            groupDAO.deleteGroupByName(group.getGroupName());
             Alert verwijder = new Alert(Alert.AlertType.INFORMATION);
-            verwijder.setContentText("User is verwijderd.");
+            verwijder.setContentText("Groep is verwijderd.");
             verwijder.show();
+            Main.getSceneManager().showManageGroupsScene();
         }
     }
 
