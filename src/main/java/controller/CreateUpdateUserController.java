@@ -101,7 +101,7 @@ public class CreateUpdateUserController {
         String rolName = rolNameTextfield.getText();
         String userName = userNameTextfield.getText();
         if (userName.isEmpty()) {
-            warningText.append("Je moet user name invoelen!!\n");
+            warningText.append("Je moet user name invullen!!\n");
             correctInvoer = false;
         }
         String password = passwordTextfield.getText();

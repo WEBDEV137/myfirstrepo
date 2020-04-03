@@ -19,6 +19,10 @@ package model;
             this.coordinatorid = coordinatorid;
         }
 
+        public Course (int coordinatorid){
+            this.coordinatorid = coordinatorid;
+        }
+
         public int getId() {
             return id;
         }

@@ -38,6 +38,9 @@ public class CourseDAO extends AbstractDAO {
         }
         return courseSheet;
     }
+
+
+
     public Course getOneById (int id) {
         String query = "SELECT * FROM cursus WHERE id = ?;";
         Course course = null;
@@ -55,15 +58,23 @@ public class CourseDAO extends AbstractDAO {
         }
         return course;
     }
-//Wegschrijven van nieuwe course naar SQL
+
+    /**
+     * Wegschrijven van nieuwe course naar SQL TO DO: Bewaren lukt nog niet
+     */
+
     public void storeCourse(Course course) {
-        String sql = "Insert into cursus(naam, coordinatorid) values(?,?) ;";
+        String sql = "Insert into cursus values(DEFAULT,?,?) ;";
         try {
-            PreparedStatement ps = getStatementWithKey(sql);
+            System.out.println(course.getCoursename()+"1");
+            PreparedStatement ps = getStatement(sql);
             ps.setString(1, course.getCoursename());
             ps.setInt(2, course.getCoordinatorid());
-            int key = executeInsertPreparedStatement(ps);
-            course.setId(key);
+            executeManipulatePreparedStatement(ps);
+
+
+//            int key = executeInsertPreparedStatement(ps);
+//            course.setId(key);
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
         }

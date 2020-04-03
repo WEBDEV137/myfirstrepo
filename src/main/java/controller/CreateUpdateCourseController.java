@@ -4,11 +4,11 @@ import database.mysql.CourseDAO;
 import database.mysql.DBAccess;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import model.Course;
 import view.Main;
+
+import java.util.List;
 
 public class CreateUpdateCourseController {
     private CourseDAO courseDAO;
@@ -22,7 +22,10 @@ public class CreateUpdateCourseController {
     @FXML
     private TextField cursusnaamTextfield;
     @FXML
-    private TextField coordinatorIdTextfield;
+    private MenuButton coordinatorIdTextfield;
+    @FXML
+    private ListView<Course> courseList;
+    private String coursename;
 
     public CreateUpdateCourseController() {
         super();
@@ -30,19 +33,46 @@ public class CreateUpdateCourseController {
         this.dbAccess = Main.getDBaccess();
     }
 
-    public void setup(Course course){
-        titleLabel.setText("Update cursus");
-        cursusnummerTextfield.setText(String.valueOf(course.getId()));
-        cursusnaamTextfield.setText(course.getCoursename());
-        coordinatorIdTextfield.setText(String.valueOf(course.getCoordinatorid()));
+    /**
+     * ophalen van de coordinatorids bij aanmaken van nieuwe course. TO DO: Bij het wijzigen van de cursus kan je nog niet het coordinatornummer wijzigen.
+     *
+     * @param course
+     */
+    public void setup(Course course) {
+        dbAccess = Main.getDBaccess();
+        dbAccess.openConnection();
+
+        if (course == null) {
+            CourseDAO courseDAO = new CourseDAO((dbAccess));
+            titleLabel.setText("Nieuwe cursus aanmaken");
+            List<Course> allCourses = courseDAO.getAllCourses();
+            for (int i = 0; i < allCourses.size(); i++) {
+                int coordinatorid = allCourses.get(i).getCoordinatorid();
+                MenuItem menuItem = new MenuItem(String.valueOf(coordinatorid));
+                coordinatorIdTextfield.getItems().add(menuItem);
+                menuItem.setOnAction(event -> setCoordinatorid(coordinatorid));
+
+            }
+        } else {
+            titleLabel.setText("Beheer cursus");
+            cursusnummerTextfield.setText(String.valueOf(course.getId()));
+            cursusnaamTextfield.setText(course.getCoursename());
+            coordinatorIdTextfield.setText(String.valueOf(course.getCoordinatorid()));
+        }
     }
 
-//nieuwe cursus aanmaken
+    public void setCoordinatorid(int coordinatorid) {
+        coordinatorIdTextfield.setText(String.valueOf(coordinatorid));
+
+    }
+
+
+    //nieuwe cursus aanmaken
     private void createCourse() {
         StringBuilder warningText = new StringBuilder();
         boolean correcteInvoer = true;
         String cursusnaam = cursusnaamTextfield.getText();
-        int coordinatoridnr = Integer.parseInt(coordinatorIdTextfield.getText());
+        int coordinatorid = Integer.parseInt(coordinatorIdTextfield.getText());
 
         if (cursusnaam.isEmpty()) {
             warningText.append("Je moet de cursusnaam invullen\n");
@@ -54,7 +84,7 @@ public class CreateUpdateCourseController {
             foutmelding.show();
             course = null;
         } else {
-            course = new Course(cursusnaam, coordinatoridnr);
+            course = new Course(cursusnaam, coordinatorid);
         }
     }
 
@@ -62,14 +92,18 @@ public class CreateUpdateCourseController {
     @FXML
     public void doCreateUpdateCourse(ActionEvent actionEvent) {
         createCourse();
+        DBAccess dbAccess = Main.getDBaccess();
+        CourseDAO courseDAO = new CourseDAO(dbAccess);
+
         if (course != null) {
             if (cursusnummerTextfield.getText().equals(("cursusnummer"))) {
+                System.out.println(course.getCoursename());
                 courseDAO.storeCourse(course);
+                System.out.println(course.getCoursename()+"2");
                 cursusnummerTextfield.setText(String.valueOf(course.getId()));
-                Alert opgeslagen = new Alert(Alert.AlertType.INFORMATION);
+                                Alert opgeslagen = new Alert(Alert.AlertType.INFORMATION);
                 opgeslagen.setContentText("Cursus opgeslagen");
                 opgeslagen.show();
-                System.out.println("cursus opgeslagen");
             } else {
                 int id = Integer.valueOf(cursusnummerTextfield.getText());
                 course.setId(id);
@@ -80,8 +114,6 @@ public class CreateUpdateCourseController {
             }
         }
     }
-
-
 
 
 
