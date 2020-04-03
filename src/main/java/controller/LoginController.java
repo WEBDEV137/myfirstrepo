@@ -30,7 +30,7 @@ public class LoginController extends AbstractController{
         }
         else if (!user.getPassword().equals(passwordField.getText())){
             Alert verkeerdeInlogGegevens = new Alert(Alert.AlertType.ERROR);
-            verkeerdeInlogGegevens.setContentText("Please een juiste password invoeren!!!");
+            verkeerdeInlogGegevens.setContentText("Deze combinatie van user naam / wachtwoord is niet bekend.!");
             verkeerdeInlogGegevens.show();
         }
         else{

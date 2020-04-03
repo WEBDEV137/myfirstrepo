@@ -117,5 +117,4 @@ public class CreateUpdateUserController {
             user = new User(rolName, userName, password, name, prefix, surname);
         }
     }
-
 }
