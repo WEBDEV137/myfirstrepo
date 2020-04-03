@@ -55,9 +55,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        System.out.println(primaryStage);
         Main.primaryStage = primaryStage;
-        //primaryStage.setTitle("Make IT Work - Project 1");
+        primaryStage.setTitle("Make IT Work - Project 1");
         getSceneManager().setWindowTool();
         primaryStage.show();
     }

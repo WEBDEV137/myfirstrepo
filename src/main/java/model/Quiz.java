@@ -29,6 +29,12 @@ public class Quiz {
         }
         questions.add(question);
     }
+    public void removeQuestion(Question question){
+        if (questions.contains(question)){
+        questions.remove(question);
+        }
+    }
+
     public void addAllQuestions(ArrayList<Question> questions) {
         for (Question question : questions){
             addQuestion(question);
@@ -53,6 +59,11 @@ public class Quiz {
     }
 
     //SETTERS
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

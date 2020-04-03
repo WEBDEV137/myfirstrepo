@@ -6,10 +6,7 @@ import model.Question;
 import model.Quiz;
 import model.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -139,15 +136,15 @@ public class QuestionDAO extends AbstractDAO{
             System.out.println("SQL error " + e.getMessage());
         }
     }
-    public void storeEmptyQuestionByQuizId(Quiz quiz){
+    public int storeEmptyQuestionByQuizId(Quiz quiz) {
         String query = "INSERT INTO vraag VALUES (DEFAULT,\'Vul vraag in\',?);";
         try {
-            PreparedStatement preparedStatement = getStatement(query);
+            PreparedStatement preparedStatement = getStatementWithKey(query);
             preparedStatement.setInt(1, quiz.getId());
-            preparedStatement.execute();
-        }
-        catch (SQLException e) {
+            int vraagId = executeInsertPreparedStatement(preparedStatement);
+            return vraagId;
+        } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
-        }
+        }return 0;
     }
 }

@@ -75,13 +75,7 @@ public abstract class AbstractDAO {
 		return gegenereerdeSleutel;
 	}
 
-	/** CODE WERKT NIET
-	 * Geeft een "SELECT * FROM"-query terug als string.
-	 * parameters: tabel-naam, te checken kolomnaam, attribuut-waarde .
-	 */
-	protected String getSelectAllQuery(String table, String columnName){
-		return String.format("SELECT * FROM %s WHERE %s = ?",table, columnName);
-	}
+
 
 
 }
