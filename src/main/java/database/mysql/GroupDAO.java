@@ -40,10 +40,12 @@ public class GroupDAO extends AbstractDAO {
 
 
     public void deleteGroup(Group group){
+        System.out.println("verwijder groep");
         String sql = "DELETE FROM groep WHERE naam = ?;";
         try {
             PreparedStatement ps = this.getStatement(sql);
             ps.setString(1, String.valueOf(group));
+            ps.executeUpdate();
         } catch (SQLException e){
             System.out.println("SQL Error "+e.getMessage());
         }

@@ -86,6 +86,9 @@ public void setTeachername(String teachername){
     @FXML
     public void doCreateUpdateGroup(ActionEvent event) {
         createGroup();
+        DBAccess dbAccess = Main.getDBaccess();
+        CourseDAO courseDAO = new CourseDAO(dbAccess);
+        UserDAO userDAO = new UserDAO(dbAccess);
         if (group != null) {
             if (groupNumberTextfield.getText().equals(("groepnummer"))) {
                 groupDAO.storeGroup(group);
@@ -126,7 +129,7 @@ public void setTeachername(String teachername){
             foutmelding.show();
             group = null;
         } else {
-            group = new Group(groupName, Integer.parseInt(cursusId), Integer.parseInt(userId));
+            group = new Group(groupName, Integer.getInteger(cursusId), Integer.getInteger(cursusId));
         }
     }
 

@@ -2,6 +2,7 @@ package controller;
 
 import database.mysql.DBAccess;
 import database.mysql.GroupDAO;
+import database.mysql.UserDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -21,7 +22,11 @@ public class ManageGroupsController extends AbstractController{
     @FXML
     private ListView<Group> groupList;
 
-// moet hier nog een warningText?
+    public ManageGroupsController() {
+        super();
+        this.dbAccess = Main.getDBaccess();
+        this.groupDAO = new GroupDAO(dbAccess);
+    }
 
     public void setup() {
         dbAccess = Main.getDBaccess();
@@ -44,18 +49,18 @@ public class ManageGroupsController extends AbstractController{
 
 
     @FXML
-    public void doMenu() {
+    public void doMenu(ActionEvent event) {
         Main.getSceneManager().showWelcomeScene(Main.getCurrentUser());
     }
 
 
     @FXML
-    public void doCreateGroup() {
+    public void doCreateGroup(ActionEvent event) {
         Main.getSceneManager().showCreateUpdateGroupScene(null);
     }
 
     @FXML
-    public void doUpdateGroup() {
+    public void doUpdateGroup(ActionEvent event) {
         Group group = groupList.getSelectionModel().getSelectedItem();
         if (group == null) {
             Alert nietGekozenFout = new Alert(Alert.AlertType.ERROR);
@@ -67,8 +72,9 @@ public class ManageGroupsController extends AbstractController{
     }
 
     @FXML
-    public void doDeleteGroup() {
+    public void doDeleteGroup(ActionEvent event) {
         Group group = groupList.getSelectionModel().getSelectedItem();
+        System.out.println(group);
         if (group == null) {
             Alert niksGeselecteerdFout = new Alert(Alert.AlertType.ERROR);
             niksGeselecteerdFout.setContentText("Selecteer een groep.");
@@ -76,9 +82,10 @@ public class ManageGroupsController extends AbstractController{
         } else {
             GroupDAO groupDAO = new GroupDAO(Main.getDBaccess());
             this.groupDAO.deleteGroup(group);
+            Alert verwijder = new Alert(Alert.AlertType.INFORMATION);
+            verwijder.setContentText("User is verwijderd.");
+            verwijder.show();
         }
-
-
     }
 
 
