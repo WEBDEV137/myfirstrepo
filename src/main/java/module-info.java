@@ -9,4 +9,7 @@ module QuizMaster {
 
     opens view to javafx.graphics, javafx.fxml;
     opens controller to javafx.fxml;
+
+    opens database.nosql to gson, lightcouch, java.sql;
+    opens model to gson;
 }

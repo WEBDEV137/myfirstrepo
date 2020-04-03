@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
@@ -15,7 +16,7 @@
             <Font size="18.0" />
         </font>
     </Label>
-    <ListView fx:id="questionList" layoutX="14.0" layoutY="78.0" prefHeight="200.0" prefWidth="281.0" />
+    <ListView fx:id="questionList" fixedCellSize="-3.0" layoutX="14.0" layoutY="78.0" prefHeight="200.0" prefWidth="281.0" />
     <Button layoutX="13.0" layoutY="285.0" mnemonicParsing="false" onAction="#doCreateQuestion" text="Nieuw">
         <font>
             <Font size="14.0" />
@@ -36,4 +37,8 @@
             <Font size="14.0" />
         </font>
     </Button>
+    <TextField fx:id="warningText" layoutX="94.0" layoutY="323.0" prefHeight="27.0" prefWidth="368.0" visible="false">
+        <opaqueInsets>
+            <Insets />
+        </opaqueInsets></TextField>
 </AnchorPane>

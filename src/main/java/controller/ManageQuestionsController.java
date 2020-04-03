@@ -6,8 +6,7 @@ import database.mysql.UserDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Modality;
 import model.Question;
 import model.QuizResult;
@@ -18,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class ManageQuestionsController {
+    public TextField warningText;
     private QuestionDAO questionDAO;
     private DBAccess dbAccess;
 
@@ -37,11 +37,43 @@ public class ManageQuestionsController {
         Main.getSceneManager().showWelcomeScene(Main.getCurrentUser());
     }
 
-    public void doCreateQuestion(){}
+    public void doCreateQuestion(){
+        Main.getSceneManager().showCreateUpdateQuestionScene(null);
+    }
 
-    public void doUpdateQuestion(){}
+    @FXML
+    public void doUpdateQuestion(){
+        Question question = questionList.getSelectionModel().getSelectedItem();
+        if (question == null){
+            Alert nothingChosen = new Alert(Alert.AlertType.ERROR);
+            nothingChosen.setContentText("Je moet een vraag kiezen.");
+            nothingChosen.show();
+            return;
+        }
+        Main.getSceneManager().showCreateUpdateQuestionScene(question);
+    }
 
-    public void doDeleteQuestion(){}
-
+    public void doDeleteQuestion() {
+        Question question = questionList.getSelectionModel().getSelectedItem();
+        if (question == null) {
+            Alert nietGekozenFout = new Alert(Alert.AlertType.ERROR);
+            nietGekozenFout.setContentText("Je moet een vraag kiezen.");
+            nietGekozenFout.show();
+            return;
+        }
+        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmation.setContentText("Weet u zeker dat u deze vraag wilt verwijderen?");
+        ButtonType deleteQuestion = new ButtonType("Verwijder vraag");
+        ButtonType buttonTypeCancel = new ButtonType("Annuleer", ButtonBar.ButtonData.CANCEL_CLOSE);
+        confirmation.getButtonTypes().setAll(deleteQuestion, buttonTypeCancel);
+        Optional<ButtonType> result = confirmation.showAndWait();
+        if (result.get() == deleteQuestion) {
+            questionDAO.removeOneByQuestionText(question.getQuestionText());
+            Alert done = new Alert(Alert.AlertType.INFORMATION);
+            done.setContentText("Vraag verwijderd");
+            done.show();
+            Main.getSceneManager().showManageQuestionsScene();
+        }
+    }
 
 }

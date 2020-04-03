@@ -37,8 +37,8 @@ public class ManageUsersController {
 
     @FXML
     public void doMenu(ActionEvent e) {
-//        Main.getSceneManager().showWelcomeScene(user);
-        Main.getSceneManager().setWindowTool();
+        Main.getSceneManager().showWelcomeScene(Main.getCurrentUser());
+//        Main.getSceneManager().setWindowTool();
     }
     @FXML
     public void doCreateUser(ActionEvent e) {

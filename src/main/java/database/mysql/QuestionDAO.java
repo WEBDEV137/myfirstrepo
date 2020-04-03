@@ -105,6 +105,40 @@ public class QuestionDAO extends AbstractDAO{
         }
         return questions;
     }
+
+    public void removeOneByQuestionText (String questionText) {
+        String query = " DELETE FROM vraag WHERE tekst = ?;";
+        try {
+            PreparedStatement preparedStatement = getStatement(query);
+            preparedStatement.setString(1,questionText);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+    }
+
+    public void addOneByQuestionText (String questionText) {
+        String query = "INSERT INTO vraag VALUES (DEFAULT, ?, NULL);";
+        try {
+            PreparedStatement preparedStatement = getStatement(query);
+            preparedStatement.setString(1,questionText);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+    }
+
+    public void updateQuestionByQuestionText (String questionText, String updatableText){
+        String query = "UPDATE vraag SET tekst = ? WHERE tekst = ?;";
+        try {
+            PreparedStatement preparedStatement = getStatement(query);
+            preparedStatement.setString(1,questionText);
+            preparedStatement.setString(2,updatableText);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+    }
     public void storeEmptyQuestionByQuizId(Quiz quiz){
         String query = "INSERT INTO vraag VALUES (DEFAULT,\'Vul vraag in\',?);";
         try {

@@ -18,7 +18,6 @@ public class User {
     protected final static String CREATE_UPDATE_COURSES ="Create / update courses";
 
     //VARIABELEN
-
     private int userId;
     private String rolName;
     private String userName;
@@ -41,14 +40,6 @@ public class User {
     public User(String rolName, String userName, String password, String name, String prefix, String surname) {
         this.rolName = rolName;
         this.userName = userName;
-        this.password = password;
-        this.name = name;
-        this.prefix = prefix;
-        this.surname = surname;
-    }
-
-    public User(String rolName, String password, String name, String prefix, String surname) {
-        this.rolName = rolName;
         this.password = password;
         this.name = name;
         this.prefix = prefix;
