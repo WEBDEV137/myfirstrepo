@@ -55,19 +55,22 @@ public class QuizDAO extends AbstractDAO {
         }
         return quizzes;
     }
-    public void storeOne(Quiz quiz){
+    public int storeOne(Quiz quiz){
         String query = "INSERT INTO quiz VALUES (DEFAULT, ?, ?, ?);";
         try {
-            PreparedStatement preparedStatement = getStatement(query);
+            PreparedStatement preparedStatement = getStatementWithKey(query);
             preparedStatement.setString(1, quiz.getName());
             preparedStatement.setInt(2, quiz.getSuccesDefinition());
             preparedStatement.setInt(3, quiz.getCourseId());
-            preparedStatement.execute();
+            int quizId = executeInsertPreparedStatement(preparedStatement);
+            return quizId;
         }
         catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
         }
+        return 0;
     }
+
     public void updateOne(Quiz quiz){
         String query = "UPDATE quiz SET naam = ?, succesdefinitie = ? , cursusid = ?  WHERE id = ?;";
         try {

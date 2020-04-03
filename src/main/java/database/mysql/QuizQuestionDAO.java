@@ -18,7 +18,7 @@ public class QuizQuestionDAO extends AbstractDAO{
         try {
             PreparedStatement preparedStatement = getStatement(query);
             preparedStatement.setInt(1,vraagid);
-            preparedStatement.execute();
+            executeManipulatePreparedStatement(preparedStatement);
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
         }
@@ -46,13 +46,23 @@ public class QuizQuestionDAO extends AbstractDAO{
             PreparedStatement preparedStatement = getStatement(query);
             preparedStatement.setInt(1, quizid);
             preparedStatement.setInt(2, vraagid);
-            preparedStatement.execute();
+           executeManipulatePreparedStatement(preparedStatement);
         }
         catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
         }
     }
+    public void dropAllFromQuiz(int quizid) {
+        String query = " DELETE FROM quizvraag WHERE quizid = ?;";
+        try {
 
+            PreparedStatement preparedStatement = getStatement(query);
+            preparedStatement.setInt(1, quizid);
+            executeManipulatePreparedStatement(preparedStatement);
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+    }
 
 
 }

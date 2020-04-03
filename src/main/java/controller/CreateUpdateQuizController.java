@@ -3,6 +3,7 @@ package controller;
 import database.mysql.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
 import model.Course;
 import model.Question;
 import model.Quiz;
@@ -12,6 +13,7 @@ import view.Main;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class CreateUpdateQuizController extends AbstractController {
 
@@ -187,12 +189,18 @@ public class CreateUpdateQuizController extends AbstractController {
 
     @FXML
     public void doCreateNewQuestion() {
-        if (questionDAO == null) {
+        //Eerste versie werkt wel maar, slaat direct op in database
+       if (questionDAO == null) {
             questionDAO = new QuestionDAO(dbAccess);
         }
         int vraagId = questionDAO.storeEmptyQuestionByQuizId(quiz);
         quizQuestionDAO.storeOne(quiz.getId(), vraagId);
         Main.getSceneManager().showCreateUpdateQuizScene(quiz);
+
+        //Tweede versie : Beter, eerst aanmaken in geheugen en pas toevoegen aan database als Opslaan wordt gedrukt.
+        /*Question question = new Question(0, "Vul vraag in ", quiz.getId());
+        selectedQuestions.getItems().add(question);
+        selectedQuizQuestions.add(question);*/
     }
 
     @FXML
@@ -205,6 +213,7 @@ public class CreateUpdateQuizController extends AbstractController {
     public void doStore() {
         updateQuizAttributes();
         updateQuizQuestionTable();
+        //dropAndCreateNewQuizquestionTable();
     }
 
     /**
@@ -235,7 +244,7 @@ public class CreateUpdateQuizController extends AbstractController {
 
 
     /**
-     * Hier zitten nog bugs in
+     * werkt deze wel?
      */
 
     public void updateQuizQuestionTable() {
@@ -260,6 +269,19 @@ public class CreateUpdateQuizController extends AbstractController {
             }
         }
     }
+    public void dropAndCreateNewQuizquestionTable() {
+        QuizQuestionDAO quizQuestionDAO = new QuizQuestionDAO(dbAccess);
+        quizQuestionDAO.dropAllFromQuiz(quiz.getId());
+        for (int index = 0; index < selectedQuestions.getItems().size() ; index++) {
+            int questionId = selectedQuestions.getItems().get(index).getQuestionID();
+            int quizId = selectedQuestions.getItems().get(index).getQuizID();
+            quizQuestionDAO.storeOne(quizId, questionId);
+        }
+
+        }
+
+
+
 
     public void updateQuizAttributes() {
         final String NOT_ALLOWED_CHARACTERS = "%$@~`?;:*^#!+}{[]=\\|";
@@ -299,4 +321,49 @@ public class CreateUpdateQuizController extends AbstractController {
             }
         } return list;
     }
+    /**
+     * Confirmation dialogue
+     * do you want to go back to Menu quiz?
+     */
+    public void goBackToMenuConfirmation() {
+            String ARE_YOU_SURE = "Als u terugggaat worden alle wijzigingen die niet zijn opgeslagen  verwijderd.";
+            String CLICK_CONTINUE = "Weet u zeker dat u wilt doorgaan?";
+
+            ButtonType jaKnop = new ButtonType("Ja", ButtonBar.ButtonData.YES);
+            ButtonType neeKnop = new ButtonType("Nee", ButtonBar.ButtonData.CANCEL_CLOSE);
+            Alert okCancelDialogue = new Alert(Alert.AlertType.WARNING, CLICK_CONTINUE, jaKnop, neeKnop);
+            okCancelDialogue.setTitle(Main.QUISMASTER);
+            okCancelDialogue.setHeaderText(ARE_YOU_SURE);
+            okCancelDialogue.initModality(Modality.APPLICATION_MODAL); //Achtegrpond scherm wordt onbruikbaar gemaakt.
+            okCancelDialogue.initOwner(Main.getPrimaryStage()); //show,
+            Optional<ButtonType> result = okCancelDialogue.showAndWait();
+            if (result.get() == jaKnop) {
+                doMenu();
+            }
+            else if (!result.isPresent()){}
+
+    }
+    /**
+     * Confirmation dialogue
+     * do you want to go back to ManagaQuizzes?
+     */
+    public void goBackToManagQuizzesConfirmation() {
+        String ARE_YOU_SURE = "Als u terugggaat worden alle wijzigingen die niet zijn opgeslagen  verwijderd.";
+        String CLICK_CONTINUE = "Weet u zeker dat u wilt doorgaan?";
+
+        ButtonType jaKnop = new ButtonType("Ja", ButtonBar.ButtonData.YES);
+        ButtonType neeKnop = new ButtonType("Nee", ButtonBar.ButtonData.CANCEL_CLOSE);
+        Alert okCancelDialogue = new Alert(Alert.AlertType.WARNING, CLICK_CONTINUE, jaKnop, neeKnop);
+        okCancelDialogue.setTitle(Main.QUISMASTER);
+        okCancelDialogue.setHeaderText(ARE_YOU_SURE);
+        okCancelDialogue.initModality(Modality.APPLICATION_MODAL); //Achtegrpond scherm wordt onbruikbaar gemaakt.
+        okCancelDialogue.initOwner(Main.getPrimaryStage()); //show,
+        Optional<ButtonType> result = okCancelDialogue.showAndWait();
+        if (result.get() == jaKnop) {
+            doManageQuizzes();
+        }
+        else if (!result.isPresent()){}
+
+    }
+
 }

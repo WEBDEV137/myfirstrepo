@@ -99,5 +99,4 @@ public class ManageQuizzesController extends AbstractController {
         else if (!result.isPresent()){}
         }
     }
-
 }

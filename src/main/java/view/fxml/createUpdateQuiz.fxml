@@ -12,13 +12,13 @@
             <ListView fx:id="availableQuestions" layoutX="457.0" layoutY="91.0" prefHeight="235.0" prefWidth="429.0" style="-fx-effect: innershadow( gaussian, rgba( 0, 0, 0, 0.5 ), 10, 0, 5, 5 ); -fx-background-radius: 3 3 3 3;" />
             <Button layoutX="21.0" layoutY="333.0" mnemonicParsing="false" onAction="#doRemoveQuestionFromQuiz" prefHeight="40.0" prefWidth="429.0" text="Verwijder uit quiz &gt;" />
             <Button layoutX="457.0" layoutY="333.0" mnemonicParsing="false" onAction="#doAddQuestionToQuiz" prefHeight="40.0" prefWidth="429.0" text="&lt; Voeg toe aan quiz" />
-            <Label fx:id="titleLabel" layoutX="326.0" layoutY="6.0" prefHeight="76.0" prefWidth="303.0" text="wijzig quiz" textFill="WHITE">
+            <Label fx:id="createUpdateQuizHeader" layoutX="326.0" layoutY="6.0" prefHeight="76.0" prefWidth="303.0" text="wijzig quiz" textFill="WHITE">
                <font>
                   <Font size="48.0" />
                </font></Label>
             <Button fx:id="opslaanKnop" layoutX="692.0" layoutY="410.0" mnemonicParsing="false" onAction="#doStore" prefHeight="88.0" prefWidth="194.0" text="Opslaan" />
             <Button fx:id="voegNieuweVraagToe" layoutX="459.0" layoutY="410.0" mnemonicParsing="false" onAction="#doCreateNewQuestion" prefHeight="40.0" prefWidth="211.0" text="Voeg nieuwe vraag toe" />
-            <Button fx:id="Menu" layoutX="689.0" layoutY="538.0" mnemonicParsing="false" onAction="#doMenu" prefHeight="40.0" prefWidth="194.0" text="Terug naar Menu" />
+            <Button fx:id="Menu" layoutX="689.0" layoutY="538.0" mnemonicParsing="false" onAction="#goBackToMenuConfirmation" prefHeight="40.0" prefWidth="194.0" text="Terug naar Menu" />
             <Label layoutX="30.0" layoutY="531.0" prefHeight="40.0" prefWidth="166.0" text="Succesfactor" textFill="#474765">
                <font>
                   <Font size="20.0" />
@@ -42,7 +42,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Button fx:id="doGoToQuizbeheer" layoutX="459.0" layoutY="538.0" mnemonicParsing="false" onAction="#doManageQuizzes" prefHeight="40.0" prefWidth="211.0" text="Terug naar Quizbeheer" />
+            <Button fx:id="doGoToQuizbeheer" layoutX="459.0" layoutY="538.0" mnemonicParsing="false" onAction="#goBackToManagQuizzesConfirmation" prefHeight="40.0" prefWidth="211.0" text="Terug naar Quizbeheer" />
             <Button fx:id="wijzigVraagButton" layoutX="459.0" layoutY="457.0" mnemonicParsing="false" onAction="#doChangeQuestion" prefHeight="40.0" prefWidth="211.0" text="Wijzig vraag" />
             <Label layoutX="30.0" layoutY="410.0" prefHeight="40.0" prefWidth="143.0" text="Cursusnaam" textFill="#474765">
                <font>
