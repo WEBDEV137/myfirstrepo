@@ -1,19 +1,30 @@
 package controller;
 
+import database.mysql.CourseDAO;
 import database.mysql.DBAccess;
 import database.mysql.GroupDAO;
+import database.mysql.UserDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import model.Course;
 import model.Group;
+import model.Question;
+import model.User;
 import view.Main;
 
-public class CreateUpdateGroupController {
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+public class CreateUpdateGroupController extends AbstractController {
 
     private GroupDAO groupDAO;
     private DBAccess dbAccess;
+    private String coursename;
+    private String teachername;
+    private Group group;
+
 
     @FXML
     private TextField groupNameTextfield;
@@ -25,46 +36,112 @@ public class CreateUpdateGroupController {
     private MenuButton teacherMenuButton;
 
     @FXML
-    private TextField groupNumber;
+    private TextField groupNumberTextfield;
+
+    @FXML
+    private Label titleLabel;
 
 
     public void setup(Group group) {
-/*        // setup: moet anders zijn afhankelijk of er wel of niet een groep is geselecteerd
-        Group group = groupList.getSelectionModel().getSelectedItem();
-        if (group == null)
-        groupNameTextfield.setText(String.valueOf(customer.getCustomerId()));
-        courseMenuButton.setText(customer.getInitials());
-        teacherMenuButton.setText(customer.getPrefix());
-        groupNumber.setText(customer.getSurName());*/
+        dbAccess = Main.getDBaccess();
+        dbAccess.openConnection();
+        CourseDAO courseDAO = new CourseDAO(dbAccess);
+        UserDAO userDAO = new UserDAO(dbAccess);
+            List<Course> allCourses = courseDAO.getAllCourses();
+            List<User> allUsers = userDAO.getUsersByRole("docent");
+            for (int i = 0; i < allCourses.size(); i++) {
+                String coursename = allCourses.get(i).getCoursename();
+                MenuItem menuItem = new MenuItem(coursename);
+                courseMenuButton.getItems().add(menuItem);
+                menuItem.setOnAction(e -> setCoursename(coursename));
+            }
+            for (int i2 = 0; i2 < allUsers.size(); i2++) {
+                String teachername = allUsers.get(i2).getUserName();
+                MenuItem menuItem = new MenuItem(teachername);
+                teacherMenuButton.getItems().add(menuItem);
+                menuItem.setOnAction(e -> setTeachername(teachername));
+            }
+        if (group == null) {
+            titleLabel.setText("Nieuwe groep aanmaken");
+        } else {
+            titleLabel.setText("Groep wijzigen");
+            groupNameTextfield.setText(group.getGroupName());
+/*            courseMenuButton.getItems();
+            teacherMenuButton.getItems();*/
+        }
     }
 
 
-    public void doCreateUpdateGroup(ActionEvent event) {
+public void setCoursename(String coursename){
+        this.coursename = coursename;
+        courseMenuButton.setText(coursename);
+}
+
+public void setTeachername(String teachername){
+        this.teachername = teachername;
+        teacherMenuButton.setText(teachername);
     }
-
-
 
 
     @FXML
-    public void doStore(ActionEvent actionEvent) {
+    public void doCreateUpdateGroup(ActionEvent event) {
+        createGroup();
+        DBAccess dbAccess = Main.getDBaccess();
+        CourseDAO courseDAO = new CourseDAO(dbAccess);
+        UserDAO userDAO = new UserDAO(dbAccess);
+        if (group != null) {
+            if (groupNumberTextfield.getText().equals(("groepnummer"))) {
+                groupDAO.storeGroup(group);
+                groupNumberTextfield.setText(String.valueOf(group.getGroupId()));
+                Alert opgeslagen = new Alert(Alert.AlertType.INFORMATION);
+                opgeslagen.setContentText("Groep opgeslagen");
+                opgeslagen.show();
+            } else {
+                int id = Integer.parseInt(groupNumberTextfield.getText());
+                group.setGroupId(id);
+                groupDAO.updateGroup(group);
+                Alert gewijzigd = new Alert(Alert.AlertType.INFORMATION);
+                gewijzigd.setContentText("Groep gewijzigd");
+                gewijzigd.show();
+            }
+        }
     }
+
+
+    private void createGroup() {
+        StringBuilder warningText = new StringBuilder();
+        boolean correcteInvoer = true;
+        String groupName = groupNameTextfield.getText();
+        String cursusId = courseMenuButton.getText();
+        String userId = teacherMenuButton.getText();
+
+        if (groupName.isEmpty()) {
+            warningText.append("Vul een groepnaam in.\n");
+            correcteInvoer = false;
+        }
+        if (cursusId.isEmpty()) {
+            warningText.append("Kies een cursusnummer.\n");
+            correcteInvoer = false;
+        }
+        if (!correcteInvoer) {
+            Alert foutmelding = new Alert(Alert.AlertType.ERROR);
+            foutmelding.setContentText(warningText.toString());
+            foutmelding.show();
+            group = null;
+        } else {
+            group = new Group(groupName, Integer.getInteger(cursusId), Integer.getInteger(cursusId));
+        }
+    }
+
 
     @FXML
     public void doBackToList(ActionEvent actionEvent) {
-/*        this.db.closeConnection();
-        System.out.println("Connection closed");*/
         Main.getSceneManager().showManageGroupsScene();
     }
 
     @FXML
-    public void doBackToMenu(ActionEvent actionEvent) {
-        /*        // hoe krijg je hier de ingelogde user in?
-        User user = ;
-        Main.getSceneManager().showWelcomeScene(User user);*/
-        Main.getSceneManager().showLoginScene();
-/*        this.db.closeConnection();
-        System.out.println("Connection closed");
-        ApplicationLauncher.getSceneManager().showWelcomeScene();*/
+    public void doBackToMenu() {
+        Main.getSceneManager().showWelcomeScene(Main.getCurrentUser());
     }
 
 

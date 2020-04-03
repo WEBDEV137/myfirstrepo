@@ -51,7 +51,7 @@
                 <TextField fx:id="groupNumberTextfield" disable="true" editable="false" text="groepnummer" GridPane.columnIndex="1" />
             </children>
         </GridPane>
-        <Button fx:id="saveButton" layoutX="276.0" layoutY="304.0" mnemonicParsing="false" onAction="#doStore" text="Save" />
+        <Button fx:id="saveButton" layoutX="276.0" layoutY="304.0" mnemonicParsing="false" onAction="#doCreateUpdateGroup" text="Save" />
         <Button fx:id="lijstButton" layoutX="327.0" layoutY="304.0" mnemonicParsing="false" onAction="#doBackToList" text="Groepenlijst" />
         <Button fx:id="menuButton" layoutX="420.0" layoutY="304.0" mnemonicParsing="false" onAction="#doBackToMenu" text="Menu" />
     </children>

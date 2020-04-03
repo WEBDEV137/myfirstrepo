@@ -2,9 +2,12 @@ package database.mysql;
 
 import controller.AbstractController;
 import model.Group;
+import model.Question;
+import model.Quiz;
 import model.User;
 import view.Main;
 
+import java.sql.Array;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -50,6 +53,34 @@ public class UserDAO extends AbstractDAO{
         }
         return user;
     }
+
+    // om users op te halen met een bepaalde rol
+    public ArrayList<User> getUsersByRole(String rol) {
+        String sql = "SELECT * FROM gebruiker WHERE rol = ?;";
+        ArrayList <User> allTeachers = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = getStatement(sql);
+            preparedStatement.setString(1, rol);
+            ResultSet resultSet = executeSelectPreparedStatement(preparedStatement);
+            while (resultSet.next()) {
+                int userID= resultSet.getInt("id");
+                /*String rolName = resultSet.getString(rol);*/
+                String userName = resultSet.getString("inlognaam");
+                String password = resultSet.getString("wachtwoord");
+                String name = resultSet.getString("voornaam");
+                String prefix = resultSet.getString("tussenvoegsels");
+                String surname = resultSet.getString("achternaam");
+                User user = new User(userID, rol, userName, password, name, prefix, surname);
+                allTeachers.add(user);
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+        System.out.println(allTeachers);
+        return allTeachers;
+
+    }
+
 
     /**
      * om user in database opteslaan.
