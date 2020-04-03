@@ -92,9 +92,14 @@ public class CreateUpdateCourseController {
     @FXML
     public void doCreateUpdateCourse(ActionEvent actionEvent) {
         createCourse();
+        DBAccess dbAccess = Main.getDBaccess();
+        CourseDAO courseDAO = new CourseDAO(dbAccess);
+
         if (course != null) {
             if (cursusnummerTextfield.getText().equals(("cursusnummer"))) {
+                System.out.println(course.getCoursename());
                 courseDAO.storeCourse(course);
+                System.out.println(course.getCoursename()+"2");
                 cursusnummerTextfield.setText(String.valueOf(course.getId()));
                 Alert opgeslagen = new Alert(Alert.AlertType.INFORMATION);
                 opgeslagen.setContentText("Cursus opgeslagen");
