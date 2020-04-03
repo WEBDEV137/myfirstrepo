@@ -101,7 +101,7 @@ public class CreateUpdateCourseController {
                 courseDAO.storeCourse(course);
                 System.out.println(course.getCoursename()+"2");
                 cursusnummerTextfield.setText(String.valueOf(course.getId()));
-                Alert opgeslagen = new Alert(Alert.AlertType.INFORMATION);
+                                Alert opgeslagen = new Alert(Alert.AlertType.INFORMATION);
                 opgeslagen.setContentText("Cursus opgeslagen");
                 opgeslagen.show();
             } else {
@@ -114,6 +114,7 @@ public class CreateUpdateCourseController {
             }
         }
     }
+
 
 
     public void doMenu(ActionEvent e) {

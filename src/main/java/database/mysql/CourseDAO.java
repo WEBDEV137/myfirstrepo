@@ -64,20 +64,24 @@ public class CourseDAO extends AbstractDAO {
      */
 
     public void storeCourse(Course course) {
-        String sql = "Insert into cursus values(?,?) ;";
+        String sql = "Insert into cursus values(DEFAULT,?,?) ;";
         try {
-            PreparedStatement ps = getStatementWithKey(sql);
+            System.out.println(course.getCoursename()+"1");
+            PreparedStatement ps = getStatement(sql);
             ps.setString(1, course.getCoursename());
             ps.setInt(2, course.getCoordinatorid());
-            int key = executeInsertPreparedStatement(ps);
-            course.setId(key);
+            executeManipulatePreparedStatement(ps);
+
+
+//            int key = executeInsertPreparedStatement(ps);
+//            course.setId(key);
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
         }
     }
 
     public void updateCourse(Course course) {
-        String sql = "Update cursus Set (naam = ?, coordinatorid = ? where id = ?;)";
+        String sql = "Update cursus Set naam = ?, coordinatorid = ? where id = ?;";
         try {
             PreparedStatement ps = getStatement(sql);
             ps.setString(1, course.getCoursename());
