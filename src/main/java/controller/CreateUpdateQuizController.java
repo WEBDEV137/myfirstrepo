@@ -2,16 +2,14 @@ package controller;
 
 import database.mysql.*;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import model.Course;
 import model.Question;
 import model.Quiz;
 import model.User;
 import view.Main;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +25,8 @@ public class CreateUpdateQuizController extends AbstractController {
     private List<Question> allQuizQuestions;
     private List<Question> selectedQuizQuestions;
     private List<Question> availableQuizQuestions;
-
+    @FXML
+    private Label createUpdateQuizHeader;
     @FXML
     private ListView<Question> selectedQuestions;
     @FXML
@@ -71,8 +70,25 @@ public class CreateUpdateQuizController extends AbstractController {
     }
 
     public void setupCreateNewQuiz() {
+//        populateLeftListView();
+//        populateAvailableQuizQuestionsList();
+//        populateRightListView();
+        //createUpdateQuizHeader.setText("Nieuwe quiz");
+        //changeQuizCourse(coursesMenuButton.getItems().;
+        quizDAO = new QuizDAO(dbAccess);
+        ArrayList<Course> coordinatorCourses = courseDAO.getAllByCoordinatorId(user.getUserId());
 
-        ;
+        Course course = coordinatorCourses.get(0);
+
+        System.out.println(course);
+        quiz = new Quiz(0,"onbekend", 10 , course.getId());
+
+        int quizId = quizDAO.storeOne(quiz);
+        System.out.println(quizId);
+        quiz.setId(quizId);
+        populateCourseMenuButton();
+
+
     }
 
     public void populateLeftListView() {
@@ -107,7 +123,7 @@ public class CreateUpdateQuizController extends AbstractController {
         }
     }
 
-    public void populateCourseMenuButton() {
+    public ArrayList<Course> populateCourseMenuButton() {
 
         ArrayList<Course> coordinatorCourses = courseDAO.getAllByCoordinatorId(user.getUserId());
         for (Course course : coordinatorCourses) {
@@ -116,9 +132,15 @@ public class CreateUpdateQuizController extends AbstractController {
             coursesMenuButton.setText(course.getCoursename());
             coursesMenuButton.getItems().add(menuItem);
         }
+
         Course currentQuizCourse = courseDAO.getOneById(quiz.getCourseId());
-        coursesMenuButton.setText(currentQuizCourse.getCoursename());
+        if (currentQuizCourse != null) {
+            coursesMenuButton.setText(currentQuizCourse.getCoursename());
+        }
+        return coordinatorCourses;
+
     }
+
 
     public void changeQuizCourse(Course course) {
         quiz.setCourseName(course.getCoursename());
@@ -210,6 +232,11 @@ public class CreateUpdateQuizController extends AbstractController {
         }
         return false;
     }
+
+
+    /**
+     * Hier zitten nog bugs in
+     */
 
     public void updateQuizQuestionTable() {
         QuizQuestionDAO quizQuestionDAO = new QuizQuestionDAO(dbAccess);
