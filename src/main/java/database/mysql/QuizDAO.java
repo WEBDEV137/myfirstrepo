@@ -57,7 +57,7 @@ public class QuizDAO extends AbstractDAO implements GenericDAO{
     public void storeOne(Object type) {
         String query = "INSERT INTO quiz VALUES (DEFAULT, ?, ?, ?);";
         try {
-            PreparedStatement preparedStatement = getStatementWithKey(query);
+            PreparedStatement preparedStatement = getStatement(query);
             preparedStatement.setString(1, ((Quiz)type).getName());
             preparedStatement.setInt(2, ((Quiz)type).getSuccesDefinition());
             preparedStatement.setInt(3, ((Quiz)type).getCourseId());
@@ -98,7 +98,7 @@ public class QuizDAO extends AbstractDAO implements GenericDAO{
      * @param quiz
      *            De quiz die opgeslagen moet worden
      */
-    public int storeOne(Quiz quiz){
+    public int storeOneAndReturnId(Quiz quiz){
         String query = "INSERT INTO quiz VALUES (DEFAULT, ?, ?, ?);";
         try {
             PreparedStatement preparedStatement = getStatementWithKey(query);
