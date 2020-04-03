@@ -29,7 +29,7 @@ public class ManageUsersController {
 
     public void setup() {
         this.udao = new UserDAO(Main.getDBaccess());
-        List<User> allCustomers = udao.getAllUsers();
+        List<User> allCustomers = udao.getAll();
         for (User u : allCustomers) {
             userList.getItems().add(u);
         }

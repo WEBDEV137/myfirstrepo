@@ -56,7 +56,7 @@ public class CreateUpdateUserController {
         createUser();
         if (user != null) {
             if (userIdTextfield.getText().equals(("userId"))) {
-                udao.storeUser(user);
+                udao.storeOne(user);
                 userIdTextfield.setText(String.valueOf(user.getUserId()));
                 Alert opgeslagen = new Alert(Alert.AlertType.INFORMATION);
                 opgeslagen.setContentText("User opgeslagen");
@@ -107,7 +107,7 @@ public class CreateUpdateUserController {
         String password = passwordTextfield.getText();
         String name = nameTextfield.getText();
         String prefix = prefixTextfield.getText();
-        String surname = surnameTextfield.getText().toUpperCase();
+        String surname = surnameTextfield.getText();
         if (!correctInvoer) {
             Alert foutmelding = new Alert(Alert.AlertType.ERROR);
             foutmelding.setContentText(warningText.toString());

@@ -14,9 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAO extends AbstractDAO{
-    //VARIABELEN
-
+public class UserDAO extends AbstractDAO implements GenericDAO{
 
     //CONSTRUCTOR
     public UserDAO(DBAccess dbAccess){
@@ -24,7 +22,84 @@ public class UserDAO extends AbstractDAO{
     }
 
     /**
-     * om inlogen in quizmaster system
+     * om all users te brengen in een lijst
+     * @return
+     */
+    @Override
+    public ArrayList<User> getAll() {
+        String sql = "Select * From Gebruiker";
+        ArrayList<User> result = new ArrayList<>();
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ResultSet rs = super.executeSelectPreparedStatement(ps);
+            User user;
+            while (rs.next()) {
+                String rolName = rs.getString("rol");
+                String userName = rs.getString("inlognaam");
+                String password = rs.getString("wachtwoord");
+                String name = rs.getString("voornaam");
+                String prefix = rs.getString("tussenvoegsels");
+                String surName = rs.getString("achternaam");
+                user = new User(rolName,userName,password,name, prefix,surName);
+                user.setUserId(rs.getInt("id"));
+                result.add(user);
+            }
+        } catch (SQLException e){
+            System.out.println("SQL error " + e.getMessage());
+        }
+        return  result;
+    }
+
+    /**
+     * brengt een user met de id.
+     * @param id
+     * @return
+     */
+    @Override
+    public Object getOneById(int id) {
+        String query = "SELECT * FROM gebruiker WHERE id = ?;";
+        User user = null;
+        try {
+            PreparedStatement preparedStatement = getStatement(query);
+            preparedStatement.setInt(1,id);
+            ResultSet rs = executeSelectPreparedStatement(preparedStatement);
+            if (rs.next()) {
+                String rolName = rs.getString("rol");
+                String userName = rs.getString("inlognaam");
+                String password = rs.getString("wachtwoord");
+                String name = rs.getString("voornaam");
+                String prefix = rs.getString("tussenvoegsels");
+                String surName = rs.getString("achternaam");
+                user = new User(id,rolName,userName,password,name, prefix,surName);
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+        return user;
+    }
+    /**
+     *
+     * Sla een een user in database.
+     */
+    @Override
+    public void storeOne(Object type) {
+        String sql = "Insert into Gebruiker values(DEFAULT,?, ?, ?, ?, ?, ?) ;";
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setString(1,((User)type).getRolName().substring(0,1).toUpperCase() + ((User)type).getRolName().substring(1).toLowerCase());
+            ps.setString(2, ((User)type).getUserName());
+            ps.setString(3, ((User)type).getPassword());
+            ps.setString(4, ((User)type).getName().substring(0,1).toUpperCase() + ((User)type).getName().substring(1).toLowerCase());
+            ps.setString(5, ((User)type).getPrefix());
+            ps.setString(6, ((User)type).getSurname().substring(0,1).toUpperCase() + ((User)type).getSurname().substring(1).toLowerCase());
+            ps.execute();
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+    }
+
+    /**
+     * brengt user met username.
      * @param userName
      * @return
      */
@@ -45,7 +120,6 @@ public class UserDAO extends AbstractDAO{
                 user = new User(userId,rolName,userName,password,name, prefix,surName);
             } else {
                 System.out.println("Combinatie van inlognaam en wachtwoord komt niet voor in database");
-
             }
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
@@ -54,7 +128,11 @@ public class UserDAO extends AbstractDAO{
         return user;
     }
 
-    // om users op te halen met een bepaalde rol
+    /**
+     * bring user met de rol.
+     * @param rol
+     * @return
+     */
     public ArrayList<User> getUsersByRole(String rol) {
         String sql = "SELECT * FROM gebruiker WHERE rol = ?;";
         ArrayList <User> allTeachers = new ArrayList<>();
@@ -64,7 +142,6 @@ public class UserDAO extends AbstractDAO{
             ResultSet resultSet = executeSelectPreparedStatement(preparedStatement);
             while (resultSet.next()) {
                 int userID= resultSet.getInt("id");
-                /*String rolName = resultSet.getString(rol);*/
                 String userName = resultSet.getString("inlognaam");
                 String password = resultSet.getString("wachtwoord");
                 String name = resultSet.getString("voornaam");
@@ -78,28 +155,6 @@ public class UserDAO extends AbstractDAO{
         }
         System.out.println(allTeachers);
         return allTeachers;
-
-    }
-
-
-    /**
-     * om user in database opteslaan.
-     * @param user
-     */
-    public void storeUser(User user) {
-        String sql = "Insert into Gebruiker values(DEFAULT,?, ?, ?, ?, ?, ?) ;";
-        try {
-            PreparedStatement ps = getStatement(sql);
-            ps.setString(1, user.getRolName().substring(0,1).toUpperCase() + user.getRolName().substring(1).toLowerCase());
-            ps.setString(2, user.getUserName());
-            ps.setString(3, user.getPassword());
-            ps.setString(4, user.getName().substring(0,1).toUpperCase() + user.getName().substring(1).toLowerCase());
-            ps.setString(5, user.getPrefix());
-            ps.setString(6, user.getSurname());
-            ps.execute();
-        } catch (SQLException e) {
-            System.out.println("SQL error " + e.getMessage());
-        }
     }
 
     /**
@@ -124,35 +179,6 @@ public class UserDAO extends AbstractDAO{
     }
 
     /**
-     * om all users te brengen in een lijst
-     * @return
-     */
-    public List<User> getAllUsers() {
-
-        String sql = "Select * From Gebruiker";
-        List<User> result = new ArrayList<>();
-        try {
-            PreparedStatement ps = getStatement(sql);
-            ResultSet rs = super.executeSelectPreparedStatement(ps);
-            User user;
-            while (rs.next()) {
-                String rolName = rs.getString("rol");
-                String userName = rs.getString("inlognaam");
-                String password = rs.getString("wachtwoord");
-                String name = rs.getString("voornaam");
-                String prefix = rs.getString("tussenvoegsels");
-                String surName = rs.getString("achternaam");
-                user = new User(rolName,userName,password,name, prefix,surName);
-                user.setUserId(rs.getInt("id"));
-                result.add(user);
-            }
-        } catch (SQLException e){
-            System.out.println("SQL error " + e.getMessage());
-        }
-        return  result;
-    }
-
-    /**
      * om user te werwijderen.
      * @param user
      */
@@ -165,7 +191,5 @@ public class UserDAO extends AbstractDAO{
         } catch (SQLException e){
             System.out.println("SQL Error "+e.getMessage());
         }
-
     }
-
 }
