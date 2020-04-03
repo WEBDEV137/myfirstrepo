@@ -3,6 +3,8 @@ package controller;
 import database.mysql.CourseDAO;
 import database.mysql.DBAccess;
 import database.mysql.QuizDAO;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
@@ -23,8 +25,8 @@ public class ManageQuizzesController extends AbstractController {
 
     @FXML
     private ListView<Quiz> quizList;
-    @FXML
-    private Button newQuizButton;
+
+
 
 
 
@@ -44,6 +46,7 @@ public class ManageQuizzesController extends AbstractController {
             //Voeg toe aan quizlist
             quizList.getItems().add(quiz);
         }
+
 
 
     }
