@@ -41,6 +41,13 @@
       <font>
          <Font size="23.0" />
       </font></Button>
+   <TableView fx:id="quizTable" disable="true" editable="true" layoutX="49.0" layoutY="125.0" prefHeight="351.0" prefWidth="758.0" visible="false">
+     <columns>
+       <TableColumn prefWidth="109.00001525878906" text="Id" />
+       <TableColumn minWidth="0.0" prefWidth="209.0" text="Quiznaam" />
+         <TableColumn prefWidth="251.0" text="Cursus" />
+     </columns>
+   </TableView>
    <effect>
       <Blend />
    </effect>

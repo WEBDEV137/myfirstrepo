@@ -9,14 +9,17 @@ package database.mysql;
         import java.sql.SQLException;
         import java.util.ArrayList;
 
-public class QuizDAO extends AbstractDAO {
+public class QuizDAO extends AbstractDAO implements GenericDAO{
 
     //CONSTRUCTOR
     public QuizDAO(DBAccess dbAccess){
         super(dbAccess);
     }
 
-
+    /**
+     * Haal 1 quiz op uit de database door een id op te geven
+     */
+    @Override
     public Quiz getOneById (int id) {
         String query = "SELECT * FROM quiz WHERE id = ?;";
         Quiz quiz = null;
@@ -35,7 +38,27 @@ public class QuizDAO extends AbstractDAO {
         }
         return quiz;
     }
-
+    /**
+     * Sla 1 quiz op in de database door een quiz mee te geven
+     */
+    @Override
+    public void storeOne(Object type) {
+        String query = "INSERT INTO quiz VALUES (DEFAULT, ?, ?, ?);";
+        try {
+            PreparedStatement preparedStatement = getStatementWithKey(query);
+            preparedStatement.setString(1, ((Quiz)type).getName());
+            preparedStatement.setInt(2, ((Quiz)type).getSuccesDefinition());
+            preparedStatement.setInt(3, ((Quiz)type).getCourseId());
+            executeManipulatePreparedStatement(preparedStatement);
+        }
+        catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+    }
+    /**
+     * Haal alle quizen op uit de database
+     */
+        @Override
     public ArrayList<Quiz> getAll () {
         String query = "SELECT * FROM quiz ; ";
         ArrayList<Quiz> quizzes = null;
@@ -55,6 +78,10 @@ public class QuizDAO extends AbstractDAO {
         }
         return quizzes;
     }
+    /**
+     * Sla een quiz op in de database en geeft de automatisch gegenereerde id terug als int.
+     * Geef een quiz mee.
+     */
     public int storeOne(Quiz quiz){
         String query = "INSERT INTO quiz VALUES (DEFAULT, ?, ?, ?);";
         try {
@@ -70,7 +97,9 @@ public class QuizDAO extends AbstractDAO {
         }
         return 0;
     }
-
+    /**
+     * Update een quiz in de database door een quiz mee te geven aan deze methode.
+     */
     public void updateOne(Quiz quiz){
         String query = "UPDATE quiz SET naam = ?, succesdefinitie = ? , cursusid = ?  WHERE id = ?;";
         try {
@@ -86,7 +115,9 @@ public class QuizDAO extends AbstractDAO {
         }
     }
 
-
+    /**
+     * Deze methode geeft een ArrayList terug met alle quizen van een coordinator. Input parameter coordinator
+     */
     public ArrayList<Quiz> getAllByCoordinatorId(int coordinatoId) {
         ArrayList<Quiz> quizzes = null;
         String query = "SELECT * FROM quiz WHERE cursusid IN (SELECT id from cursus WHERE coordinatorid = ?)";
@@ -108,11 +139,14 @@ public class QuizDAO extends AbstractDAO {
         }
         return quizzes;
     }
-    public void removeOneById (int id) {
+    /**
+     * Verwijder een quiz uit de database door de quizId mee te geven
+     */
+    public void removeOneById (int quizId) {
         String query = " DELETE FROM quiz WHERE id = ?;";
         try {
             PreparedStatement preparedStatement = getStatement(query);
-            preparedStatement.setInt(1,id);
+            preparedStatement.setInt(1,quizId);
             preparedStatement.execute();
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
