@@ -66,6 +66,7 @@ public class CreateUpdateGroupController extends AbstractController {
             }
         } else {
             titleLabel.setText("Groep wijzigen");
+            // hier nog code om teachermenubutton te vullen met hele lijst
             groupNumberTextfield.setText(String.valueOf(group.getGroupId()));
             groupNameTextfield.setText(group.getGroupName());
             courseMenuButton.setText(String.valueOf(group.getCourseId()));
