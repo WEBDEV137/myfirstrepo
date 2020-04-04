@@ -7,6 +7,7 @@ import javafx.stage.Modality;
 import model.*;
 import view.Main;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
@@ -37,7 +38,25 @@ public abstract class AbstractController {
 
     //CONSTRUCTOR
     public AbstractController(){}
+
     //METHODEN
+
+    /**
+     * Voeg alle objecten uit een List to aan een Listview (scherm-element). Generics is gebruikt zodat
+     * Lists met verschillende soorten Objecten kunnen worden gebruikt.
+     * @param listView
+     *              scherm element ListView dat gevuld moet worden
+     * @param list
+     *              De list die de objecten bevat die aan de ListView toegevoegd moeten worden
+     * @param <T>
+     *          Type parameter
+     */
+    public <T> void populateListView(ListView listView, List<T> list) {
+        for (Object o : list) {
+            listView.getItems().add(o);
+        }
+    }
+
 
     /**
      * Maak een menu-item voor een dropdownmenu of menubar met als label de opgegeven teks

@@ -45,6 +45,7 @@ public class WelcomeController {
 
     public void voegMenuItemsToeStudent() {
         MenuItem taak1 = new MenuItem("Quiz invullen");
+        taak1.setOnAction(actionEvent -> Main.getSceneManager().showSelectQuizForStudent());
         MenuItem taak2 = new MenuItem("In- en uitschrijven cursus");
         taskMenuButton.getItems().add(taak1);
         taskMenuButton.getItems().add(taak2);
