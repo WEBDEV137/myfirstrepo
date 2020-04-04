@@ -141,25 +141,25 @@ public class QuizDAO extends AbstractDAO implements GenericDAO{
      *      de id van de coordinator
      */
     public ArrayList<Quiz> getAllByCoordinatorId(int coordinatorId) {
-        ArrayList<Quiz> quizzes = null;
-        String query = "SELECT * FROM quiz WHERE cursusid IN (SELECT id from cursus WHERE coordinatorid = ?)";
-        try {
-            PreparedStatement preparedStatement = getStatement(query);
-            preparedStatement.setInt(1, coordinatorId);
-            ResultSet resultSet = executeSelectPreparedStatement(preparedStatement);
-            while (resultSet.next()) {
-                if(quizzes == null){ quizzes = new ArrayList<>();}
-                int quizId = resultSet.getInt("id");
-                String name = resultSet.getString("naam");
-                int succesDefinition = resultSet.getInt("succesdefinitie");
-                int courseId = resultSet.getInt("cursusid");
-                Quiz quiz = new Quiz(quizId, name, succesDefinition, courseId);
-                quizzes.add(quiz);
+            ArrayList<Quiz> quizzes = null;
+            String query = "SELECT * FROM quiz WHERE cursusid IN (SELECT id from cursus WHERE coordinatorid = ?)";
+            try {
+                PreparedStatement preparedStatement = getStatement(query);
+                preparedStatement.setInt(1, coordinatorId);
+                ResultSet resultSet = executeSelectPreparedStatement(preparedStatement);
+                while (resultSet.next()) {
+                    if(quizzes == null){ quizzes = new ArrayList<>();}
+                    int quizId = resultSet.getInt("id");
+                    String name = resultSet.getString("naam");
+                    int succesDefinition = resultSet.getInt("succesdefinitie");
+                    int courseId = resultSet.getInt("cursusid");
+                    Quiz quiz = new Quiz(quizId, name, succesDefinition, courseId);
+                    quizzes.add(quiz);
+                }
+            } catch (SQLException e) {
+                System.out.println("SQL error " + e.getMessage());
             }
-        } catch (SQLException e) {
-            System.out.println("SQL error " + e.getMessage());
-        }
-        return quizzes;
+            return quizzes;
     }
     /**
      * Verwijder een quiz uit de database door de quizId mee te geven
@@ -176,5 +176,34 @@ public class QuizDAO extends AbstractDAO implements GenericDAO{
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
         }
+    }
+    /**
+     * Deze methode geeft een ArrayList terug met alle quizen van een coordinator.
+     *
+     * @param   userId
+     *      de id van de gebruiker
+     */
+    public ArrayList<Quiz> getAllByUserId(int userId) {
+        ArrayList<Quiz> quizzes = null;
+        String query = "SELECT q.id quizid, q.naam quiznaam, q.succesdefinitie, q.cursusid , c.naam cursusnaam FROM quiz q JOIN cursus c ON q.cursusid = c.id JOIN groep gr ON gr.cursusid = c.id JOIN groepsindeling gi ON gr.id = groepid JOIN gebruiker gebr ON gebr.id = gi.gebruikerid WHERE gebr.id = ?;";
+        try {
+            PreparedStatement preparedStatement = getStatement(query);
+            preparedStatement.setInt(1, userId);
+            ResultSet resultSet = executeSelectPreparedStatement(preparedStatement);
+            while (resultSet.next()) {
+                if(quizzes == null){ quizzes = new ArrayList<>();}
+                int quizId = resultSet.getInt("quizid");
+                String name = resultSet.getString("quiznaam");
+                int succesDefinition = resultSet.getInt("succesdefinitie");
+                int courseId = resultSet.getInt("cursusid");
+                String courseName = resultSet.getString("cursusnaam");
+                Quiz quiz = new Quiz(quizId, name, succesDefinition, courseId);
+                quiz.setCourseName(courseName);
+                quizzes.add(quiz);
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+        return quizzes;
     }
 }
