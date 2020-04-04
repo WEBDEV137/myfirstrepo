@@ -49,22 +49,28 @@ public class CreateUpdateGroupController extends AbstractController {
         UserDAO userDAO = new UserDAO(dbAccess);
         List<Course> allCourses = courseDAO.getAllCourses();
         List<User> allUsers = userDAO.getUsersByRole("docent");
-        for (int i = 0; i < allCourses.size(); i++) {
-            String coursename = allCourses.get(i).getCoursename();
-            MenuItem menuItem = new MenuItem(coursename);
-            courseMenuButton.getItems().add(menuItem);
-            menuItem.setOnAction(e -> setCoursename(coursename));
-        }
-        for (int ib = 0; ib < allUsers.size(); ib++) {
-            String teachername = allUsers.get(ib).getUserName();
-            MenuItem menuItem = new MenuItem(teachername);
-            teacherMenuButton.getItems().add(menuItem);
-            menuItem.setOnAction(e -> setTeachername(teachername));
-        }
         if (group == null) {
             titleLabel.setText("Nieuwe groep aanmaken");
+            for (int i = 0; i < allCourses.size(); i++) {
+                String coursename = allCourses.get(i).getCoursename();
+                MenuItem menuItem = new MenuItem(coursename);
+                courseMenuButton.getItems().add(menuItem);
+                menuItem.setOnAction(e -> setCoursename(coursename));
+            }
+            for (int ib = 0; ib < allUsers.size(); ib++) {
+                String teachername = allUsers.get(ib).getUserName();
+                MenuItem menuItem = new MenuItem(teachername);
+                teacherMenuButton.getItems().add(menuItem);
+                menuItem.setOnAction(e -> setTeachername(teachername));
+            }
         } else {
             titleLabel.setText("Groep wijzigen");
+            for (int ib = 0; ib < allUsers.size(); ib++) {
+                String teachername = allUsers.get(ib).getUserName();
+                MenuItem menuItem = new MenuItem(teachername);
+                teacherMenuButton.getItems().add(menuItem);
+                menuItem.setOnAction(e -> setTeachername(teachername));
+            }
                 groupNumberTextfield.setText(String.valueOf(group.getGroupId()));
                 groupNameTextfield.setText(group.getGroupName());
                 courseMenuButton.setText(courseDAO.getCourseNameById(group.getCourseId()));
