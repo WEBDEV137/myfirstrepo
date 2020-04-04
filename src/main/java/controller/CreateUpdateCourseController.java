@@ -120,7 +120,7 @@ public class CreateUpdateCourseController {
     public void doMenu(ActionEvent e) {
         dbAccess.closeConnection();
         System.out.println("Connection closes");
-        Main.getSceneManager().setWindowTool();
+        Main.getSceneManager().showManageCoursesScene();
     }
 
 
