@@ -23,6 +23,9 @@ package model;
             this.coordinatorid = coordinatorid;
         }
 
+        public Course( String cursusnaam, String userName) {
+        }
+
         public int getId() {
             return id;
         }
