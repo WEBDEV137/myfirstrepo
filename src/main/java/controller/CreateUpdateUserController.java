@@ -18,6 +18,10 @@ public class CreateUpdateUserController {
     private UserDAO udao;
     private DBAccess db;
     private User user;
+    private ArrayList<String> rolList = new ArrayList<>();
+    //    StringBuilder gebruikerIsToegevoegd = new StringBuilder();
+    @FXML
+    private Label gebruikerIsToegevoegd;
 
     @FXML
     public Label titleLabel;
@@ -31,8 +35,6 @@ public class CreateUpdateUserController {
     public TextField prefixTextfield;
     @FXML
     public TextField surnameTextfield;
-//    @FXML
-//    public TextField rolNameTextfield;
     @FXML
     public TextField passwordTextfield;
     @FXML
@@ -48,7 +50,6 @@ public class CreateUpdateUserController {
     public void setup(User user) {
         if (user == null) {
             titleLabel.setText("Nieuwe user aanmaken");
-            ArrayList<String> rolList = new ArrayList<>();
             rolList.add("Docent");
             rolList.add("Teknisch beherder");
             rolList.add("Student");
@@ -87,10 +88,12 @@ public class CreateUpdateUserController {
             }
         }
     }
+
     @FXML
     public void doMenu(ActionEvent e) {
         Main.getSceneManager().showWelcomeScene(Main.getCurrentUser());
     }
+
     @FXML
     public void doCreateUpdateUser(ActionEvent e) {
         createUser();
@@ -101,6 +104,7 @@ public class CreateUpdateUserController {
                 Alert opgeslagen = new Alert(Alert.AlertType.INFORMATION);
                 opgeslagen.setContentText("User opgeslagen");
                 opgeslagen.show();
+                System.out.println(roleMenuButton.getText());
             } else {
                 int id = Integer.valueOf(userIdTextfield.getText());
                 user.setUserId(id);
@@ -114,27 +118,57 @@ public class CreateUpdateUserController {
     }
 
     private void createUser() {
-        StringBuilder warningText = new StringBuilder();
-        boolean correctInvoer = true;
-        String userRolName = String.valueOf(roleMenuButton.getText());
-        String userName = userNameTextfield.getText();
-        if (userName.isEmpty()) {
+        /*StringBuilder warningText = new StringBuilder();
+        boolean correctInvoer = true;*/
+        if (checkOfAllesingevuldIs()) {
+            String userRolName = String.valueOf(roleMenuButton.getText());
+            String userName = userNameTextfield.getText();
+            String password = passwordTextfield.getText();
+            String name = nameTextfield.getText();
+            String prefix = prefixTextfield.getText();
+            String surname = surnameTextfield.getText();
+            user = new User(userRolName, userName, password, name, prefix, surname);
+
+        }
+
+        /*if (userName.isEmpty()) {
             warningText.append("Je moet user name invullen!!\n");
             correctInvoer = false;
-        }
-        String password = passwordTextfield.getText();
-        String name = nameTextfield.getText();
-        String prefix = prefixTextfield.getText();
-        String surname = surnameTextfield.getText();
-        if (!correctInvoer) {
+        }*/
+
+       /* if (!correctInvoer) {
             Alert foutmelding = new Alert(Alert.AlertType.ERROR);
             foutmelding.setContentText(warningText.toString());
             foutmelding.show();
             user = null;
-        } else {
-            user = new User(userRolName, userName, password, name, prefix, surname);
+        } else {*/
+
+        /*}*/
+    }
+
+    private boolean checkOfAllesingevuldIs() {
+        if (userNameTextfield.getText().equals("")) {
+            gebruikerIsToegevoegd.setText("Je moet een inlognaam invullen!\n");
+            return false;
         }
+        if (nameTextfield.getText().equals("")) {
+            gebruikerIsToegevoegd.setText("Je moet een voornaam invullen!\n");
+            return false;
+        }
+        if (surnameTextfield.getText().equals("")) {
+            gebruikerIsToegevoegd.setText("Je moet een achternaam invullen!\n");
+            return false;
+        }
+        if (passwordTextfield.getText().equals("")) {
+            gebruikerIsToegevoegd.setText("Je moet een wachtwoord invullen!\n");
+            return false;
+        }
+        if (roleMenuButton.getText().equals("Kies rol")) {
+            gebruikerIsToegevoegd.setText("Je moet een rol kiezen!");
+            return false;
+        }
+        return true;
     }
 
 
-}
+    }
