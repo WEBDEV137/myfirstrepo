@@ -45,8 +45,11 @@ public class CreateUpdateGroupController extends AbstractController {
     public void setup(Group group) {
         dbAccess = Main.getDBaccess();
         dbAccess.openConnection();
-        CourseDAO courseDAO = new CourseDAO(dbAccess);
-        UserDAO userDAO = new UserDAO(dbAccess);
+
+        if (group == null) {
+            CourseDAO courseDAO = new CourseDAO(dbAccess);
+            UserDAO userDAO = new UserDAO(dbAccess);
+            titleLabel.setText("Nieuwe groep aanmaken");
             List<Course> allCourses = courseDAO.getAllCourses();
             List<User> allUsers = userDAO.getUsersByRole("docent");
             for (int i = 0; i < allCourses.size(); i++) {
@@ -61,13 +64,12 @@ public class CreateUpdateGroupController extends AbstractController {
                 teacherMenuButton.getItems().add(menuItem);
                 menuItem.setOnAction(e -> setTeachername(teachername));
             }
-        if (group == null) {
-            titleLabel.setText("Nieuwe groep aanmaken");
         } else {
             titleLabel.setText("Groep wijzigen");
+            groupNumberTextfield.setText(String.valueOf(group.getGroupId()));
             groupNameTextfield.setText(group.getGroupName());
-/*            courseMenuButton.getItems();
-            teacherMenuButton.getItems();*/
+            courseMenuButton.setText(String.valueOf(group.getCourseId()));
+            teacherMenuButton.setText(String.valueOf(group.getUserId()));
         }
     }
 
@@ -83,20 +85,19 @@ public void setTeachername(String teachername){
     }
 
 
-    @FXML
+    @FXML // wordt geactiveerd met de save-knop
     public void doCreateUpdateGroup(ActionEvent event) {
         createGroup();
         DBAccess dbAccess = Main.getDBaccess();
-        CourseDAO courseDAO = new CourseDAO(dbAccess);
-        UserDAO userDAO = new UserDAO(dbAccess);
-        if (group != null) {
+        GroupDAO groupDAO = new GroupDAO(dbAccess);
+        if (group != null) { //in geval van groep aanmaken
             if (groupNumberTextfield.getText().equals(("groepnummer"))) {
                 groupDAO.storeGroup(group);
                 groupNumberTextfield.setText(String.valueOf(group.getGroupId()));
                 Alert opgeslagen = new Alert(Alert.AlertType.INFORMATION);
                 opgeslagen.setContentText("Groep opgeslagen");
                 opgeslagen.show();
-            } else {
+            } else { // in geval van groep wijzigen
                 int id = Integer.parseInt(groupNumberTextfield.getText());
                 group.setGroupId(id);
                 groupDAO.updateGroup(group);
@@ -107,20 +108,29 @@ public void setTeachername(String teachername){
         }
     }
 
-
+//
     private void createGroup() {
         StringBuilder warningText = new StringBuilder();
         boolean correcteInvoer = true;
+        UserDAO userDAO = new UserDAO(dbAccess);
+        CourseDAO courseDAO = new CourseDAO(dbAccess);
+        int userId;
+        int courseId;
         String groupName = groupNameTextfield.getText();
-        String cursusId = courseMenuButton.getText();
-        String userId = teacherMenuButton.getText();
-
+        String courseName = courseMenuButton.getText();
+        String userName = teacherMenuButton.getText();
+        userId = userDAO.getUserIdByLoginName(userName);
+        courseId = courseDAO.getCourseIdByName(courseName);
         if (groupName.isEmpty()) {
             warningText.append("Vul een groepnaam in.\n");
             correcteInvoer = false;
         }
-        if (cursusId.isEmpty()) {
-            warningText.append("Kies een cursusnummer.\n");
+        if (courseName.isEmpty()) {
+            warningText.append("Kies een cursusnaam.\n");
+            correcteInvoer = false;
+        }
+        if (userName.isEmpty()) {
+            warningText.append("Kies een docent.\n");
             correcteInvoer = false;
         }
         if (!correcteInvoer) {
@@ -129,7 +139,7 @@ public void setTeachername(String teachername){
             foutmelding.show();
             group = null;
         } else {
-            group = new Group(groupName, Integer.getInteger(cursusId), Integer.getInteger(cursusId));
+            group = new Group(groupName, userId, courseId);
         }
     }
 

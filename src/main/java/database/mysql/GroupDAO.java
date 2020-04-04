@@ -63,13 +63,14 @@ public void deleteGroupByName (String groupName) {
         }
     }
 
-    public void updateGroup(Group group) {
+    public void updateGroup(Group group) { // hier vak niet wijzigen, alleen UPDATE groep SET naam= ? , docentid = ?
         String sql = "UPDATE groep SET naam = ?, docentid = ?, cursusid = ? where id = ?;";
         try {
             PreparedStatement ps = getStatement(sql);
             ps.setString(1, group.getGroupName());
             ps.setInt(2, group.getUserId());
             ps.setInt(3, group.getCourseId());
+            ps.setInt(4, group.getGroupId());
             executeManipulatePreparedStatement(ps);
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());

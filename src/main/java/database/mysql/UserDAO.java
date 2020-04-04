@@ -82,6 +82,25 @@ public class UserDAO extends AbstractDAO{
     }
 
 
+public int getUserIdByLoginName(String userName){
+        int userId = 0;
+        String sql = "SELECT * FROM gebruiker WHERE inlognaam = ?;";
+        try {
+        PreparedStatement preparedStatement = getStatement(sql);
+        preparedStatement.setString(1, userName);
+        ResultSet rs = executeSelectPreparedStatement(preparedStatement);
+        if (rs.next()) {
+            userId = rs.getInt("id");
+        }
+        } catch (SQLException e) {
+        System.out.println("SQL error " + e.getMessage());
+        AbstractController.showAlert("x", "x", "x");
+    }
+        return userId;
+}
+
+
+
     /**
      * om user in database opteslaan.
      * @param user
