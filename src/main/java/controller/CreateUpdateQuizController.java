@@ -10,7 +10,6 @@ import model.Quiz;
 import model.User;
 import view.Main;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -85,7 +84,7 @@ public class CreateUpdateQuizController extends AbstractController {
         System.out.println(course);
         quiz = new Quiz(0,"onbekend", 10 , course.getId());
 
-        int quizId = quizDAO.storeOne(quiz);
+        int quizId = quizDAO.storeOneAndReturnId(quiz);
         System.out.println(quizId);
         quiz.setId(quizId);
         populateCourseMenuButton();
