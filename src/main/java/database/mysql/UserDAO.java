@@ -157,6 +157,45 @@ public class UserDAO extends AbstractDAO implements GenericDAO{
         return allTeachers;
     }
 
+public int getUserIdByLoginName(String userName){
+        int userId = 0;
+        String sql = "SELECT * FROM gebruiker WHERE inlognaam = ?;";
+        try {
+        PreparedStatement preparedStatement = getStatement(sql);
+        preparedStatement.setString(1, userName);
+        ResultSet rs = executeSelectPreparedStatement(preparedStatement);
+        if (rs.next()) {
+            userId = rs.getInt("id");
+        }
+        } catch (SQLException e) {
+        System.out.println("SQL error " + e.getMessage());
+        AbstractController.showAlert("x", "x", "x");
+    }
+        return userId;
+}
+
+
+
+    /**
+     * om user in database opteslaan.
+     * @param user
+     */
+    public void storeUser(User user) {
+        String sql = "Insert into Gebruiker values(DEFAULT,?, ?, ?, ?, ?, ?) ;";
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setString(1, user.getRolName().substring(0,1).toUpperCase() + user.getRolName().substring(1).toLowerCase());
+            ps.setString(2, user.getUserName());
+            ps.setString(3, user.getPassword());
+            ps.setString(4, user.getName().substring(0,1).toUpperCase() + user.getName().substring(1).toLowerCase());
+            ps.setString(5, user.getPrefix());
+            ps.setString(6, user.getSurname());
+            ps.execute();
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+
+
     /**
      * om user te update
      * @param user
