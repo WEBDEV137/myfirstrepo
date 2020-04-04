@@ -178,6 +178,23 @@ public class UserDAO extends AbstractDAO implements GenericDAO {
         return userId;
     }
 
+    public String getUserNameById(int userId){
+        String userName = "";
+        String sql = "SELECT * FROM gebruiker WHERE id = ?;";
+        try {
+            PreparedStatement preparedStatement = getStatement(sql);
+            preparedStatement.setInt(1, userId);
+            ResultSet rs = executeSelectPreparedStatement(preparedStatement);
+            if (rs.next()) {
+                userName = rs.getString("inlognaam");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+            AbstractController.showAlert("x", "x", "x");
+        }
+        return userName;
+    }
+
 
     /**
      * om user in database opteslaan.

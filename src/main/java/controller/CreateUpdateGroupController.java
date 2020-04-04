@@ -45,34 +45,32 @@ public class CreateUpdateGroupController extends AbstractController {
     public void setup(Group group) {
         dbAccess = Main.getDBaccess();
         dbAccess.openConnection();
-
+        CourseDAO courseDAO = new CourseDAO(dbAccess);
+        UserDAO userDAO = new UserDAO(dbAccess);
+        List<Course> allCourses = courseDAO.getAllCourses();
+        List<User> allUsers = userDAO.getUsersByRole("docent");
+        for (int i = 0; i < allCourses.size(); i++) {
+            String coursename = allCourses.get(i).getCoursename();
+            MenuItem menuItem = new MenuItem(coursename);
+            courseMenuButton.getItems().add(menuItem);
+            menuItem.setOnAction(e -> setCoursename(coursename));
+        }
+        for (int ib = 0; ib < allUsers.size(); ib++) {
+            String teachername = allUsers.get(ib).getUserName();
+            MenuItem menuItem = new MenuItem(teachername);
+            teacherMenuButton.getItems().add(menuItem);
+            menuItem.setOnAction(e -> setTeachername(teachername));
+        }
         if (group == null) {
-            CourseDAO courseDAO = new CourseDAO(dbAccess);
-            UserDAO userDAO = new UserDAO(dbAccess);
             titleLabel.setText("Nieuwe groep aanmaken");
-            List<Course> allCourses = courseDAO.getAllCourses();
-            List<User> allUsers = userDAO.getUsersByRole("docent");
-            for (int i = 0; i < allCourses.size(); i++) {
-                String coursename = allCourses.get(i).getCoursename();
-                MenuItem menuItem = new MenuItem(coursename);
-                courseMenuButton.getItems().add(menuItem);
-                menuItem.setOnAction(e -> setCoursename(coursename));
-            }
-            for (int i2 = 0; i2 < allUsers.size(); i2++) {
-                String teachername = allUsers.get(i2).getUserName();
-                MenuItem menuItem = new MenuItem(teachername);
-                teacherMenuButton.getItems().add(menuItem);
-                menuItem.setOnAction(e -> setTeachername(teachername));
-            }
         } else {
             titleLabel.setText("Groep wijzigen");
-            // hier nog code om teachermenubutton te vullen met hele lijst
-            groupNumberTextfield.setText(String.valueOf(group.getGroupId()));
-            groupNameTextfield.setText(group.getGroupName());
-            courseMenuButton.setText(String.valueOf(group.getCourseId()));
-            teacherMenuButton.setText(String.valueOf(group.getUserId()));
+                groupNumberTextfield.setText(String.valueOf(group.getGroupId()));
+                groupNameTextfield.setText(group.getGroupName());
+                courseMenuButton.setText(courseDAO.getCourseNameById(group.getCourseId()));
+                teacherMenuButton.setText(userDAO.getUserNameById(group.getUserId()));
+            }
         }
-    }
 
 
 public void setCoursename(String coursename){
@@ -99,8 +97,8 @@ public void setTeachername(String teachername){
                 opgeslagen.setContentText("Groep opgeslagen");
                 opgeslagen.show();
             } else { // in geval van groep wijzigen
-                int id = Integer.parseInt(groupNumberTextfield.getText());
-                group.setGroupId(id);
+                int groupId = Integer.parseInt(groupNumberTextfield.getText());
+                group.setGroupId(groupId);
                 groupDAO.updateGroup(group);
                 Alert gewijzigd = new Alert(Alert.AlertType.INFORMATION);
                 gewijzigd.setContentText("Groep gewijzigd");

@@ -131,4 +131,23 @@ public class CourseDAO extends AbstractDAO {
         }
         return courseId;
     }
+
+    public String getCourseNameById(int courseId){
+        String courseName = "";
+        String sql = "SELECT * FROM cursus WHERE id = ?;";
+        try {
+            PreparedStatement preparedStatement = getStatement(sql);
+            preparedStatement.setInt(1, courseId);
+            ResultSet rs = executeSelectPreparedStatement(preparedStatement);
+            if (rs.next()) {
+                courseName = rs.getString("naam");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+            AbstractController.showAlert("x", "x", "x");
+        }
+        return courseName;
+    }
+
+
 }
