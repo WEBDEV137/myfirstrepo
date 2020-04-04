@@ -25,12 +25,12 @@ public class LoginController extends AbstractController{
         User user = userDAO.getUserByInlognaam(nameTextField.getText());
         if (user == null || !user.getUserName().equals(nameTextField.getText())){
             Alert verkeerdeInlogGegevens = new Alert(Alert.AlertType.ERROR);
-            verkeerdeInlogGegevens.setContentText("Please een juiste user name invoeren!!!");
+            verkeerdeInlogGegevens.setContentText("Je moet een inlognaam invoeren!!!");
             verkeerdeInlogGegevens.show();
         }
         else if (!user.getPassword().equals(passwordField.getText())){
             Alert verkeerdeInlogGegevens = new Alert(Alert.AlertType.ERROR);
-            verkeerdeInlogGegevens.setContentText("Deze combinatie van user naam / wachtwoord is niet bekend.!");
+            verkeerdeInlogGegevens.setContentText("Deze combinatie van inlognaam / wachtwoord is niet bekend!");
             verkeerdeInlogGegevens.show();
         }
         else{

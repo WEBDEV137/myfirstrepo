@@ -5,10 +5,7 @@ import database.mysql.DBAccess;
 import database.mysql.UserDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import model.Course;
 import model.Group;
 import model.User;
@@ -34,10 +31,12 @@ public class CreateUpdateUserController {
     public TextField prefixTextfield;
     @FXML
     public TextField surnameTextfield;
-    @FXML
-    public TextField rolNameTextfield;
+//    @FXML
+//    public TextField rolNameTextfield;
     @FXML
     public TextField passwordTextfield;
+    @FXML
+    public MenuButton roleMenuButton;
 
     public CreateUpdateUserController() {
         super();
@@ -46,7 +45,48 @@ public class CreateUpdateUserController {
 
     }
 
-
+    public void setup(User user) {
+        if (user == null) {
+            titleLabel.setText("Nieuwe user aanmaken");
+            ArrayList<String> rolList = new ArrayList<>();
+            rolList.add("Docent");
+            rolList.add("Teknisch beherder");
+            rolList.add("Student");
+            rolList.add("Administrator");
+            rolList.add("Coordinator");
+            for (int i = 0; i < rolList.size(); i++) {
+                String rolName = rolList.get(i);
+                MenuItem menuItem = new MenuItem(String.valueOf(rolName));
+                roleMenuButton.getItems().add(menuItem);
+                menuItem.setOnAction(event -> {
+                    roleMenuButton.setText(rolName);
+                });
+            }
+        } else {
+            titleLabel.setText("Update user");
+            userIdTextfield.setText(String.valueOf(user.getUserId()));
+            roleMenuButton.setText(String.valueOf(user.getRolName()));
+            userNameTextfield.setText(user.getUserName());
+            passwordTextfield.setText(user.getPassword());
+            nameTextfield.setText(user.getName());
+            prefixTextfield.setText(user.getPrefix());
+            surnameTextfield.setText(user.getSurname());
+            ArrayList<String> rolList = new ArrayList<>();
+            rolList.add("Docent");
+            rolList.add("Teknisch beherder");
+            rolList.add("Student");
+            rolList.add("Administrator");
+            rolList.add("Coordinator");
+            for (int i = 0; i < rolList.size(); i++) {
+                String rolName = rolList.get(i);
+                MenuItem menuItem = new MenuItem(String.valueOf(rolName));
+                roleMenuButton.getItems().add(menuItem);
+                menuItem.setOnAction(event -> {
+                    roleMenuButton.setText(rolName);
+                });
+            }
+        }
+    }
     @FXML
     public void doMenu(ActionEvent e) {
         Main.getSceneManager().showWelcomeScene(Main.getCurrentUser());
@@ -73,32 +113,10 @@ public class CreateUpdateUserController {
 
     }
 
-    public void setup(User user) {
-        if (user == null) {
-            titleLabel.setText("Nieuwe user");
-            userIdTextfield.getText();
-            userNameTextfield.setText("");
-            nameTextfield.setText("");
-            prefixTextfield.setText("");
-            surnameTextfield.setText("");
-            rolNameTextfield.setText("");
-            passwordTextfield.setText("");
-        } else {
-            titleLabel.setText("Update user");
-            userIdTextfield.setText(String.valueOf(user.getUserId()));
-            rolNameTextfield.setText(user.getRolName());
-            userNameTextfield.setText(user.getUserName());
-            passwordTextfield.setText(user.getPassword());
-            nameTextfield.setText(user.getName());
-            prefixTextfield.setText(user.getPrefix());
-            surnameTextfield.setText(user.getSurname());
-        }
-    }
-
     private void createUser() {
         StringBuilder warningText = new StringBuilder();
         boolean correctInvoer = true;
-        String rolName = rolNameTextfield.getText();
+        String userRolName = String.valueOf(roleMenuButton.getText());
         String userName = userNameTextfield.getText();
         if (userName.isEmpty()) {
             warningText.append("Je moet user name invullen!!\n");
@@ -114,7 +132,9 @@ public class CreateUpdateUserController {
             foutmelding.show();
             user = null;
         } else {
-            user = new User(rolName, userName, password, name, prefix, surname);
+            user = new User(userRolName, userName, password, name, prefix, surname);
         }
     }
+
+
 }

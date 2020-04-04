@@ -51,12 +51,12 @@ public class CreateUpdateCourseController {
                 MenuItem menuItem = new MenuItem(String.valueOf(coordinatorid));
                 coordinatorIdTextfield.getItems().add(menuItem);
                 menuItem.setOnAction(event -> setCoordinatorid(coordinatorid));
-
             }
         } else {
             titleLabel.setText("Beheer cursus");
             cursusnummerTextfield.setText(String.valueOf(course.getId()));
             cursusnaamTextfield.setText(course.getCoursename());
+
             coordinatorIdTextfield.setText(String.valueOf(course.getCoordinatorid()));
         }
     }
