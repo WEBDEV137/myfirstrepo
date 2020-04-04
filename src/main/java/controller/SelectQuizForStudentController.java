@@ -9,6 +9,7 @@ import model.Question;
 import model.Quiz;
 import model.User;
 import view.Main;
+import view.SceneManager;
 
 import java.util.ArrayList;
 
@@ -28,17 +29,24 @@ public class SelectQuizForStudentController extends AbstractController {
         quizDAO = new QuizDAO(dbAccess);
         quizzes = quizDAO.getAllByUserId(user.getUserId());
 
+        populateListView(quizList, quizzes);
+     }
 
 
-       // populateListView(quizList, quizzes);
-        for (Quiz quiz : quizzes) {
-            System.out.println(quiz);
-            quizList.getItems().add(quiz);
-        }
+    public void doMenu() {
+        Main.getSceneManager().showWelcomeScene(user);
     }
 
-
-    public void doMenu() {}
-
-    public void doQuiz() {}
+    public void doQuiz() {
+       Quiz selectedQuiz = quizList.getSelectionModel().getSelectedItem();
+        Main.getSceneManager().showFillOutQuiz(selectedQuiz);
+    }
+/*    @FXML
+    public void doAddQuestionToQuiz() {
+        Question selectedQuestion = availableQuestions.getSelectionModel().getSelectedItem();
+        if (selectedQuestion != null) {
+            selectedQuestions.getItems().add(selectedQuestion); //Listview
+            selectedQuizQuestions.add(selectedQuestion); //chosen questions arraylist
+            availableQuizQuestions.remove(selectedQuestion); //Listview
+            availableQuestions.getItems().remove(selectedQuestion); // available questions arraylist*/
 }
