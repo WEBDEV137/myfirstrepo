@@ -48,7 +48,6 @@ public class CreateUpdateQuizController extends AbstractController {
         courseDAO = new CourseDAO(dbAccess);
         quizQuestionDAO = new QuizQuestionDAO(dbAccess);
 
-
         if (quiz != null) {
             setupUpdateQuiz();
         } else {
@@ -63,9 +62,12 @@ public class CreateUpdateQuizController extends AbstractController {
         allQuizQuestions = null;
         allQuizQuestions = questionDAO.getAllQuestionsByQuizId(quiz.getId());
 
-        populateLeftListView();
-        populateAvailableQuizQuestionsList();
-        populateRightListView();
+
+      populateLeftListView();
+        populateListView(selectedQuestions, selectedQuizQuestions);
+        //populateAvailableQuizQuestionsList();
+        populateListView(availableQuestions, availableQuizQuestions);
+        //populateRightListView();
         populateCourseMenuButton();
 
     }

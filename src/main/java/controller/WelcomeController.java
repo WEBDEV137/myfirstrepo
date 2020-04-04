@@ -40,6 +40,8 @@ public class WelcomeController {
     }
 
     public void doLogout() {
+        Main.getDBaccess().closeConnection();
+        System.out.println("Connection closed");
         Main.getSceneManager().showLoginScene();
     }
 

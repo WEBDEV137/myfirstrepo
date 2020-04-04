@@ -29,7 +29,6 @@ public class QuestionDAO extends AbstractDAO{
                 int quizId = resultSet.getInt("quizid");
                 question = new Question(quizQuestion);
                 result.add(question);
-                System.out.println(question);
             }
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());

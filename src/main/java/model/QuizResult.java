@@ -1,3 +1,13 @@
 package model;
 
-public class QuizResult {}
+import java.util.List;
+
+public class QuizResult {
+    private User user;
+    private Course course;
+    private Quiz quiz;
+    private List<Question> questions;
+
+
+
+}
