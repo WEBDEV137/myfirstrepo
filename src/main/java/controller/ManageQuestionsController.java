@@ -2,15 +2,11 @@ package controller;
 
 import database.mysql.DBAccess;
 import database.mysql.QuestionDAO;
-import database.mysql.UserDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.*;
-import javafx.stage.Modality;
 import model.Question;
-import model.QuizResult;
-import model.User;
 import view.Main;
 
 import java.util.List;
@@ -26,7 +22,7 @@ public class ManageQuestionsController {
 
     public void setup() {
         this.questionDAO = new QuestionDAO(Main.getDBaccess());
-        List<Question> questionList = questionDAO.getQuestionList();
+        List<Question> questionList = questionDAO.getAll();
         for (Question question :
                 questionList) {
             this.questionList.getItems().add(question);

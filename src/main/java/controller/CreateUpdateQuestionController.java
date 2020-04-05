@@ -1,7 +1,6 @@
 package controller;
 
 import database.mysql.QuestionDAO;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import model.Question;
@@ -54,7 +53,7 @@ public class CreateUpdateQuestionController {
     public void doCreateUpdateQuestion() {
         createQuestion();
         if (selectedQuestion == null) {
-                questionDAO.addOneByQuestionText(newQuestion.toString());
+                questionDAO.storeOne(newQuestion);
                 Alert stored = new Alert(Alert.AlertType.INFORMATION);
                 stored.setContentText("Vraag opgeslagen");
                 stored.show();

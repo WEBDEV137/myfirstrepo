@@ -178,7 +178,6 @@ public class UserDAO extends AbstractDAO implements GenericDAO {
         return userId;
     }
 
-
     /**
      * om user in database opteslaan.
      *
@@ -200,41 +199,43 @@ public class UserDAO extends AbstractDAO implements GenericDAO {
         }
     }
 
-
-        /**
-         * om user te update
-         * @param user
-         */
-        public void updateUser (User user){
-            String sql = "Update Gebruiker Set rol = ?, inlognaam = ?, wachtwoord = ?, voornaam = ?, tussenvoegsels = ?, achternaam = ? where id = ?;";
-            try {
-                PreparedStatement ps = getStatement(sql);
-                ps.setString(1, user.getRolName().substring(0, 1).toUpperCase() + user.getRolName().substring(1).toLowerCase());
-                ps.setString(2, user.getUserName());
-                ps.setString(3, user.getPassword());
-                ps.setString(4, user.getName().substring(0, 1).toUpperCase() + user.getName().substring(1).toLowerCase());
-                ps.setString(5, user.getPrefix());
-                ps.setString(6, user.getSurname());
-                ps.setInt(7, user.getUserId());
-                executeManipulatePreparedStatement(ps);
-            } catch (SQLException e) {
-                System.out.println("SQL error " + e.getMessage());
-            }
-        }
-
-        /**
-         * om user te werwijderen.
-         * @param user
-         */
-        public void deleteUser (User user){
-            String sql = "DELETE FROM gebruiker WHERE id = ?;";
-            try {
-                PreparedStatement ps = getStatement(sql);
-                ps.setInt(1, user.getUserId());
-                ps.executeUpdate();
-            } catch (SQLException e) {
-                System.out.println("SQL Error " + e.getMessage());
-            }
+    /**
+     * om user te update
+     *
+     * @param user
+     */
+    public void updateUser(User user) {
+        String sql = "Update Gebruiker Set rol = ?, inlognaam = ?, wachtwoord = ?, voornaam = ?, tussenvoegsels = ?, achternaam = ? where id = ?;";
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setString(1, user.getRolName().substring(0, 1).toUpperCase() + user.getRolName().substring(1).toLowerCase());
+            ps.setString(2, user.getUserName());
+            ps.setString(3, user.getPassword());
+            ps.setString(4, user.getName().substring(0, 1).toUpperCase() + user.getName().substring(1).toLowerCase());
+            ps.setString(5, user.getPrefix());
+            ps.setString(6, user.getSurname());
+            ps.setInt(7, user.getUserId());
+            executeManipulatePreparedStatement(ps);
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
         }
     }
 
+    /**
+     * om user te werwijderen.
+     *
+     * @param user
+     */
+    public void deleteUser(User user) {
+        String sql = "DELETE FROM gebruiker WHERE id = ?;";
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setInt(1, user.getUserId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("SQL Error " + e.getMessage());
+        }
+
+    }
+
+}

@@ -3,6 +3,7 @@ package database.mysql;
 
 import controller.AbstractController;
 import model.Course;
+import model.Group;
 import model.Quiz;
 import model.User;
 
@@ -115,6 +116,18 @@ public class CourseDAO extends AbstractDAO {
         return courses;
     }
 
+    public void deleteCourse(Course course){
+        System.out.println("verwijder cursus");
+        String sql = "DELETE FROM cursus WHERE id = ?;";
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setInt(1, course.getId());
+            ps.executeUpdate();
+        } catch (SQLException e){
+            System.out.println("SQL Error "+e.getMessage());
+        }
+
+    }
     public int getCourseIdByName(String courseName){
         int courseId = 0;
         String sql = "SELECT * FROM cursus WHERE naam = ?;";

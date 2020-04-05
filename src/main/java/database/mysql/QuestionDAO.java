@@ -10,15 +10,34 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuestionDAO extends AbstractDAO{
+public class QuestionDAO extends AbstractDAO implements GenericDAO<Question>{
     // Constructor
     public QuestionDAO(DBAccess dbAccess) {
         super(dbAccess);
     }
 
-    public List<Question> getQuestionList() {
+
+    public Question getOneById(int id) {
+        String query = "SELECT * FROM Vraag WHERE id = ?;";
+        Question question = null;
+        try {
+            PreparedStatement preparedStatement = getStatement(query);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = super.executeSelectPreparedStatement(preparedStatement);
+            int questionId = resultSet.getInt("id");
+            String quizQuestion = resultSet.getString("tekst");
+            int quizId = resultSet.getInt("quizid");
+            question = new Question(questionId, quizQuestion, quizId);
+            System.out.println(question);
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+        return question;
+    }
+
+    public ArrayList<Question> getAll() {
         String query = "SELECT * FROM Vraag;";
-        List<Question> result = new ArrayList<>();
+        ArrayList<Question> result = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = getStatement(query);
             ResultSet resultSet = super.executeSelectPreparedStatement(preparedStatement);
@@ -27,7 +46,7 @@ public class QuestionDAO extends AbstractDAO{
                 int questionId = resultSet.getInt("id");
                 String quizQuestion = resultSet.getString("tekst");
                 int quizId = resultSet.getInt("quizid");
-                question = new Question(quizQuestion);
+                question = new Question(questionId, quizQuestion, quizId);
                 result.add(question);
             }
         } catch (SQLException e) {
@@ -81,26 +100,7 @@ public class QuestionDAO extends AbstractDAO{
 
 
     }
-    public ArrayList<Question> getAll () {
-        String query = "SELECT * FROM vraag; ";
-        ArrayList<Question> questions = null;
-        try {
-            PreparedStatement preparedStatement = getStatement(query);
-            ResultSet resultSet = executeSelectPreparedStatement(preparedStatement);
-            while (resultSet.next()) {
-                if (questions == null) {
-                    questions = new ArrayList<>();
-                }
-                int id = resultSet.getInt("id");
-                String tekst = resultSet.getString("tekst");
-                int quizId = resultSet.getInt("quizid");
-                questions.add(new Question(id, tekst, quizId));
-            }
-        } catch (SQLException e) {
-            System.out.println("SQL error " + e.getMessage());
-        }
-        return questions;
-    }
+
 
     public void removeOneByQuestionText (String questionText) {
         String query = " DELETE FROM vraag WHERE tekst = ?;";
@@ -113,11 +113,11 @@ public class QuestionDAO extends AbstractDAO{
         }
     }
 
-    public void addOneByQuestionText (String questionText) {
+    public void storeOne(Question question) {
         String query = "INSERT INTO vraag VALUES (DEFAULT, ?, NULL);";
         try {
             PreparedStatement preparedStatement = getStatement(query);
-            preparedStatement.setString(1,questionText);
+            preparedStatement.setString(1,question.getQuestionText());
             preparedStatement.execute();
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
