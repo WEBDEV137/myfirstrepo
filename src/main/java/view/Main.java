@@ -5,14 +5,17 @@ package view;
 // Met dit programma kunnen gebruikers alles omtrent cursussen beheren.
 
 import database.mysql.DBAccess;
+import database.mysql.QuizDAO;
 import javafx.application.Application;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Quiz;
 import model.User;
 
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 public class Main extends Application {
     //CONSTANTS
@@ -33,8 +36,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        launch(args);
-    }
+        launch(args); }
 
     /**
      * Deze methode geeft het DBAccess object terug als die al is aangemaakt. Anders wordt die eerste aangemaakt en dan

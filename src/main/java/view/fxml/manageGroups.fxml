@@ -16,22 +16,22 @@
         </font>
     </Label>
     <ListView fx:id="groupList" layoutX="14.0" layoutY="78.0" prefHeight="200.0" prefWidth="281.0" />
-    <Button layoutX="14.0" layoutY="288.0" mnemonicParsing="false" onAction="#doCreateGroup" text="Nieuw">
+    <Button fx:id="newGroupButton" layoutX="14.0" layoutY="288.0" mnemonicParsing="false" onAction="#doCreateGroup" text="Nieuw">
         <font>
             <Font size="14.0" />
         </font>
     </Button>
-    <Button layoutX="119.0" layoutY="288.0" mnemonicParsing="false" onAction="#doUpdateGroup" text="Wijzig">
+    <Button fx:id="updateGroupButton" layoutX="119.0" layoutY="288.0" mnemonicParsing="false" onAction="#doUpdateGroup" text="Wijzig">
         <font>
             <Font size="14.0" />
         </font>
     </Button>
-    <Button layoutX="217.0" layoutY="288.0" mnemonicParsing="false" onAction="#doDeleteGroup" text="Verwijder">
+    <Button fx:id="deleteGroupButton" layoutX="217.0" layoutY="288.0" mnemonicParsing="false" onAction="#doDeleteGroup" text="Verwijder">
         <font>
             <Font size="14.0" />
         </font>
     </Button>
-    <Button layoutX="14.0" layoutY="329.0" mnemonicParsing="false" onAction="#doMenu" text="Menu">
+    <Button fx:id="doMenuButton" layoutX="14.0" layoutY="329.0" mnemonicParsing="false" onAction="#doMenu" text="Menu">
         <font>
             <Font size="14.0" />
         </font>

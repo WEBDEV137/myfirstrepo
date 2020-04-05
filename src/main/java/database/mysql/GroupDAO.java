@@ -39,39 +39,38 @@ public class GroupDAO extends AbstractDAO {
     }
 
 
-    public void deleteGroup(Group group){
-        System.out.println("verwijder groep");
-        String sql = "DELETE FROM groep WHERE naam = ?;";
-        try {
-            PreparedStatement ps = this.getStatement(sql);
-            ps.setString(1, String.valueOf(group));
-            ps.executeUpdate();
-        } catch (SQLException e){
-            System.out.println("SQL Error "+e.getMessage());
-        }
-
+public void deleteGroupByName (String groupName) {
+    String sql = "DELETE FROM groep WHERE naam = ?;";
+    try {
+        PreparedStatement preparedStatement = getStatement(sql);
+        preparedStatement.setString(1, groupName);
+        preparedStatement.execute();
+    } catch (SQLException foutmelding) {
+        System.out.println("SQL error "+ foutmelding.getMessage());
     }
+}
 
     public void storeGroup(Group group) {
         String sql = "INSERT INTO groep VALUES(DEFAULT, ?, ?, ?);";
         try {
             PreparedStatement ps = getStatement(sql);
             ps.setString(1, group.getGroupName());
-            ps.setInt(2, group.getUser().getUserId());
-            ps.setInt(3, group.getCourse().getId());
+            ps.setInt(2, group.getUserId());
+            ps.setInt(3, group.getCourseId());
             ps.execute();
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
         }
     }
 
-    public void updateGroup(Group group) {
+    public void updateGroup(Group group) { // hier vak niet wijzigen, alleen UPDATE groep SET naam= ? , docentid = ?
         String sql = "UPDATE groep SET naam = ?, docentid = ?, cursusid = ? where id = ?;";
         try {
             PreparedStatement ps = getStatement(sql);
             ps.setString(1, group.getGroupName());
-            ps.setInt(2, group.getUser().getUserId());
-            ps.setInt(3, group.getCourse().getId());
+            ps.setInt(2, group.getUserId());
+            ps.setInt(3, group.getCourseId());
+            ps.setInt(4, group.getGroupId());
             executeManipulatePreparedStatement(ps);
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());

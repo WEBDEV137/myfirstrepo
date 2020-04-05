@@ -6,23 +6,24 @@ public class Group {
     //variabelen
 private int groupId;
 private String groupName;
-private Course course;
-private User user; //dit is de docent
+private int userId; //dit is de docent
+private int courseId;
 private ArrayList<User> studenten; //dit zijn de studenten
 
     // all args constructor
-    public Group(int groupId, String groupName, int cursusId, int userId) {
+    public Group(int groupId, String groupName, int userId, int courseId) {
         this.groupId = groupId;
         this.groupName = groupName;
-        course = new Course(cursusId, "Vul in", 0);
-        user = new User(String.valueOf(userId), "Vul in", "Vul in", "Vul in", "Vul in", "Vul in");
+        this.userId = userId;
+        this.courseId = courseId;
         studenten = new ArrayList<>();
     }
 
-    public Group(String groupName, int cursusId, int userId) {
+    // constructor zonder id. chainen?
+    public Group(String groupName, int userId, int courseId) {
         this.groupName = groupName;
-        course = new Course(cursusId, "Vul in", 0);
-        user = new User(String.valueOf(userId), "Vul in", "Vul in", "Vul in", "Vul in", "Vul in");
+        this.userId = userId;
+        this.courseId = courseId;
         studenten = new ArrayList<>();
     }
 
@@ -44,20 +45,20 @@ private ArrayList<User> studenten; //dit zijn de studenten
         this.groupName = groupName;
     }
 
-    public Course getCourse() {
-        return course;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setCourse(Course course) {
-        this.course = course;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public User getUser() {
-        return user;
+    public int getCourseId() {
+        return courseId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
     }
 
     //toString
