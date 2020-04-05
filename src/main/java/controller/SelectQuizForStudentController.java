@@ -19,7 +19,6 @@ public class SelectQuizForStudentController extends AbstractController {
     private QuizDAO quizDAO;
     ArrayList<Quiz> quizzes;
 
-
     @FXML
     ListView<Quiz> quizList;
 
@@ -32,7 +31,6 @@ public class SelectQuizForStudentController extends AbstractController {
         populateListView(quizList, quizzes);
      }
 
-
     public void doMenu() {
         Main.getSceneManager().showWelcomeScene(user);
     }
@@ -41,12 +39,4 @@ public class SelectQuizForStudentController extends AbstractController {
        Quiz selectedQuiz = quizList.getSelectionModel().getSelectedItem();
         Main.getSceneManager().showFillOutQuiz(selectedQuiz);
     }
-/*    @FXML
-    public void doAddQuestionToQuiz() {
-        Question selectedQuestion = availableQuestions.getSelectionModel().getSelectedItem();
-        if (selectedQuestion != null) {
-            selectedQuestions.getItems().add(selectedQuestion); //Listview
-            selectedQuizQuestions.add(selectedQuestion); //chosen questions arraylist
-            availableQuizQuestions.remove(selectedQuestion); //Listview
-            availableQuestions.getItems().remove(selectedQuestion); // available questions arraylist*/
 }

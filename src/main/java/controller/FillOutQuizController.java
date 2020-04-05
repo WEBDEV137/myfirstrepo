@@ -1,28 +1,33 @@
 package controller;
 
+import database.mysql.AnswerDAO;
 import database.mysql.DBAccess;
 import database.mysql.QuestionDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
-import model.Question;
-import model.Quiz;
-import model.User;
+import model.*;
 import view.Main;
 
 import java.util.*;
 
 public class FillOutQuizController{
-    private User user;
+
     private DBAccess dbAccess;
     private QuestionDAO questionDAO;
+    private AnswerDAO answerDAO;
+    private QuestionResult questionResult;
+    private User user;
     private Quiz quiz;
-    private  Question currentQuestion;
+    private Question currentQuestion;
     private List<Question> questions;
-    private  int questionNumber;
+    private List<Answer> answers;
+    private int questionNumber;
     private int questionIndex;
-
-
+    private String answerA;
+    private String answerB;
+    private String answerC;
+    private String answerD;
 
     @FXML
     private Label titleLabel;
@@ -38,16 +43,32 @@ public class FillOutQuizController{
         questionIndex = 0;
         questionNumber = 1;
 
-        doCurrenQuestion();
+        showFirstQuestion();
+        getAnswersByQuestionId();
+        setAnswersInQuestionResult();
+        questionResult.setQuestionText(currentQuestion.getQuestionText());
     }
-    public void doCurrenQuestion(){
+    private void showFirstQuestion(){
         if(questions.get(questionIndex) != null){
             currentQuestion = questions.get(questionIndex);
             questionArea.setText(currentQuestion.getQuestionText());
             titleLabel.setText(String.format("Vraag %d", questionNumber));
         }
     }
+    private void getAnswersByQuestionId(){
+        dbAccess = Main.getDBaccess();
+        answerDAO = new AnswerDAO(dbAccess);
+        QuestionResult questionResult = new QuestionResult();
+        answers = answerDAO.getAllByQuestionId(currentQuestion.getQuestionID());
 
+
+    }
+    private void setAnswersInQuestionResult() {
+        questionResult.setRightAnswer(answers.get(0).getText());
+        questionResult.setWrongAnswer1(answers.get(1).getText());
+        questionResult.setWrongAnswer1(answers.get(2).getText());
+        questionResult.setWrongAnswer1(answers.get(3).getText());
+    }
 
     public void doNextQuestion() {
         questionIndex++;
@@ -65,18 +86,26 @@ public class FillOutQuizController{
     }
 
     public void doPreviousQuestion() {
-
-            if (questionIndex > 0) {
-            questionIndex --;
+        if (questionIndex > 0) {
+            questionIndex--;
             questionNumber--;
             currentQuestion = questions.get(questionIndex);
             questionArea.setText(currentQuestion.getQuestionText());
             titleLabel.setText(String.format("Vraag %d", questionNumber));
         }
-        else{
-
-        }
     }
+
+    public ArrayList<String> randomizeAnswers(){
+        int index = answers.size()-1;
+        ArrayList<String> randomAnswers = new ArrayList<>();
+        while(index >=0 ) {
+            int randomNumber = ((int)Math.random() * index);
+            String answerToshuffle = answers.get(randomNumber).getText();
+            randomAnswers.add(answerToshuffle);
+            index--;
+        }return randomAnswers;
+    }
+
     public void doRegisterA() {
     }
 
@@ -96,7 +125,7 @@ public class FillOutQuizController{
     }
     /**
      * Confirmation dialogue
-     * do you want to Delete quiz?
+     * do you want to Leave Quiz?
      */
     public void doGoMenuConfirmation() {
             String ARE_YOU_SURE = "U gaat de quiz verlaten";

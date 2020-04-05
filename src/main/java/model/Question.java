@@ -9,11 +9,6 @@ public class Question {
     private int questionID;
     private int quizID;
 
-
-//    public Question(String rightAnswer) {
-//        this.rightAnswer = rightAnswer;
-//    }
-
     public Question(String questionText) {
         this.questionText = questionText;
     }
@@ -26,8 +21,6 @@ public class Question {
         this.wrongAnswer3 = wrongAnswer3;
     }
 
-
-    //Toms Constructor
     public Question(int id, String text, int quizId) {
         this.questionID = id;
         this.questionText = text;
