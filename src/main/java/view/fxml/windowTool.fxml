@@ -22,8 +22,4 @@
             </font>
         </Button>
         <MenuButton fx:id="screenMenuButton" layoutX="372.0" layoutY="217.0" mnemonicParsing="false" text="Spring naar scherm" />
-   <ImageView fitHeight="226.0" fitWidth="374.0" layoutX="252.0" layoutY="311.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@../../../../../resources/Logo_Code_Craft.jpg" />
-      </image></ImageView>
 </AnchorPane>

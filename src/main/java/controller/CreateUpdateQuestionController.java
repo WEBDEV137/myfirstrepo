@@ -25,6 +25,13 @@ public class CreateUpdateQuestionController {
     @FXML
     Question selectedQuestion;
 
+    public void setup(Question question) {
+        titleLabel.setText("Wijzig vraag");
+        createUpdateQuestionButton.setText("Wijzig vraag");
+        aanTePassenVraagTextfield.setText(question.toString());
+        selectedQuestion = question;
+    }
+
     private void createQuestion(){
         String newQuestion = nieuweVraagTextField.getText();
         if (newQuestion.isEmpty()) {
@@ -34,20 +41,6 @@ public class CreateUpdateQuestionController {
             return;
         }
         this.newQuestion = new Question(newQuestion);
-    }
-
-    public void setup(Question question) {
-        titleLabel.setText("Wijzig vraag");
-        createUpdateQuestionButton.setText("Wijzig vraag");
-        aanTePassenVraagTextfield.setText(question.toString());
-        selectedQuestion = question;
-    }
-
-    public void doMenu() { Main.getSceneManager().showWelcomeScene(Main.getCurrentUser());}
-
-    @FXML
-    public void doBackToManage() {
-        Main.getSceneManager().showManageQuestionsScene();
     }
 
     public void doCreateUpdateQuestion() {
@@ -64,4 +57,11 @@ public class CreateUpdateQuestionController {
             updated.show();
         }
     }
+
+    @FXML
+    public void doBackToManage() {
+        Main.getSceneManager().showManageQuestionsScene();
+    }
+
+    public void doMenu() { Main.getSceneManager().showWelcomeScene(Main.getCurrentUser());}
 }
