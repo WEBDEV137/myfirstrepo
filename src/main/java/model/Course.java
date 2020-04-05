@@ -7,11 +7,13 @@ package model;
         private int id;
         private String coursename;
         private int coordinatorid;
+        private User user;
 
         public Course (int id, String coursename, int coordinatorid) {
             this.id = id;
             this.coursename = coursename;
             this.coordinatorid = coordinatorid;
+            this.user = user;
         }
 
         public Course (String coursename, int coordinatorid){

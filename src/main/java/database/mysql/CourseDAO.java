@@ -116,7 +116,6 @@ public class CourseDAO extends AbstractDAO {
         return courses;
     }
 
-<<<<<<< HEAD
     public void deleteCourse(Course course){
         System.out.println("verwijder cursus");
         String sql = "DELETE FROM cursus WHERE id = ?;";
@@ -129,9 +128,6 @@ public class CourseDAO extends AbstractDAO {
         }
 
     }
-
-=======
->>>>>>> c2f1345f2caf1dd78f23cda28f8212969b0e88e2
     public int getCourseIdByName(String courseName){
         int courseId = 0;
         String sql = "SELECT * FROM cursus WHERE naam = ?;";
