@@ -64,6 +64,7 @@ public class ManageUsersController {
         } else {
             UserDAO userDAO = new UserDAO(Main.getDBaccess());
             userDAO.deleteUser(user);
+            Main.getSceneManager().showManageUserScene();
             Alert verwijder = new Alert(Alert.AlertType.INFORMATION);
             verwijder.setContentText("User is verwijderd.");
             verwijder.show();

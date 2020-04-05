@@ -101,14 +101,16 @@ public class CreateUpdateUserController {
             if (userIdTextfield.getText().equals(("userId"))) {
                 udao.storeOne(user);
                 userIdTextfield.setText(String.valueOf(user.getUserId()));
+                Main.getSceneManager().showCreateUpdateUserScene(null);
                 Alert opgeslagen = new Alert(Alert.AlertType.INFORMATION);
                 opgeslagen.setContentText("User opgeslagen");
                 opgeslagen.show();
-                System.out.println(roleMenuButton.getText());
+
             } else {
                 int id = Integer.valueOf(userIdTextfield.getText());
                 user.setUserId(id);
                 udao.updateUser(user);
+                Main.getSceneManager().showCreateUpdateUserScene(null);
                 Alert gewijzigd = new Alert(Alert.AlertType.INFORMATION);
                 gewijzigd.setContentText("User gewijzigd");
                 gewijzigd.show();
@@ -128,7 +130,6 @@ public class CreateUpdateUserController {
             String prefix = prefixTextfield.getText();
             String surname = surnameTextfield.getText();
             user = new User(userRolName, userName, password, name, prefix, surname);
-
         }
 
         /*if (userName.isEmpty()) {
