@@ -179,7 +179,11 @@ public class UserDAO extends AbstractDAO implements GenericDAO {
     }
 
     /**
+<<<<<<< HEAD
      * om user in database opteslaan.
+=======
+     * om user te update
+>>>>>>> emrullah
      *
      * @param user
      */
@@ -199,6 +203,7 @@ public class UserDAO extends AbstractDAO implements GenericDAO {
         }
     }
 
+<<<<<<< HEAD
 
         /**
          * om user te update
@@ -234,6 +239,21 @@ public class UserDAO extends AbstractDAO implements GenericDAO {
             } catch (SQLException e) {
                 System.out.println("SQL Error " + e.getMessage());
             }
+=======
+    /**
+     * om user te werwijderen.
+     *
+     * @param user
+     */
+    public void deleteUser(User user) {
+        String sql = "DELETE FROM gebruiker WHERE id = ?;";
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setInt(1, user.getUserId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("SQL Error " + e.getMessage());
+>>>>>>> emrullah
         }
     }
 

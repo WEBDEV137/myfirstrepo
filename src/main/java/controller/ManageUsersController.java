@@ -16,7 +16,6 @@ import java.util.List;
 public class ManageUsersController {
     private UserDAO udao;
     private DBAccess db;
-//    private User user;
 
     @FXML
     ListView<User> userList;
@@ -29,8 +28,8 @@ public class ManageUsersController {
 
     public void setup() {
         this.udao = new UserDAO(Main.getDBaccess());
-        List<User> allCustomers = udao.getAll();
-        for (User u : allCustomers) {
+        List<User> allUsers = udao.getAll();
+        for (User u : allUsers) {
             userList.getItems().add(u);
         }
     }
@@ -38,7 +37,6 @@ public class ManageUsersController {
     @FXML
     public void doMenu(ActionEvent e) {
         Main.getSceneManager().showWelcomeScene(Main.getCurrentUser());
-//        Main.getSceneManager().setWindowTool();
     }
     @FXML
     public void doCreateUser(ActionEvent e) {
@@ -66,6 +64,7 @@ public class ManageUsersController {
         } else {
             UserDAO userDAO = new UserDAO(Main.getDBaccess());
             userDAO.deleteUser(user);
+            Main.getSceneManager().showManageUserScene();
             Alert verwijder = new Alert(Alert.AlertType.INFORMATION);
             verwijder.setContentText("User is verwijderd.");
             verwijder.show();
