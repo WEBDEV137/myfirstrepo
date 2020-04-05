@@ -54,7 +54,6 @@ public class Main extends Application {
      *Deze methode wordt automatisch gestart
      *
      */
-
     @Override
     public void start(Stage primaryStage) {
         Main.primaryStage = primaryStage;

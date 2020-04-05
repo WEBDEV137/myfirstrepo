@@ -41,7 +41,12 @@ public class AnswerDAO extends AbstractDAO {
                 else { answers.add(answer);
                 }
             }
-            answers.set(0, rightAnswer);
+            if (!rightAnswer.isRightAnswer()) {
+                System.out.println("No right answer for this question! id: " + questionId);
+            }
+            else{
+                answers.add(0, rightAnswer);
+                }
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
         } return answers;

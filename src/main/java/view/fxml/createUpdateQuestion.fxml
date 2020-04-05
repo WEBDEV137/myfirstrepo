@@ -5,7 +5,7 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateUpdateQuestionController">
-   <Button fx:id="createUpdateQuestionButton" layoutX="47.0" layoutY="288.0" mnemonicParsing="false" text="Voeg vraag  toe" onAction="#doCreateUpdateQuestion">
+   <Button fx:id="createUpdateQuestionButton" layoutX="47.0" layoutY="288.0" mnemonicParsing="false" onAction="#doCreateUpdateQuestion" text="Voeg vraag  toe">
       <font>
          <Font size="14.0" />
       </font></Button>
