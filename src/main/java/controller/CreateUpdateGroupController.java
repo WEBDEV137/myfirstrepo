@@ -130,12 +130,8 @@ public void setTeachername(String teachername){
             warningText.append("Vul een groepnaam in.\n");
             correcteInvoer = false;
         }
-        if (courseName.isEmpty()) {
+        if ("Kies cursus".equals(courseMenuButton));{
             warningText.append("Kies een cursusnaam.\n");
-            correcteInvoer = false;
-        }
-        if (userName.isEmpty()) {
-            warningText.append("Kies een docent.\n");
             correcteInvoer = false;
         }
         if (!correcteInvoer) {
