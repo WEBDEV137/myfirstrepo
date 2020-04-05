@@ -135,6 +135,7 @@ public class QuestionDAO extends AbstractDAO implements GenericDAO<Question>{
             System.out.println("SQL error " + e.getMessage());
         }
     }
+
     public int storeEmptyQuestionByQuizId(Quiz quiz) {
         String query = "INSERT INTO vraag VALUES (DEFAULT,\'Vul vraag in\',?);";
         try {
@@ -145,5 +146,16 @@ public class QuestionDAO extends AbstractDAO implements GenericDAO<Question>{
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
         }return 0;
+    }
+
+    public void storeAnswerToQuestionByQuestionId(Question question) {
+        String query = "INSERT INTO antwoord VALUES (DEFAULT, 'Antwoord 2', ?, 0));";
+        try {
+            PreparedStatement preparedStatement = getStatement(query);
+            preparedStatement.setInt(1, question.getQuestionID());
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
     }
 }

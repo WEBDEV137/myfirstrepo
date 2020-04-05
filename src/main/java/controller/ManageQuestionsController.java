@@ -20,6 +20,9 @@ public class ManageQuestionsController {
     @FXML
     ListView<Question> questionList;
 
+    @FXML
+    ListView<Question> answerList;
+
     public void setup() {
         this.questionDAO = new QuestionDAO(Main.getDBaccess());
         List<Question> questionList = questionDAO.getAll();

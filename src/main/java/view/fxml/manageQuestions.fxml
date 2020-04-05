@@ -16,23 +16,23 @@
             <Font size="18.0" />
         </font>
     </Label>
-    <ListView fx:id="questionList" fixedCellSize="-3.0" layoutX="14.0" layoutY="78.0" prefHeight="200.0" prefWidth="281.0" />
-    <Button layoutX="13.0" layoutY="285.0" mnemonicParsing="false" onAction="#doCreateQuestion" text="Nieuw">
+    <ListView fx:id="questionList" fixedCellSize="-3.0" layoutX="14.0" layoutY="78.0" prefHeight="354.0" prefWidth="404.0" />
+    <Button layoutX="14.0" layoutY="448.0" mnemonicParsing="false" onAction="#doCreateQuestion" text="Nieuwe vraag">
         <font>
             <Font size="14.0" />
         </font>
     </Button>
-    <Button layoutX="113.0" layoutY="285.0" mnemonicParsing="false" onAction="#doUpdateQuestion" text="Wijzig">
+    <Button layoutX="159.0" layoutY="448.0" mnemonicParsing="false" onAction="#doUpdateQuestion" text="Wijzig vraag">
         <font>
             <Font size="14.0" />
         </font>
     </Button>
-    <Button layoutX="217.0" layoutY="285.0" mnemonicParsing="false" onAction="#doDeleteQuestion" text="Verwijder">
+    <Button layoutX="301.0" layoutY="448.0" mnemonicParsing="false" onAction="#doDeleteQuestion" text="Verwijder vraag">
         <font>
             <Font size="14.0" />
         </font>
     </Button>
-    <Button layoutX="14.0" layoutY="329.0" mnemonicParsing="false" onAction="#doMenu" text="Menu">
+    <Button layoutX="14.0" layoutY="505.0" mnemonicParsing="false" onAction="#doMenu" text="Menu">
         <font>
             <Font size="14.0" />
         </font>
@@ -41,4 +41,20 @@
         <opaqueInsets>
             <Insets />
         </opaqueInsets></TextField>
+   <ListView layoutX="462.0" layoutY="78.0" prefHeight="145.0" prefWidth="404.0" />
+   <Button layoutX="462.0" layoutY="240.0" mnemonicParsing="false" onAction="#doCreateQuestion" text="Nieuw antwoord">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Button>
+   <Button layoutX="594.0" layoutY="240.0" mnemonicParsing="false" onAction="#doUpdateQuestion" text="Wijzig antwoord">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Button>
+   <Button layoutX="724.0" layoutY="240.0" mnemonicParsing="false" onAction="#doDeleteQuestion" text="Verwijder antwoord">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Button>
 </AnchorPane>
