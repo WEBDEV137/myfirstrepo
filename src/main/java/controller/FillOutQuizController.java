@@ -46,6 +46,10 @@ public class FillOutQuizController{
     private Label titleLabel;
     @FXML
     private TextArea questionArea;
+    @FXML
+    private Button buttonC;
+    @FXML
+    private Button buttonD;
 
     public void setup(Quiz quiz) {
         dbAccess = Main.getDBaccess();
@@ -136,11 +140,12 @@ public class FillOutQuizController{
             System.out.println("First answer in answers ArrayList should be the correct answer!, but its not");
         }
         currentQuestionResult.setWrongAnswer1(answers.get(INDEX_OF_SECOND_ITEM).getText());
-        if (answers.size() > NUMBER_OF_ANSWERS_AB) {
+        if (answers.size() > NUMBER_OF_ANSWERS_ABC) {
             currentQuestionResult.setWrongAnswer2(answers.get(INDEX_OF_THIRD_ITEM).getText());
-            if (answers.size() > NUMBER_OF_ANSWERS_ABC) {
-                currentQuestionResult.setWrongAnswer3(answers.get(INDEX_OF_FOURTH_ITEM).getText());
-            }
+            currentQuestionResult.setWrongAnswer3(answers.get(INDEX_OF_FOURTH_ITEM).getText());
+        }
+        else if (answers.size() > NUMBER_OF_ANSWERS_AB) {
+            currentQuestionResult.setWrongAnswer2(answers.get(INDEX_OF_THIRD_ITEM).getText());
         }
     }
     public void storeQuestionInQuestionResult(){
@@ -211,6 +216,20 @@ public class FillOutQuizController{
         currentQuestionResult.setAnswer(answerD.getText());
         doNextQuestion();
     }
+    public void hideButtons(int numberOfAnswers){
+        buttonC.setVisible(true);
+        buttonD.setVisible(true);
+        if(numberOfAnswers == NUMBER_OF_ANSWERS_ABC ){
+            buttonD.setVisible(false);
+        }
+        else if(numberOfAnswers == NUMBER_OF_ANSWERS_AB ){
+            buttonC.setVisible(false);
+            buttonD.setVisible(false);
+        }
+    }
+    public void storeQuizResult(){
+
+    }
 
 
 
@@ -219,6 +238,7 @@ public class FillOutQuizController{
 
 
     public void doMenu() {
+       storeCurrentQuestionResult();
        Main.getSceneManager().showWelcomeScene(user);
     }
     /**
@@ -240,7 +260,5 @@ public class FillOutQuizController{
             if (result.get() == jaKnop) {
                 doMenu();
             }
-            else if (!result.isPresent()){}
-
     }
 }
