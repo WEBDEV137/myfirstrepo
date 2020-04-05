@@ -48,7 +48,6 @@ public class QuestionDAO extends AbstractDAO implements GenericDAO<Question>{
                 int quizId = resultSet.getInt("quizid");
                 question = new Question(questionId, quizQuestion, quizId);
                 result.add(question);
-                System.out.println(question);
             }
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());

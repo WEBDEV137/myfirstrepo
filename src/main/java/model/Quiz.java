@@ -14,6 +14,7 @@ public class Quiz {
     private Course course;
     private List<Question> questions;
 
+
     //CONSTRUCTOR
     public Quiz(int id, String naam, int succesDefinitie, int cursusId) {
         this.id = id;
@@ -35,7 +36,7 @@ public class Quiz {
         }
     }
 
-    public void addAllQuestions(ArrayList<Question> questions) {
+    public void setAllQuestions(ArrayList<Question> questions) {
         for (Question question : questions){
             addQuestion(question);
         }

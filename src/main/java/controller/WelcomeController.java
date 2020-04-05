@@ -40,11 +40,14 @@ public class WelcomeController {
     }
 
     public void doLogout() {
+        Main.getDBaccess().closeConnection();
+        System.out.println("Connection closed");
         Main.getSceneManager().showLoginScene();
     }
 
     public void voegMenuItemsToeStudent() {
         MenuItem taak1 = new MenuItem("Quiz invullen");
+        taak1.setOnAction(actionEvent -> Main.getSceneManager().showSelectQuizForStudent());
         MenuItem taak2 = new MenuItem("In- en uitschrijven cursus");
         taskMenuButton.getItems().add(taak1);
         taskMenuButton.getItems().add(taak2);

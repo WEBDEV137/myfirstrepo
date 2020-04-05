@@ -2,10 +2,12 @@ package controller;
 
 import database.mysql.CourseDAO;
 import database.mysql.DBAccess;
+import database.mysql.UserDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import model.Course;
+import model.User;
 import view.Main;
 
 import java.util.List;
@@ -44,13 +46,15 @@ public class CreateUpdateCourseController {
 
         if (course == null) {
             CourseDAO courseDAO = new CourseDAO((dbAccess));
+            UserDAO userdao = new UserDAO(dbAccess);
             titleLabel.setText("Nieuwe cursus aanmaken");
-            List<Course> allCourses = courseDAO.getAllCourses();
-            for (int i = 0; i < allCourses.size(); i++) {
-                int coordinatorid = allCourses.get(i).getCoordinatorid();
-                MenuItem menuItem = new MenuItem(String.valueOf(coordinatorid));
+//            List<Course> allCourses = courseDAO.getAllCourses();
+            List<User> allUsers = userdao.getUsersByRole("coordinator");
+            for (int i = 0; i < allUsers.size(); i++) {
+                String coordinatorname = allUsers.get(i).getUserName();
+                MenuItem menuItem = new MenuItem(coordinatorname);
                 coordinatorIdTextfield.getItems().add(menuItem);
-                menuItem.setOnAction(event -> setCoordinatorid(coordinatorid));
+                menuItem.setOnAction(event -> setCoordinatorName(coordinatorname));
 
             }
         } else {
@@ -61,8 +65,8 @@ public class CreateUpdateCourseController {
         }
     }
 
-    public void setCoordinatorid(int coordinatorid) {
-        coordinatorIdTextfield.setText(String.valueOf(coordinatorid));
+    public void setCoordinatorName(String coordinatorName) {
+        coordinatorIdTextfield.setText(coordinatorName);
 
     }
 
@@ -71,8 +75,15 @@ public class CreateUpdateCourseController {
     private void createCourse() {
         StringBuilder warningText = new StringBuilder();
         boolean correcteInvoer = true;
+        UserDAO userDAO = new UserDAO(dbAccess);
+        CourseDAO courseDAO = new CourseDAO(dbAccess);
+        int userId;
+        int courseId;
         String cursusnaam = cursusnaamTextfield.getText();
-        int coordinatorid = Integer.parseInt(coordinatorIdTextfield.getText());
+    //        int coordinatorid = Integer.parseInt(coordinatorIdTextfield.getText());
+        String userName =coordinatorIdTextfield.getText();
+        userId = userDAO.getUserIdByLoginName(userName);
+        courseId = courseDAO.getCourseIdByName(cursusnaam);
 
         if (cursusnaam.isEmpty()) {
             warningText.append("Je moet de cursusnaam invullen\n");
@@ -84,7 +95,7 @@ public class CreateUpdateCourseController {
             foutmelding.show();
             course = null;
         } else {
-            course = new Course(cursusnaam, coordinatorid);
+            course = new Course(cursusnaam, userId);
         }
     }
 
@@ -120,7 +131,7 @@ public class CreateUpdateCourseController {
     public void doMenu(ActionEvent e) {
         dbAccess.closeConnection();
         System.out.println("Connection closes");
-        Main.getSceneManager().setWindowTool();
+        Main.getSceneManager().showManageCoursesScene();
     }
 
 

@@ -161,7 +161,11 @@ public class UserDAO extends AbstractDAO implements GenericDAO {
         return allTeachers;
     }
 
+<<<<<<< HEAD
+    public int getUserIdByLoginName(String userName){
+=======
     public int getUserIdByLoginName(String userName) {
+>>>>>>> c2f1345f2caf1dd78f23cda28f8212969b0e88e2
         int userId = 0;
         String sql = "SELECT * FROM gebruiker WHERE inlognaam = ?;";
         try {
@@ -179,6 +183,10 @@ public class UserDAO extends AbstractDAO implements GenericDAO {
     }
 
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> c2f1345f2caf1dd78f23cda28f8212969b0e88e2
     /**
      * om user in database opteslaan.
      *
