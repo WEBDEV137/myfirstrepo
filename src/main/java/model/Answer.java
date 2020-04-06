@@ -3,6 +3,11 @@ package model;
 public class Answer {
     private String text;
     private boolean isRightAnswer;
+    private int questionId;
+
+    public void setQuestionId(int questionId) {
+        this.questionId = questionId;
+    }
 
     public Answer(){
         this("", false);
