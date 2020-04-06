@@ -142,7 +142,7 @@ public class QuizDAO extends AbstractDAO implements GenericDAO{
      */
     public ArrayList<Quiz> getAllByCoordinatorId(int coordinatorId) {
             ArrayList<Quiz> quizzes = null;
-            String query = "SELECT * FROM quiz WHERE cursusid IN (SELECT id from cursus WHERE coordinatorid = ?)";
+            String query = "SELECT * FROM quiz WHERE cursusid IN (SELECT id from cursus WHERE coordinatorid = ?);";
             try {
                 PreparedStatement preparedStatement = getStatement(query);
                 preparedStatement.setInt(1, coordinatorId);
@@ -206,4 +206,31 @@ public class QuizDAO extends AbstractDAO implements GenericDAO{
         }
         return quizzes;
     }
+    /**
+     * Deze methode geeft een ArrayList terug met alle quizen van een coordinator.
+     *
+     * @param   courseId
+     *      de id van de gebruiker
+     */
+    public ArrayList<Quiz> getAllByCourseId(int courseId) {
+        ArrayList<Quiz> quizzes = null;
+        String query = "SELECT * FROM quiz WHERE cursusid = ?;";
+        try {
+            PreparedStatement preparedStatement = getStatement(query);
+            preparedStatement.setInt(1, courseId);
+            ResultSet resultSet = executeSelectPreparedStatement(preparedStatement);
+            while (resultSet.next()) {
+                if(quizzes == null){ quizzes = new ArrayList<>();}
+                int quizId = resultSet.getInt("id");
+                String name = resultSet.getString("naam");
+                int succesDefinition = resultSet.getInt("succesdefinitie");
+                Quiz quiz = new Quiz(quizId, name, succesDefinition, courseId);
+                quizzes.add(quiz);
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+        return quizzes;
+    }
+
 }
