@@ -4,20 +4,21 @@ import database.mysql.AnswerDAO;
 import database.mysql.CourseDAO;
 import database.mysql.DBAccess;
 import database.mysql.QuestionDAO;
-import database.nosql.CouchDBaccess;
 import database.nosql.QuizResultCouchDBDAO;
+import database.nosql.QuizResultCouchDBaccess;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import model.*;
 import view.Main;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class FillOutQuizController{
 
     private DBAccess dbAccess;
-    private CouchDBaccess couchDBaccess;
+    private QuizResultCouchDBaccess quizResultCouchDBaccess;
     private QuizResultCouchDBDAO quizResultCouchDBDAO;
     private QuestionDAO questionDAO;
     private AnswerDAO answerDAO;
@@ -56,20 +57,19 @@ public class FillOutQuizController{
     private Button buttonD;
 
     public void setup(Quiz quiz) {
-        dbAccess = Main.getDBaccess();
-        questionDAO = new QuestionDAO(dbAccess);
-        courseDAO = new CourseDAO(dbAccess);
+        this.quiz = quiz;
         questionIndex = INDEX_OF_FIRST_ITEM;
         questionNumber = FIRST_QUESTION;
-        this.quiz = quiz;
+        dbAccess = Main.getDBaccess();
         user = Main.getCurrentUser();
+        questionDAO = new QuestionDAO(dbAccess);
+        courseDAO = new CourseDAO(dbAccess);
         course = courseDAO.getOneById(quiz.getCourseId());
         quizResult = new QuizResult(user, quiz, course);
         questions = questionDAO.getSelectedQuestionsByQuizId(quiz.getId());
         for (int index = INDEX_OF_FIRST_ITEM; index < questions.size(); index++) {
             quizResult.addQuestionResult(new QuestionResult());
         }
-
         currentQuestion = questions.get(questionIndex);
         answers = getAnswersByQuestionId(currentQuestion.getQuestionID());
         randomizedAnswers = randomizeAnswers(answers);
@@ -77,6 +77,7 @@ public class FillOutQuizController{
         fillTextArea();
         currentQuestionResult = quizResult.getQuestionResult(INDEX_OF_FIRST_ITEM);
     }
+
 
 
     private List<Answer> getAnswersByQuestionId(int questionId) {
@@ -222,23 +223,24 @@ public class FillOutQuizController{
             buttonD.setVisible(false);
         }
     }
-    public void storeQuizResult(QuizResult quizResult){
-        couchDBaccess = new CouchDBaccess();
-        couchDBaccess.setupConnection();
+    public String storeQuizResultReturnDocId(QuizResult quizResult){
+        String doc_id;
+        quizResultCouchDBaccess = new QuizResultCouchDBaccess();
+
         try {
-            couchDBaccess.setupConnection();
+            quizResultCouchDBaccess.setupConnection();
             System.out.println("Connection open");
-            quizResultCouchDBDAO = new QuizResultCouchDBDAO(couchDBaccess);
+            quizResultCouchDBDAO = new QuizResultCouchDBDAO(quizResultCouchDBaccess);
         }
         catch (Exception e) {
             System.out.println("\nEr is iets fout gegaan\n");
             e.printStackTrace();
         }
-      quizResultCouchDBDAO.saveSingelQuizResult(quizResult);
+        doc_id = quizResultCouchDBDAO.saveSingelQuizResult(quizResult);
+        return doc_id;
     }
     public void doMenu() {
        storeCurrentQuestionResult();
-      // Store QuizResult to GSON
        Main.getSceneManager().showWelcomeScene(user);
     }
     /**
@@ -269,8 +271,8 @@ public class FillOutQuizController{
         String ARE_YOU_SURE = "Er zijn geen vragen meer. Klik \"Bekijk resultaat\" om uw resulaten te bekijken";
         String CLICK_CONTINUE = "Klik \"Hier blijven\" als u nog aanpassingen wil doen";
 
-        ButtonType jaKnop = new ButtonType("Afronden", ButtonBar.ButtonData.YES);
-        ButtonType neeKnop = new ButtonType("Nee", ButtonBar.ButtonData.CANCEL_CLOSE);
+        ButtonType jaKnop = new ButtonType("Bekijk resultaat", ButtonBar.ButtonData.YES);
+        ButtonType neeKnop = new ButtonType("Hier Blijven", ButtonBar.ButtonData.CANCEL_CLOSE);
         Alert okCancelDialogue = new Alert(Alert.AlertType.WARNING, CLICK_CONTINUE, jaKnop, neeKnop);
         okCancelDialogue.setTitle(Main.QUIZMASTER);
         okCancelDialogue.setHeaderText(ARE_YOU_SURE);
@@ -282,7 +284,12 @@ public class FillOutQuizController{
         }
     }
     public void doFinish(){
-        storeQuizResult(quizResult);
-        Main.getSceneManager().showStudentFeedback(quizResult);
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        formatter.format(date);
+
+        quizResult.setDate(date);
+        String doc_id = storeQuizResultReturnDocId(quizResult);
+        Main.getSceneManager().showStudentFeedback(doc_id);
     }
 }
