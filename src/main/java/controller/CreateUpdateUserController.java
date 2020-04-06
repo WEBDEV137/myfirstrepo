@@ -19,10 +19,8 @@ public class CreateUpdateUserController {
     private DBAccess db;
     private User user;
     private ArrayList<String> rolList = new ArrayList<>();
-    //    StringBuilder gebruikerIsToegevoegd = new StringBuilder();
     @FXML
     private Label gebruikerIsToegevoegd;
-
     @FXML
     public Label titleLabel;
     @FXML
@@ -44,12 +42,11 @@ public class CreateUpdateUserController {
         super();
         this.db = Main.getDBaccess();
         this.udao = new UserDAO(db);
-
     }
 
     public void setup(User user) {
         if (user == null) {
-            titleLabel.setText("Nieuwe user aanmaken");
+            titleLabel.setText("Nieuwe gebruiker aanmaken");
             rolList.add("Docent");
             rolList.add("Teknisch beherder");
             rolList.add("Student");
@@ -64,7 +61,7 @@ public class CreateUpdateUserController {
                 });
             }
         } else {
-            titleLabel.setText("Update user");
+            titleLabel.setText("Update gebruiker");
             userIdTextfield.setText(String.valueOf(user.getUserId()));
             roleMenuButton.setText(String.valueOf(user.getRolName()));
             userNameTextfield.setText(user.getUserName());
@@ -103,7 +100,7 @@ public class CreateUpdateUserController {
                 userIdTextfield.setText(String.valueOf(user.getUserId()));
                 Main.getSceneManager().showCreateUpdateUserScene(null);
                 Alert opgeslagen = new Alert(Alert.AlertType.INFORMATION);
-                opgeslagen.setContentText("User opgeslagen");
+                opgeslagen.setContentText("Gebruker opgeslagen");
                 opgeslagen.show();
 
             } else {
@@ -112,7 +109,7 @@ public class CreateUpdateUserController {
                 udao.updateUser(user);
                 Main.getSceneManager().showCreateUpdateUserScene(null);
                 Alert gewijzigd = new Alert(Alert.AlertType.INFORMATION);
-                gewijzigd.setContentText("User gewijzigd");
+                gewijzigd.setContentText("Gebruiker gewijzigd");
                 gewijzigd.show();
             }
         }

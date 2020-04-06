@@ -1,21 +1,7 @@
 package model;
 
 
-public class User {
-    //CONSTANTEN
-    protected final static String QUIZ_BEHEREN = "Manage Quiz";
-    protected final static String QUIZ_AANMAKEN_WIJZIGEN = "Create/ update quiz";
-    protected final static String VOORTGANG_BEKIJKEN = "Check results";
-    protected final static String QUIZ_DASHBOARD = "Quiz Dashboard";
-    protected final static String VOORTGANG_DASHBOARD = "results Dashboard";
-    protected final static String COURSE_SIGN_IN_OUT ="Sign in / out Courses";
-    protected final static String FILL_OUT_QUIZ ="Fill out quiz";
-    protected final static String MANAGE_USERS ="Manage users";
-    protected final static String CREATE_UPDATE_USERS ="Create / update users";
-    protected final static String MANAGE_GROUPS ="Manage users";
-    protected final static String CREATE_UPDATE_GROUPS ="Create / update users";
-    protected final static String MANAGE_COURSES ="Manage courses";
-    protected final static String CREATE_UPDATE_COURSES ="Create / update courses";
+public class User implements Comparable<User> {
 
     //VARIABELEN
     private int userId;
@@ -119,13 +105,18 @@ public class User {
     @Override
     public String toString() {
         StringBuilder resultString = new StringBuilder("");
-        resultString.append(userId + " ");
+//        resultString.append(userId + " ");
         resultString.append(name + " ");
         if (prefix != null) {
             resultString.append(prefix + " ");
         }
-        resultString.append(surname + " => ");
+        resultString.append(surname + " ");
         resultString.append(rolName + " ");
         return resultString.toString();
+    }
+
+    @Override
+    public int compareTo(User o) {
+        return name.compareTo(o.getName());
     }
 }
