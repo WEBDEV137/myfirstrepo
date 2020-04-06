@@ -120,8 +120,6 @@ public class CreateUpdateUserController {
     }
 
     private void createUser() {
-        /*StringBuilder warningText = new StringBuilder();
-        boolean correctInvoer = true;*/
         if (checkOfAllesingevuldIs()) {
             String userRolName = String.valueOf(roleMenuButton.getText());
             String userName = userNameTextfield.getText();
@@ -131,20 +129,6 @@ public class CreateUpdateUserController {
             String surname = surnameTextfield.getText();
             user = new User(userRolName, userName, password, name, prefix, surname);
         }
-
-        /*if (userName.isEmpty()) {
-            warningText.append("Je moet user name invullen!!\n");
-            correctInvoer = false;
-        }*/
-
-       /* if (!correctInvoer) {
-            Alert foutmelding = new Alert(Alert.AlertType.ERROR);
-            foutmelding.setContentText(warningText.toString());
-            foutmelding.show();
-            user = null;
-        } else {*/
-
-        /*}*/
     }
 
     private boolean checkOfAllesingevuldIs() {

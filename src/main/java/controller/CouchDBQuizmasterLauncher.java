@@ -3,7 +3,7 @@ package controller;
 import com.google.gson.JsonObject;
 import database.nosql.CouchDBaccess;
 import database.nosql.UserCouchDBDAO;
-import model.Gebruiker;
+import model.User;
 
 import java.util.List;
 
@@ -36,20 +36,19 @@ public class CouchDBQuizmasterLauncher {
             System.out.println("\nEr is iets fout gegaan\n");
         }
         //Sla een gerbruiker in de CouchDb database.
-        /*Gebruiker a = new Gebruiker("suzanne123","suzanne",null,"jansen","Student","12345");
+        User a = new User("studen","emr123","12345","Emrullah",null,"kilic");
         System.out.println(a);
-        udb.saveSingleUser(a);*/
+        udb.saveSingleUser(a);
 
         // Bring een gebruiker met id.
-        /*Gebruiker gebruikerId = udb.getUserByDocId("4f6afdaa493646b5bb4f2b8719ea7ea3");
-        System.out.println(gebruikerId);*/
+        User userId = udb.getUserByDocId("b42142f6e261475ebd97b684477bda1e");
+        System.out.println(userId);
 
         // Bring all gebruikers.
-       /* List<JsonObject> allDocs = db.getClient().view("_all_docs").includeDocs(true).query(JsonObject.class);
+        List<JsonObject> allDocs = db.getClient().view("_all_docs").includeDocs(true).query(JsonObject.class);
         for (JsonObject d : allDocs) {
             System.out.println(d.getAsJsonObject());
-        }*/
+        }
 
-//        udb.getUser("emr","Student");
     }
 }

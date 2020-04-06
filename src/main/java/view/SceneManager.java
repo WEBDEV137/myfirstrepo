@@ -35,7 +35,7 @@ public class SceneManager {
         }
     }
 
-    public void showExistingCustomerScene(User user) {
+    public void showExistingUserScene(User user) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/fxml/createUpdateUser.fxml"));
             Parent root = loader.load();

@@ -3,8 +3,6 @@ package database.nosql;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import model.Gebruiker;
-import model.Group;
 import model.User;
 
 import java.util.List;
@@ -19,8 +17,8 @@ public class UserCouchDBDAO {
         gson = new Gson();
     }
 
-    public String saveSingleUser(Gebruiker gebruiker) {
-        String jsonstring = gson.toJson(gebruiker);
+    public String saveSingleUser(User user) {
+        String jsonstring = gson.toJson(user);
         System.out.println(jsonstring);
         JsonParser parser = new JsonParser();
         JsonObject jsonobject = parser.parse(jsonstring).getAsJsonObject();
@@ -28,18 +26,17 @@ public class UserCouchDBDAO {
         return doc_Id;
     }
 
-    public Gebruiker getUserByDocId(String doc_Id) {
+    public User getUserByDocId(String doc_Id) {
         JsonObject json = db.getClient().find(JsonObject.class, doc_Id);
-        Gebruiker resultaat = gson.fromJson(json, Gebruiker.class);
+        User resultaat = gson.fromJson(json, User.class);
         return resultaat;
     }
 
-    public Gebruiker getUser(String gebruikerNaam, String rol) {
-        Gebruiker resultaat = null;
-        List<JsonObject> alleGebruikers = db.getClient().view("_all_docs").includeDocs(true).query(JsonObject.class);
-        for (JsonObject json : alleGebruikers) {
-            resultaat = gson.fromJson(json, Gebruiker.class);
-            if (resultaat.getGebruikerNaam().equals(gebruikerNaam)  && (resultaat.getRol() == rol)) {
+    public User getUser(String userNaam, String rol) { User resultaat = null;
+        List<JsonObject> alleUsers = db.getClient().view("_all_docs").includeDocs(true).query(JsonObject.class);
+        for (JsonObject json : alleUsers) {
+            resultaat = gson.fromJson(json, User.class);
+            if (resultaat.getName().equals(userNaam)  && (resultaat.getRolName() == rol)) {
                 return resultaat;
             }
         }
