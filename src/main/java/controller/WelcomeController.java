@@ -1,7 +1,5 @@
 package controller;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
@@ -109,7 +107,7 @@ public class WelcomeController {
         Alert okCancelDialogue = new Alert(Alert.AlertType.CONFIRMATION);
         okCancelDialogue.initModality(Modality.APPLICATION_MODAL); //Achtegrpond scherm wordt onbruikbaar gemaakt.
         okCancelDialogue.initOwner(Main.getPrimaryStage()); //show,
-        okCancelDialogue.setTitle(Main.QUISMASTER);
+        okCancelDialogue.setTitle(Main.QUIZMASTER);
         okCancelDialogue.setHeaderText(ARE_YOU_SURE);
         okCancelDialogue.setContentText(CLICK_CONTINUE);
 

@@ -4,6 +4,8 @@ import database.mysql.AnswerDAO;
 import database.mysql.CourseDAO;
 import database.mysql.DBAccess;
 import database.mysql.QuestionDAO;
+import database.nosql.CouchDBaccess;
+import database.nosql.QuizResultCouchDBDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
@@ -15,6 +17,8 @@ import java.util.*;
 public class FillOutQuizController{
 
     private DBAccess dbAccess;
+    private CouchDBaccess couchDBaccess;
+    private QuizResultCouchDBDAO quizResultCouchDBDAO;
     private QuestionDAO questionDAO;
     private AnswerDAO answerDAO;
     private CourseDAO courseDAO;
@@ -99,7 +103,6 @@ public class FillOutQuizController{
         } return randomizedAnswers;
     }
         public void assignAnswersToLetters() {
-
             answerA = null;
             answerB = null;
             answerC = null;
@@ -114,7 +117,6 @@ public class FillOutQuizController{
             }
         }
     private void fillTextArea(){
-
         if(questions.get(questionIndex) != null){
             currentQuestion = questions.get(questionIndex);
             StringBuilder vraagEnAntwoorden = new StringBuilder();
@@ -156,8 +158,6 @@ public class FillOutQuizController{
         storeAnswersInQuestionResult();
         quizResult.setQuestionResult(questionIndex, currentQuestionResult);
     }
-
-
     public void doNextQuestion() {
         storeCurrentQuestionResult();
         questionIndex++;
@@ -175,8 +175,9 @@ public class FillOutQuizController{
            currentQuestionResult = quizResult.getQuestionResult(questionIndex);
             System.out.println(quizResult);
         }
-        else{
+        else{ ;
             questionIndex--;
+            doFinishConfirmation();
         }
     }
     public void doPreviousQuestion() {
@@ -193,27 +194,19 @@ public class FillOutQuizController{
             System.out.println(quizResult);
         }
     }
-
-
     public void doRegisterA() {
 
         currentQuestionResult.setAnswer(answerA.getText());
         doNextQuestion();
-
     }
-
     public void doRegisterB() {
         currentQuestionResult.setAnswer(answerB.getText());
         doNextQuestion();
-
     }
-
     public void doRegisterC() {
         currentQuestionResult.setAnswer(answerC.getText());
         doNextQuestion();
-
     }
-
     public void doRegisterD() {
         currentQuestionResult.setAnswer(answerD.getText());
         doNextQuestion();
@@ -229,16 +222,20 @@ public class FillOutQuizController{
             buttonD.setVisible(false);
         }
     }
-    public void storeQuizResult(){
-
+    public void storeQuizResult(QuizResult quizResult){
+        couchDBaccess = new CouchDBaccess();
+        couchDBaccess.setupConnection();
+        try {
+            couchDBaccess.setupConnection();
+            System.out.println("Connection open");
+            quizResultCouchDBDAO = new QuizResultCouchDBDAO(couchDBaccess);
+        }
+        catch (Exception e) {
+            System.out.println("\nEr is iets fout gegaan\n");
+            e.printStackTrace();
+        }
+      quizResultCouchDBDAO.saveSingelQuizResult(quizResult);
     }
-
-
-
-
-
-
-
     public void doMenu() {
        storeCurrentQuestionResult();
       // Store QuizResult to GSON
@@ -255,7 +252,7 @@ public class FillOutQuizController{
             ButtonType jaKnop = new ButtonType("Ja", ButtonBar.ButtonData.YES);
             ButtonType neeKnop = new ButtonType("Nee", ButtonBar.ButtonData.CANCEL_CLOSE);
             Alert okCancelDialogue = new Alert(Alert.AlertType.WARNING, CLICK_CONTINUE, jaKnop, neeKnop);
-            okCancelDialogue.setTitle(Main.QUISMASTER);
+            okCancelDialogue.setTitle(Main.QUIZMASTER);
             okCancelDialogue.setHeaderText(ARE_YOU_SURE);
             okCancelDialogue.initModality(Modality.APPLICATION_MODAL);
             okCancelDialogue.initOwner(Main.getPrimaryStage()); //show,
@@ -263,5 +260,29 @@ public class FillOutQuizController{
             if (result.get() == jaKnop) {
                 doMenu();
             }
+    }
+    /**
+     * Confirmation dialogue
+     * do you want to Finish the Quiz?
+     */
+    public void doFinishConfirmation() {
+        String ARE_YOU_SURE = "Er zijn geen vragen meer. Klik \"Bekijk resultaat\" om uw resulaten te bekijken";
+        String CLICK_CONTINUE = "Klik \"Hier blijven\" als u nog aanpassingen wil doen";
+
+        ButtonType jaKnop = new ButtonType("Afronden", ButtonBar.ButtonData.YES);
+        ButtonType neeKnop = new ButtonType("Nee", ButtonBar.ButtonData.CANCEL_CLOSE);
+        Alert okCancelDialogue = new Alert(Alert.AlertType.WARNING, CLICK_CONTINUE, jaKnop, neeKnop);
+        okCancelDialogue.setTitle(Main.QUIZMASTER);
+        okCancelDialogue.setHeaderText(ARE_YOU_SURE);
+        okCancelDialogue.initModality(Modality.APPLICATION_MODAL);
+        okCancelDialogue.initOwner(Main.getPrimaryStage()); //show,
+        Optional<ButtonType> result = okCancelDialogue.showAndWait();
+        if (result.get() == jaKnop) {
+            doFinish();
+        }
+    }
+    public void doFinish(){
+        storeQuizResult(quizResult);
+        Main.getSceneManager().showStudentFeedback(quizResult);
     }
 }

@@ -5,7 +5,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import model.Gebruiker;
 import model.QuizResult;
-
 import java.util.List;
 
 public class QuizResultCouchDBDAO {
@@ -27,21 +26,21 @@ public class QuizResultCouchDBDAO {
         return doc_Id;
     }
 
-    public Gebruiker getUserByDocId(String doc_Id) {
+    public QuizResult getQuizResultByDocid(String doc_Id) {
         JsonObject json = db.getClient().find(JsonObject.class, doc_Id);
-        Gebruiker resultaat = gson.fromJson(json, Gebruiker.class);
-        return resultaat;
+        QuizResult quizResult = gson.fromJson(json, QuizResult.class);
+        return quizResult;
     }
 
-    public Gebruiker getUser(String gebruikerNaam, String rol) {
-        Gebruiker resultaat = null;
-        List<JsonObject> alleGebruikers = db.getClient().view("_all_docs").includeDocs(true).query(JsonObject.class);
-        for (JsonObject json : alleGebruikers) {
-            resultaat = gson.fromJson(json, Gebruiker.class);
-            if (resultaat.getGebruikerNaam().equals(gebruikerNaam) && (resultaat.getRol() == rol)) {
-                return resultaat;
+/*    public QuizResult getQuizresult(int userId, ) {
+        QuizResult quizResult = null;
+        List<JsonObject> allQuizResults = db.getClient().view("_all_docs").includeDocs(true).query(JsonObject.class);
+        for (JsonObject json : allQuizResults) {
+            quizResult = gson.fromJson(json, QuizResult.class);
+            if (quizResult.getusername().equals(gebruikerNaam) && (allQuizResults. == rol)) {
+                return allQuizResults;
             }
         }
-        return resultaat;
-    }
+        return allQuizResults;
+    }*/
 }

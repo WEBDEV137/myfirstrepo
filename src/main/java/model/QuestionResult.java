@@ -14,8 +14,13 @@ public class QuestionResult extends Question{
         this.answer = answer;
     }
 
+    //Setters
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+    //Getters
+    public String getAnswer() {
+        return answer;
     }
 
     @Override
