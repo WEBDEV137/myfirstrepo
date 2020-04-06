@@ -58,7 +58,7 @@ package model;
         }
 
         public String toString(){
-            return String.format("%d %s %d", id, coursename, coordinatorid );
+            return String.format("%s", coursename );
         }
     }
 
