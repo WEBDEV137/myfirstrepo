@@ -16,26 +16,26 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class CourseDAO extends AbstractDAO {
-    public CourseDAO(DBAccess dbAccess){
+    public CourseDAO(final DBAccess dbAccess){
         super(dbAccess);
     }
 
     public  List <Course> getAllCourses() {
-        List<Course> courseSheet = new ArrayList<>();
-        String query = "SELECT * FROM cursus";
+        final List<Course> courseSheet = new ArrayList<>();
+        final String query = "SELECT * FROM cursus";
         Course course = null;
         try {
-            PreparedStatement preparedStatement = getStatement(query);
-            ResultSet resultSet = executeSelectPreparedStatement(preparedStatement);
+            final PreparedStatement preparedStatement = this.getStatement(query);
+            final ResultSet resultSet = this.executeSelectPreparedStatement(preparedStatement);
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String coursename = resultSet.getString("naam");
-                int coordinatorid = resultSet.getInt("coordinatorid");
+                final int id = resultSet.getInt("id");
+                final String coursename = resultSet.getString("naam");
+                final int coordinatorid = resultSet.getInt("coordinatorid");
                 course = new Course(id, coursename, coordinatorid);
                 courseSheet.add (course);
             }
         }
-        catch (SQLException e) {
+        catch (final SQLException e) {
             System.out.println(" SQL error " + e.getMessage());
         }
         return courseSheet;
@@ -43,19 +43,19 @@ public class CourseDAO extends AbstractDAO {
 
 
 
-    public Course getOneById (int id) {
-        String query = "SELECT * FROM cursus WHERE id = ?;";
+    public Course getOneById (final int id) {
+        final String query = "SELECT * FROM cursus WHERE id = ?;";
         Course course = null;
         try {
-            PreparedStatement preparedStatement = getStatement(query);
+            final PreparedStatement preparedStatement = this.getStatement(query);
             preparedStatement.setInt(1,id);
-            ResultSet resultSet = executeSelectPreparedStatement(preparedStatement);
+            final ResultSet resultSet = this.executeSelectPreparedStatement(preparedStatement);
             if (resultSet.next()) {
-                String name = resultSet.getString("naam");
-                int coordinatorId = resultSet.getInt("coordinatorid");
+                final String name = resultSet.getString("naam");
+                final int coordinatorId = resultSet.getInt("coordinatorid");
                 course = new Course(id, name, coordinatorId);
             }
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             System.out.println("SQL error " + e.getMessage());
         }
         return course;
@@ -65,97 +65,97 @@ public class CourseDAO extends AbstractDAO {
      * Wegschrijven van nieuwe course naar SQL TO DO: Bewaren lukt nog niet
      */
 
-    public void storeCourse(Course course) {
-        String sql = "Insert into cursus values(DEFAULT,?,?) ;";
+    public void storeCourse(final Course course) {
+        final String sql = "Insert into cursus values(DEFAULT,?,?) ;";
         try {
             System.out.println(course.getCoursename()+"1");
-            PreparedStatement ps = getStatement(sql);
+            final PreparedStatement ps = this.getStatement(sql);
             ps.setString(1, course.getCoursename());
             ps.setInt(2, course.getCoordinatorid());
-            executeManipulatePreparedStatement(ps);
+            this.executeManipulatePreparedStatement(ps);
 
 
 //            int key = executeInsertPreparedStatement(ps);
 //            course.setId(key);
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             System.out.println("SQL error " + e.getMessage());
         }
     }
 
-    public void updateCourse(Course course) {
-        String sql = "Update cursus Set naam = ?, coordinatorid = ? where id = ?;";
+    public void updateCourse(final Course course) {
+        final String sql = "Update cursus Set naam = ?, coordinatorid = ? where id = ?;";
         try {
-            PreparedStatement ps = getStatement(sql);
+            final PreparedStatement ps = this.getStatement(sql);
             ps.setString(1, course.getCoursename());
             ps.setInt(2, course.getCoordinatorid());
             ps.setInt(3, course.getId());
-            executeManipulatePreparedStatement(ps);
-        } catch (SQLException e) {
+            this.executeManipulatePreparedStatement(ps);
+        } catch (final SQLException e) {
             System.out.println("SQL error " + e.getMessage());
         }
     }
 
-    public ArrayList<Course> getAllByCoordinatorId(int coordinatorId) {
+    public ArrayList<Course> getAllByCoordinatorId(final int coordinatorId) {
         ArrayList<Course> courses = null;
-        String query = "SELECT * FROM cursus WHERE coordinatorid = ? ;";
+        final String query = "SELECT * FROM cursus WHERE coordinatorid = ? ;";
         try {
-            PreparedStatement preparedStatement = getStatement(query);
+            final PreparedStatement preparedStatement = this.getStatement(query);
             preparedStatement.setInt(1, coordinatorId);
-            ResultSet resultSet = executeSelectPreparedStatement(preparedStatement);
+            final ResultSet resultSet = this.executeSelectPreparedStatement(preparedStatement);
             while (resultSet.next()) {
                 if(courses == null){ courses = new ArrayList<>(); }
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("naam");
-                Course course = new Course(id, name, coordinatorId);
+                final int id = resultSet.getInt("id");
+                final String name = resultSet.getString("naam");
+                final Course course = new Course(id, name, coordinatorId);
                 courses.add(course);
 
             }
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             System.out.println("SQL error " + e.getMessage());
         }
         return courses;
     }
 
-    public void deleteCourse(Course course){
+    public void deleteCourse(final Course course){
         System.out.println("verwijder cursus");
-        String sql = "DELETE FROM cursus WHERE id = ?;";
+        final String sql = "DELETE FROM cursus WHERE id = ?;";
         try {
-            PreparedStatement ps = getStatement(sql);
+            final PreparedStatement ps = this.getStatement(sql);
             ps.setInt(1, course.getId());
             ps.executeUpdate();
-        } catch (SQLException e){
+        } catch (final SQLException e){
             System.out.println("SQL Error "+e.getMessage());
         }
 
     }
-    public int getCourseIdByName(String courseName){
+    public int getCourseIdByName(final String courseName){
         int courseId = 0;
-        String sql = "SELECT * FROM cursus WHERE naam = ?;";
+        final String sql = "SELECT * FROM cursus WHERE naam = ?;";
         try {
-            PreparedStatement preparedStatement = getStatement(sql);
+            final PreparedStatement preparedStatement = this.getStatement(sql);
             preparedStatement.setString(1, courseName);
-            ResultSet rs = executeSelectPreparedStatement(preparedStatement);
+            final ResultSet rs = this.executeSelectPreparedStatement(preparedStatement);
             if (rs.next()) {
                 courseId = rs.getInt("id");
             }
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             System.out.println("SQL error " + e.getMessage());
             AbstractController.showAlert("x", "x", "x");
         }
         return courseId;
     }
 
-    public String getCourseNameById(int courseId){
+    public String getCourseNameById(final int courseId){
         String courseName = "";
-        String sql = "SELECT * FROM cursus WHERE id = ?;";
+        final String sql = "SELECT * FROM cursus WHERE id = ?;";
         try {
-            PreparedStatement preparedStatement = getStatement(sql);
+            final PreparedStatement preparedStatement = this.getStatement(sql);
             preparedStatement.setInt(1, courseId);
-            ResultSet rs = executeSelectPreparedStatement(preparedStatement);
+            final ResultSet rs = this.executeSelectPreparedStatement(preparedStatement);
             if (rs.next()) {
                 courseName = rs.getString("naam");
             }
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             System.out.println("SQL error " + e.getMessage());
             AbstractController.showAlert("x", "x", "x");
         }
