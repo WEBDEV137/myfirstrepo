@@ -24,15 +24,12 @@ public class Course {
         this.id = id;
         this.coursename = coursename;
     }
+    public Course(){
+        this(Const.ONBEKEND_INT, Const.ONBEKEND_STRING, Const.ONBEKEND_INT);
+    }
 
     public Course(int coordinatorid) {this.coordinatorid = coordinatorid;
     }
-
-        public Course(int studentid, int coursusid) {
-
-        }
-
-
 
     public int getId() {
         return id;

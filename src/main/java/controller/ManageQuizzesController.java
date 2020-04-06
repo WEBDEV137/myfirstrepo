@@ -20,15 +20,11 @@ public class ManageQuizzesController extends AbstractController {
     private CourseDAO courseDAO;
     private DBAccess dbAccess;
     private User user;
+    private Quiz quiz;
 
     @FXML
     private ListView<Quiz> quizList;
 
-
-
-
-
-    // connectie maken met dbase om courses te laten zien in het scherm listview
     public void setup() {
         user = Main.getCurrentUser();
         dbAccess = Main.getDBaccess();
@@ -37,36 +33,26 @@ public class ManageQuizzesController extends AbstractController {
         this.courseDAO = new CourseDAO(dbAccess);
         List<Quiz> allQuizzesForUser = quizDAO.getAllByCoordinatorId(user.getUserId());
         for (Quiz quiz : allQuizzesForUser) {
-            //Haal bij iedere quiz de cursus op uit database en setCourseName()
-            Course bijbehorendeCourse = courseDAO.getOneById(quiz.getCourseId());
-            String courseName = bijbehorendeCourse.getCoursename();
-            quiz.setCourseName(courseName);
-            //Voeg toe aan quizlist
             quizList.getItems().add(quiz);
         }
-
-
-
     }
-
 
     public void doMenu() {
         Main.getSceneManager().showWelcomeScene(user);
     }
 
-
     public void doCreateQuiz() {
         Main.getSceneManager().showCreateUpdateQuizScene(null);
     }
 
-
-        public void doUpdateQuiz() {
-        Quiz quiz = quizList.getSelectionModel().getSelectedItem();
-            Main.getSceneManager().showCreateUpdateQuizScene(quiz);
+    public void doUpdateQuiz() {
+        quiz = quizList.getSelectionModel().getSelectedItem();
+        System.out.println(quiz.getName());
+        System.out.println(quiz.getId());
+        Main.getSceneManager().showCreateUpdateQuizScene(quiz);
     }
-
     public void doDeleteQuiz() {
-       Quiz quiz =  quizList.getSelectionModel().getSelectedItem();
+       quiz =  quizList.getSelectionModel().getSelectedItem();
        if (quiz != null) {
            QuizDAO quizDAO = new QuizDAO(dbAccess);
            quizDAO.removeOneById(quiz.getId());
@@ -83,7 +69,7 @@ public class ManageQuizzesController extends AbstractController {
     public void doDeleteConfirmation() {
         if(quizList.getSelectionModel().getSelectedItem() != null){
 
-        String ARE_YOU_SURE = "U staat op het punt een quiz te wissen!\nAlle bijbehorende vragen zullen ook worden verwijderd.";
+        String ARE_YOU_SURE = "U staat op het punt een quiz te wissen.\n Alle bijbehorende vragen zullen ook worden verwijderd.";
         String CLICK_CONTINUE = "Weet u zeker dat u wilt doorgaan?";
 
         ButtonType jaKnop = new ButtonType("Ja", ButtonBar.ButtonData.YES);

@@ -1,7 +1,5 @@
 package model;
 
-import database.mysql.DBAccess;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +18,14 @@ public class Quiz {
         this.id = id;
         this.name = naam;
         this.succesDefinition = succesDefinitie;
-        course = new Course(cursusId, "nogNietOpgehaaldUitDatabase", 0);
+        course = new Course(cursusId, Const.ONBEKEND_STRING);
+    }
+    public Quiz(){
+        this.id = Const.ONBEKEND_INT;
+        this.name = Const.ONBEKEND_STRING;
+        this.succesDefinition = Const.ONBEKEND_INT;
+        this.course = new Course();
+        questions = new ArrayList<>();
     }
 
     //METHODS
@@ -36,14 +41,8 @@ public class Quiz {
         }
     }
 
-    public void setAllQuestions(ArrayList<Question> questions) {
-        for (Question question : questions){
-            addQuestion(question);
-        }
-    }
-    public List<Question> getQuestions() {
-        return questions;
-    }
+
+
 
     //GETTERS
     public int getId() {
@@ -58,13 +57,13 @@ public class Quiz {
     public int getCourseId() {
         return course.getId();
     }
-
+    public List<Question> getQuestions() {
+        return questions;
+    }
     //SETTERS
-
     public void setId(int id) {
         this.id = id;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -74,17 +73,21 @@ public class Quiz {
     public void setSelectedQuestions(List<Question> questions) {
         this.questions = questions;
     }
-    public void setCourseId(Course course) {
-        this.course.setId(course.getId());
+
+    public void setAllQuestions(ArrayList<Question> questions) {
+        for (Question question : questions){
+            addQuestion(question);
+        }
     }
-
-
     //SETTERS voor de Course waar de quiz bij hoort
     public void setCourseName(String name) {
         course.setCoursename(name);
     }
     public void setCourseCoordinatorId(int coordinatorId) {
         course.setCoordinatorid(coordinatorId);
+    }
+    public void setCourseId(Course course) {
+        this.course.setId(course.getId());
     }
 
 
