@@ -28,6 +28,11 @@ public class Course {
     public Course(int coordinatorid) {this.coordinatorid = coordinatorid;
     }
 
+        public Course(int studentid, int coursusid) {
+
+        }
+
+
 
     public int getId() {
         return id;

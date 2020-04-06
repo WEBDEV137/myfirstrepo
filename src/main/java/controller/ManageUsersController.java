@@ -51,7 +51,7 @@ public class ManageUsersController {
             verkeerdeInlogGegevens.show();
             return;
         }
-        Main.getSceneManager().showExistingCustomerScene(user);
+        Main.getSceneManager().showExistingUserScene(user);
     }
     @FXML
     public void doDeleteUser(ActionEvent e) {

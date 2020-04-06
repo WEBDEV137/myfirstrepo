@@ -45,9 +45,10 @@ public class WelcomeController {
 
     public void voegMenuItemsToeStudent() {
         MenuItem taak1 = new MenuItem("Quiz invullen");
-        taak1.setOnAction(actionEvent -> Main.getSceneManager().showSelectQuizForStudent());
-        MenuItem taak2 = new MenuItem("In- en uitschrijven cursus");
+        taak1.setOnAction(e -> Main.getSceneManager().showSelectQuizForStudent());
         taskMenuButton.getItems().add(taak1);
+        MenuItem taak2 = new MenuItem("Inschrijven en uitschrijven cursus");
+        taak2.setOnAction(e -> Main.getSceneManager().showStudentSignInOutScene());
         taskMenuButton.getItems().add(taak2);
     }
 
@@ -102,7 +103,7 @@ public class WelcomeController {
      */
     public void doLogOutConfirmation() {
          String ARE_YOU_SURE = "Weet u zeker dat u wilt uitloggen?";
-         String CLICK_CONTINUE ="klik OK om door te gaan";
+         String CLICK_CONTINUE ="Klik OK om door te gaan";
 
         Alert okCancelDialogue = new Alert(Alert.AlertType.CONFIRMATION);
         okCancelDialogue.initModality(Modality.APPLICATION_MODAL); //Achtegrpond scherm wordt onbruikbaar gemaakt.

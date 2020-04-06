@@ -6,6 +6,7 @@ import model.Course;
 import model.Group;
 import model.Quiz;
 import model.User;
+import view.Main;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -73,8 +74,6 @@ public class CourseDAO extends AbstractDAO {
             ps.setString(1, course.getCoursename());
             ps.setInt(2, course.getCoordinatorid());
             this.executeManipulatePreparedStatement(ps);
-
-
 //            int key = executeInsertPreparedStatement(ps);
 //            course.setId(key);
         } catch (final SQLException e) {
@@ -161,6 +160,62 @@ public class CourseDAO extends AbstractDAO {
         }
         return courseName;
     }
+    /**
+     * om get aal inscrijving courses
+     * @return
+     */
+    public  ArrayList <Course> getAllInscrijvingCourses(int studentid) {
+        String query = "SELECT c.id ,c.naam  \n" +
+                "FROM cursus c JOIN inschrijving i\n" +
+                "ON c.id = i.cursusid where studentid = ?;";
+        ArrayList<Course> inschrijvingList = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = getStatement(query);
+            preparedStatement.setInt(1,studentid);
+            ResultSet resultSet = executeSelectPreparedStatement(preparedStatement);
+            Course course;
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String naam = resultSet.getString("naam");
+                course = new Course(id,naam, studentid);
+                inschrijvingList.add (course);
+            }
+        }
+        catch (SQLException e) {
+            System.out.println(" SQL error " + e.getMessage());
+        }
+        return inschrijvingList;
+    }
 
+    /**
+     * om inschrijving course op te slaan
+     * @param course
+     */
+    public void storeInscrijving(Course course) {
+        String sql = "Insert into inschrijving values(?, ?) ;";
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setInt(1, Main.getCurrentUser().getUserId());
+            ps.setInt(2, course.getId());
+            executeManipulatePreparedStatement(ps);
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+    }
 
+    /**
+     * om uitscrijven van course
+     * @param course
+     */
+    public void deleteInshrijvingCourse(Course course) {
+        String sql = "DELETE FROM inschrijving WHERE cursusid = ?;";
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setInt(1, course.getId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("SQL Error " + e.getMessage());
+        }
+
+    }
 }
