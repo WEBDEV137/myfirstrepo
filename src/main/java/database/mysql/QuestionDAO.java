@@ -148,14 +148,17 @@ public class QuestionDAO extends AbstractDAO implements GenericDAO<Question>{
         }return 0;
     }
 
-    public void storeAnswerToQuestionByQuestionId(Question question) {
-        String query = "INSERT INTO antwoord VALUES (DEFAULT, 'Antwoord 2', ?, 0));";
+    public int getIdByQuestionText(String questionText) {
+        String query = "SELECT id FROM Vraag WHERE tekst = ?;";
+        int questionId = 0;
         try {
             PreparedStatement preparedStatement = getStatement(query);
-            preparedStatement.setInt(1, question.getQuestionID());
-            preparedStatement.execute();
+            preparedStatement.setString(1, questionText);
+            ResultSet resultSet = super.executeSelectPreparedStatement(preparedStatement);
+            questionId = resultSet.getInt("id");
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
         }
+        return questionId;
     }
 }

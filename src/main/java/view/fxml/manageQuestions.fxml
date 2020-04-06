@@ -41,20 +41,4 @@
         <opaqueInsets>
             <Insets />
         </opaqueInsets></TextField>
-   <ListView layoutX="462.0" layoutY="78.0" prefHeight="145.0" prefWidth="404.0" />
-   <Button layoutX="462.0" layoutY="240.0" mnemonicParsing="false" onAction="#doCreateQuestion" text="Nieuw antwoord">
-      <font>
-         <Font size="14.0" />
-      </font>
-   </Button>
-   <Button layoutX="594.0" layoutY="240.0" mnemonicParsing="false" onAction="#doUpdateQuestion" text="Wijzig antwoord">
-      <font>
-         <Font size="14.0" />
-      </font>
-   </Button>
-   <Button layoutX="724.0" layoutY="240.0" mnemonicParsing="false" onAction="#doDeleteQuestion" text="Verwijder antwoord">
-      <font>
-         <Font size="14.0" />
-      </font>
-   </Button>
 </AnchorPane>
