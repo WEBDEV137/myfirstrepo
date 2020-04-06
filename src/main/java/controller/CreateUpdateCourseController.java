@@ -22,7 +22,6 @@ public class CreateUpdateCourseController {
 
     @FXML
     private Label titleLabel;
-
     @FXML
     private TextField cursusnummerTextfield;
     @FXML
@@ -35,7 +34,7 @@ public class CreateUpdateCourseController {
 
     public CreateUpdateCourseController() {
         super();
-        this.courseDAO = new CourseDAO(dbAccess);
+        this.courseDAO = new CourseDAO(this.dbAccess);
         this.dbAccess = Main.getDBaccess();
     }
 
@@ -45,38 +44,37 @@ public class CreateUpdateCourseController {
      * @param course
      */
     public void setup(Course course) {
-        dbAccess = Main.getDBaccess();
-        dbAccess.openConnection();
-        userDAO = new UserDAO(dbAccess);
-//        List<Course> allCourses = courseDAO.getAllCourses();
-       List<User> allUsers = userDAO.getUsersByRole("Coordinator");
+        this.dbAccess = Main.getDBaccess();
+        this.dbAccess.openConnection();
+        this.userDAO = new UserDAO(this.dbAccess);
+        List<User> allUsers = this.userDAO.getUsersByRole("Coordinator");
 
         if (course == null) {
-            titleLabel.setText("Nieuwe cursus aanmaken");
+            this.titleLabel.setText("Nieuwe cursus aanmaken");
 
             for (int i = 0; i < allUsers.size(); i++) {
                 String coordinatorname = allUsers.get(i).getUserName();
                 MenuItem menuItem = new MenuItem(coordinatorname);
-                coordinatornaamTextfield.getItems().add(menuItem);
-                menuItem.setOnAction(event -> setCoordinatorName(coordinatorname));
+                this.coordinatornaamTextfield.getItems().add(menuItem);
+                menuItem.setOnAction(event -> this.setCoordinatorName(coordinatorname));
             }
         } else {
-            titleLabel.setText("Cursus wijzigen");
-            for (int i = 0; i< allUsers.size(); i++) {
+            this.titleLabel.setText("Cursus wijzigen");
+            for (int i = 0; i < allUsers.size(); i++) {
                 String coordinatorname = allUsers.get(i).getUserName();
                 MenuItem menuItem = new MenuItem(coordinatorname);
-                coordinatornaamTextfield.getItems().add(menuItem);
-                menuItem.setOnAction(event -> setCoordinatorName(coordinatorname));
+                this.coordinatornaamTextfield.getItems().add(menuItem);
+                menuItem.setOnAction(event -> this.setCoordinatorName(coordinatorname));
             }
-            cursusnummerTextfield.setText(String.valueOf(course.getId()));
-            cursusnaamTextfield.setText(course.getCoursename());
-            coordinatornaamTextfield.setText(userDAO.getUserNameById(course.getCoordinatorid()));
+            this.cursusnummerTextfield.setText(String.valueOf(course.getId()));
+            this.cursusnaamTextfield.setText(course.getCoursename());
+            this.coordinatornaamTextfield.setText(this.userDAO.getUserNameById(course.getCoordinatorid()));
 
         }
     }
 
     public void setCoordinatorName(String coordinatorName) {
-        coordinatornaamTextfield.setText(coordinatorName);
+        this.coordinatornaamTextfield.setText(coordinatorName);
 
     }
 
@@ -85,15 +83,13 @@ public class CreateUpdateCourseController {
     private void createCourse() {
         StringBuilder warningText = new StringBuilder();
         boolean correcteInvoer = true;
-        UserDAO userDAO = new UserDAO(dbAccess);
-        CourseDAO courseDAO = new CourseDAO(dbAccess);
+        UserDAO userDAO = new UserDAO(this.dbAccess);
+        CourseDAO courseDAO = new CourseDAO(this.dbAccess);
         int userId;
         int courseId;
-        String cursusnaam = cursusnaamTextfield.getText();
-        //        int coordinatorid = Integer.parseInt(coordinatorIdTextfield.getText());
-        String userName = coordinatornaamTextfield.getText();
+        String cursusnaam = this.cursusnaamTextfield.getText();
+        String userName = this.coordinatornaamTextfield.getText();
         userId = userDAO.getUserIdByLoginName(userName);
-        courseId = courseDAO.getCourseIdByName(cursusnaam);
 
         if (cursusnaam.isEmpty()) {
             warningText.append("Je moet de cursusnaam invullen\n");
@@ -112,23 +108,23 @@ public class CreateUpdateCourseController {
 
     @FXML
     public void doCreateUpdateCourse(ActionEvent actionEvent) {
-        createCourse();
+        this.createCourse();
         DBAccess dbAccess = Main.getDBaccess();
         CourseDAO courseDAO = new CourseDAO(dbAccess);
 
         if (course != null) {
-            if (cursusnummerTextfield.getText().equals(("cursusnummer"))) {
+            if (this.cursusnummerTextfield.getText().equals(("cursusnummer"))) {
                 System.out.println(course.getCoursename());
-                courseDAO.storeCourse(course);
-                System.out.println(course.getCoursename() + "2");
-                cursusnummerTextfield.setText(String.valueOf(course.getId()));
+                courseDAO.storeCourse(this.course);
+                System.out.println(this.course.getCoursename() + "2");
+                this.cursusnummerTextfield.setText(String.valueOf(course.getId()));
                 Alert opgeslagen = new Alert(Alert.AlertType.INFORMATION);
                 opgeslagen.setContentText("Cursus opgeslagen");
                 opgeslagen.show();
             } else {
-                int id = Integer.valueOf(cursusnummerTextfield.getText());
-                course.setId(id);
-                courseDAO.updateCourse(course);
+                int id = Integer.parseInt(this.cursusnummerTextfield.getText());
+                this.course.setId(id);
+                courseDAO.updateCourse(this.course);
                 Alert gewijzigd = new Alert(Alert.AlertType.INFORMATION);
                 gewijzigd.setContentText("Cursus gewijzigd");
                 gewijzigd.show();
@@ -138,10 +134,11 @@ public class CreateUpdateCourseController {
 
     @FXML
     public void doBackToList(ActionEvent actionEvent) {
-        Main.getSceneManager().showManageCoursesScene();;
+        Main.getSceneManager().showManageCoursesScene();
+
     }
 
-
+    @FXML
     public void doMenu(ActionEvent e) {
         dbAccess.closeConnection();
         System.out.println("Connection closes");
