@@ -13,6 +13,7 @@ import model.Group;
 import model.User;
 import view.Main;
 
+import java.util.Collections;
 import java.util.List;
 
 public class ManageCoursesController {
@@ -36,6 +37,7 @@ public class ManageCoursesController {
         dbAccess.openConnection();
         this.courseDAO = new CourseDAO(dbAccess);
         List<Course> allCourses = courseDAO.getAllCourses();
+        Collections.sort(allCourses);
         for (Course course : allCourses) {
             courseList.getItems().add(course);
             System.out.println(course.getCoursename());

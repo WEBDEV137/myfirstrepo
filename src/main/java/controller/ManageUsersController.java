@@ -11,6 +11,7 @@ import model.Group;
 import model.User;
 import view.Main;
 
+import java.util.Collections;
 import java.util.List;
 
 public class ManageUsersController {
@@ -29,6 +30,7 @@ public class ManageUsersController {
     public void setup() {
         this.udao = new UserDAO(Main.getDBaccess());
         List<User> allUsers = udao.getAll();
+        Collections.sort(allUsers);
         for (User u : allUsers) {
             userList.getItems().add(u);
         }

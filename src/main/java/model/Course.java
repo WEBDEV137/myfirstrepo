@@ -1,7 +1,7 @@
 // Class course aangemaakt Minke Pronk
 package model;
 
-public class Course {
+public class Course implements Comparable<Course> {
 
     //variabelen
     private int id;
@@ -60,6 +60,11 @@ public class Course {
 
     public String toString() {
         return String.format("%s", this.coursename);
+    }
+
+    @Override
+    public int compareTo(Course o) {
+        return coursename.compareTo(o.getCoursename());
     }
 }
 
