@@ -3,15 +3,17 @@ package database.nosql;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import model.Gebruiker;
 import model.QuizResult;
+
+import java.util.Date;
 import java.util.List;
 
+
 public class QuizResultCouchDBDAO {
-    private CouchDBaccess db;
+    private QuizResultCouchDBaccess db;
     private Gson gson;
 
-    public QuizResultCouchDBDAO(CouchDBaccess db) {
+    public QuizResultCouchDBDAO(QuizResultCouchDBaccess db) {
         super();
         this.db = db;
         gson = new Gson();
@@ -32,15 +34,15 @@ public class QuizResultCouchDBDAO {
         return quizResult;
     }
 
-/*    public QuizResult getQuizresult(int userId, ) {
+    public QuizResult getQuizresult(int userId, int quizid,  Date date) {
         QuizResult quizResult = null;
         List<JsonObject> allQuizResults = db.getClient().view("_all_docs").includeDocs(true).query(JsonObject.class);
         for (JsonObject json : allQuizResults) {
             quizResult = gson.fromJson(json, QuizResult.class);
-            if (quizResult.getusername().equals(gebruikerNaam) && (allQuizResults. == rol)) {
-                return allQuizResults;
+            if (quizResult.getUserid() == userId && quizResult.getQuizId() == quizid && quizResult.getDate() == date) {
+                return quizResult;
             }
         }
-        return allQuizResults;
-    }*/
+        return quizResult;
+    }
 }

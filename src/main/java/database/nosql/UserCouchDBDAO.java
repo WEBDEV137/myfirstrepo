@@ -4,8 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import model.Gebruiker;
-import model.Group;
-import model.User;
 
 import java.util.List;
 

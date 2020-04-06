@@ -1,11 +1,7 @@
 package controller;
 
-import com.google.gson.JsonObject;
 import database.nosql.CouchDBaccess;
 import database.nosql.UserCouchDBDAO;
-import model.Gebruiker;
-
-import java.util.List;
 
 public class CouchDBQuizmasterLauncher {
     private CouchDBaccess db;
