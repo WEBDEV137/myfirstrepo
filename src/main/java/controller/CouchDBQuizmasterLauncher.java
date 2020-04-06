@@ -2,6 +2,7 @@ package controller;
 
 import com.google.gson.JsonObject;
 import database.nosql.CouchDBaccess;
+import database.nosql.GroupCouchDBDAO;
 import database.nosql.UserCouchDBDAO;
 import model.Gebruiker;
 
@@ -10,12 +11,14 @@ import java.util.List;
 public class CouchDBQuizmasterLauncher {
     private CouchDBaccess db;
     private UserCouchDBDAO udb;
+    private GroupCouchDBDAO groupDb;
 
 
     public CouchDBQuizmasterLauncher() {
         super();
         this.db = new CouchDBaccess();
         this.udb = new UserCouchDBDAO(db);
+        this.groupDb = new GroupCouchDBDAO(db);
     }
 
     public static void main(String[] args) {

@@ -97,7 +97,7 @@ public void setTeachername(String teachername){
         GroupDAO groupDAO = new GroupDAO(dbAccess);
         if (group != null) { //in geval van groep aanmaken
             if (groupNumberTextfield.getText().equals(("groepnummer"))) {
-                groupDAO.storeGroup(group);
+                groupDAO.storeOne(group);
                 groupNumberTextfield.setText(String.valueOf(group.getGroupId()));
                 Alert opgeslagen = new Alert(Alert.AlertType.INFORMATION);
                 opgeslagen.setContentText("Groep opgeslagen");
