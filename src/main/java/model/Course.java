@@ -7,16 +7,23 @@ package model;
         private int id;
         private String coursename;
         private int coordinatorid;
+        private User user;
 
         public Course (int id, String coursename, int coordinatorid) {
             this.id = id;
             this.coursename = coursename;
             this.coordinatorid = coordinatorid;
+            this.user = user;
         }
 
         public Course (String coursename, int coordinatorid){
             this.coursename = coursename;
             this.coordinatorid = coordinatorid;
+        }
+
+        public Course(int id, String coursename) {
+            this.id = id;
+            this.coursename = coursename;
         }
 
         public Course (int coordinatorid){
@@ -51,7 +58,7 @@ package model;
         }
 
         public String toString(){
-            return String.format("%d %s %d", id, coursename, coordinatorid );
+            return String.format("%s", coursename );
         }
     }
 

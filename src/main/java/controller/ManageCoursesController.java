@@ -19,6 +19,7 @@ public class ManageCoursesController {
 
     private CourseDAO courseDAO;
     private DBAccess dbAccess;
+    private User user;
 
     @FXML
     private ListView<Course> courseList;
@@ -39,7 +40,6 @@ public class ManageCoursesController {
             courseList.getItems().add(course);
             System.out.println(course.getCoursename());
         }
-
     }
 
     /**

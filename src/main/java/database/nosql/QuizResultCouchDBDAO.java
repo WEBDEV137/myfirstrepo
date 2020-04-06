@@ -4,24 +4,22 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import model.Gebruiker;
-import model.Group;
 import model.QuizResult;
-import model.User;
 
 import java.util.List;
 
-public class UserCouchDBDAO {
+public class QuizResultCouchDBDAO {
     private CouchDBaccess db;
     private Gson gson;
 
-    public UserCouchDBDAO(CouchDBaccess db) {
+    public QuizResultCouchDBDAO(CouchDBaccess db) {
         super();
         this.db = db;
         gson = new Gson();
     }
 
-    public String saveSingleUser(Gebruiker gebruiker) {
-        String jsonstring = gson.toJson(gebruiker);
+    public String saveSingelQuizResult(QuizResult quizResult) {
+        String jsonstring = gson.toJson(quizResult);
         System.out.println(jsonstring);
         JsonParser parser = new JsonParser();
         JsonObject jsonobject = parser.parse(jsonstring).getAsJsonObject();
@@ -29,9 +27,9 @@ public class UserCouchDBDAO {
         return doc_Id;
     }
 
-    public QuizResult getQuizResultByDocId(String doc_Id) {
+    public Gebruiker getUserByDocId(String doc_Id) {
         JsonObject json = db.getClient().find(JsonObject.class, doc_Id);
-        QuizResult resultaat = gson.fromJson(json, QuizResult.class);
+        Gebruiker resultaat = gson.fromJson(json, Gebruiker.class);
         return resultaat;
     }
 
@@ -40,7 +38,7 @@ public class UserCouchDBDAO {
         List<JsonObject> alleGebruikers = db.getClient().view("_all_docs").includeDocs(true).query(JsonObject.class);
         for (JsonObject json : alleGebruikers) {
             resultaat = gson.fromJson(json, Gebruiker.class);
-            if (resultaat.getGebruikerNaam().equals(gebruikerNaam)  && (resultaat.getRol() == rol)) {
+            if (resultaat.getGebruikerNaam().equals(gebruikerNaam) && (resultaat.getRol() == rol)) {
                 return resultaat;
             }
         }

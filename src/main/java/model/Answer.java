@@ -17,4 +17,9 @@ public class Answer {
     public boolean isRightAnswer() {
         return isRightAnswer;
     }
+
+    @Override
+    public String toString() {
+        return text;
+    }
 }

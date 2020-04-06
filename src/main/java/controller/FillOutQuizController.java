@@ -1,6 +1,7 @@
 package controller;
 
 import database.mysql.AnswerDAO;
+import database.mysql.CourseDAO;
 import database.mysql.DBAccess;
 import database.mysql.QuestionDAO;
 import javafx.fxml.FXML;
@@ -16,104 +17,222 @@ public class FillOutQuizController{
     private DBAccess dbAccess;
     private QuestionDAO questionDAO;
     private AnswerDAO answerDAO;
-    private QuestionResult questionResult;
+    private CourseDAO courseDAO;
+    private QuizResult quizResult;
+    private QuestionResult currentQuestionResult;
     private User user;
     private Quiz quiz;
+    private Course course;
     private Question currentQuestion;
     private List<Question> questions;
     private List<Answer> answers;
+    private List<Answer> randomizedAnswers;
     private int questionNumber;
     private int questionIndex;
-    private String answerA;
-    private String answerB;
-    private String answerC;
-    private String answerD;
+    private Answer answerA;
+    private Answer answerB;
+    private Answer answerC;
+    private Answer answerD;
+    final static int FIRST_QUESTION = 1;
+    final static int INDEX_OF_FIRST_ITEM = 0;
+    final static int INDEX_OF_SECOND_ITEM = 1;
+    final static int INDEX_OF_THIRD_ITEM = 2;
+    final static int INDEX_OF_FOURTH_ITEM = 3;
+    final static  int NUMBER_OF_ANSWERS_AB= 2;
+    final static int NUMBER_OF_ANSWERS_ABC = 3;
+
 
     @FXML
     private Label titleLabel;
     @FXML
     private TextArea questionArea;
+    @FXML
+    private Button buttonC;
+    @FXML
+    private Button buttonD;
 
     public void setup(Quiz quiz) {
-        this.quiz = quiz;
-        user = Main.getCurrentUser();
         dbAccess = Main.getDBaccess();
         questionDAO = new QuestionDAO(dbAccess);
+        courseDAO = new CourseDAO(dbAccess);
+        questionIndex = INDEX_OF_FIRST_ITEM;
+        questionNumber = FIRST_QUESTION;
+        this.quiz = quiz;
+        user = Main.getCurrentUser();
+        course = courseDAO.getOneById(quiz.getCourseId());
+        quizResult = new QuizResult(user, quiz, course);
         questions = questionDAO.getSelectedQuestionsByQuizId(quiz.getId());
-        questionIndex = 0;
-        questionNumber = 1;
+        for (int index = INDEX_OF_FIRST_ITEM; index < questions.size(); index++) {
+            quizResult.addQuestionResult(new QuestionResult());
+        }
 
-        showFirstQuestion();
-        getAnswersByQuestionId();
-        setAnswersInQuestionResult();
-        questionResult.setQuestionText(currentQuestion.getQuestionText());
+        currentQuestion = questions.get(questionIndex);
+        answers = getAnswersByQuestionId(currentQuestion.getQuestionID());
+        randomizedAnswers = randomizeAnswers(answers);
+        assignAnswersToLetters();
+        fillTextArea();
+        currentQuestionResult = quizResult.getQuestionResult(INDEX_OF_FIRST_ITEM);
     }
-    private void showFirstQuestion(){
+
+
+    private List<Answer> getAnswersByQuestionId(int questionId) {
+        answerDAO = new AnswerDAO(dbAccess);
+        answers = answerDAO.getAllByQuestionId(questionId);
+        return answers;
+    }
+
+    public List<Answer> randomizeAnswers (List<Answer> answers) {
+        List<Answer> answersCopy = new ArrayList<>();
+        for (Answer answerToCopy : answers) {
+            answersCopy.add(answerToCopy);
+        }
+        int index = answersCopy.size()-1;
+        int MAX = answersCopy.size();
+        List<Answer> randomizedAnswers = new ArrayList<>();
+        while (index >= INDEX_OF_FIRST_ITEM) {
+            int randomNumber = ((int)(Math.random() * MAX));
+            Answer answerToshuffle = answersCopy.get(randomNumber);
+            answersCopy.remove(randomNumber);
+            randomizedAnswers.add(answerToshuffle);
+            index--;
+            MAX --;
+        } return randomizedAnswers;
+    }
+        public void assignAnswersToLetters() {
+
+            answerA = null;
+            answerB = null;
+            answerC = null;
+            answerD = null;
+            answerA = randomizedAnswers.get(INDEX_OF_FIRST_ITEM);
+            answerB = randomizedAnswers.get(INDEX_OF_SECOND_ITEM);
+            if (randomizedAnswers.size() > NUMBER_OF_ANSWERS_AB) {
+                answerC = randomizedAnswers.get(INDEX_OF_THIRD_ITEM);
+                if (randomizedAnswers.size() > NUMBER_OF_ANSWERS_ABC) {
+                    answerD = randomizedAnswers.get(INDEX_OF_FOURTH_ITEM);
+                }
+            }
+        }
+    private void fillTextArea(){
+
         if(questions.get(questionIndex) != null){
             currentQuestion = questions.get(questionIndex);
-            questionArea.setText(currentQuestion.getQuestionText());
+            StringBuilder vraagEnAntwoorden = new StringBuilder();
+            vraagEnAntwoorden.append(currentQuestion.getQuestionText());
+            vraagEnAntwoorden.append("\nA. ").append(answerA);
+            vraagEnAntwoorden.append("\nB. ").append(answerB);
+            if (answerC != null){
+                vraagEnAntwoorden.append("\nC. ").append(answerC);
+                if (answerD!= null) {
+                    vraagEnAntwoorden.append("\nD. ").append(answerD);
+                }
+            }
+            questionArea.setText(vraagEnAntwoorden.toString());
+            int questionNumber = questionIndex +1;
             titleLabel.setText(String.format("Vraag %d", questionNumber));
         }
     }
-    private void getAnswersByQuestionId(){
-        dbAccess = Main.getDBaccess();
-        answerDAO = new AnswerDAO(dbAccess);
-        QuestionResult questionResult = new QuestionResult();
-        answers = answerDAO.getAllByQuestionId(currentQuestion.getQuestionID());
-
-
+    private void storeAnswersInQuestionResult() {
+        if (answers.get(INDEX_OF_FIRST_ITEM).isRightAnswer()) {
+            currentQuestionResult.setRightAnswer(answers.get(INDEX_OF_FIRST_ITEM).getText());
+        }
+        else {
+            System.out.println("First answer in answers ArrayList should be the correct answer!, but its not");
+        }
+        currentQuestionResult.setWrongAnswer1(answers.get(INDEX_OF_SECOND_ITEM).getText());
+        if (answers.size() > NUMBER_OF_ANSWERS_ABC) {
+            currentQuestionResult.setWrongAnswer2(answers.get(INDEX_OF_THIRD_ITEM).getText());
+            currentQuestionResult.setWrongAnswer3(answers.get(INDEX_OF_FOURTH_ITEM).getText());
+        }
+        else if (answers.size() > NUMBER_OF_ANSWERS_AB) {
+            currentQuestionResult.setWrongAnswer2(answers.get(INDEX_OF_THIRD_ITEM).getText());
+        }
     }
-    private void setAnswersInQuestionResult() {
-        questionResult.setRightAnswer(answers.get(0).getText());
-        questionResult.setWrongAnswer1(answers.get(1).getText());
-        questionResult.setWrongAnswer1(answers.get(2).getText());
-        questionResult.setWrongAnswer1(answers.get(3).getText());
+    public void storeQuestionInQuestionResult(){
+        currentQuestionResult.setQuestionText(currentQuestion.getQuestionText());
     }
+    public void storeCurrentQuestionResult(){
+        storeQuestionInQuestionResult();
+        storeAnswersInQuestionResult();
+        quizResult.setQuestionResult(questionIndex, currentQuestionResult);
+    }
+
 
     public void doNextQuestion() {
+        storeCurrentQuestionResult();
         questionIndex++;
-
         if (questionIndex < questions.size()) {
-            questionNumber++;
             currentQuestion = questions.get(questionIndex);
-            questionArea.setText(currentQuestion.getQuestionText());
-            titleLabel.setText("Vraag" + questionIndex+1);
-            titleLabel.setText(String.format("Vraag %d", questionNumber));
+            System.out.println(currentQuestion);
+            answers = getAnswersByQuestionId(currentQuestion.getQuestionID());
+            hideButtons(answers.size());
+            for (Answer answer : answers){
+                System.out.println(answer);
+            }
+            randomizedAnswers = randomizeAnswers(answers);
+            assignAnswersToLetters();
+            fillTextArea();
+           currentQuestionResult = quizResult.getQuestionResult(questionIndex);
+            System.out.println(quizResult);
         }
         else{
             questionIndex--;
         }
     }
-
     public void doPreviousQuestion() {
-        if (questionIndex > 0) {
+        storeCurrentQuestionResult();
+        if (questionIndex > INDEX_OF_FIRST_ITEM) {
             questionIndex--;
-            questionNumber--;
             currentQuestion = questions.get(questionIndex);
-            questionArea.setText(currentQuestion.getQuestionText());
-            titleLabel.setText(String.format("Vraag %d", questionNumber));
+            answers = getAnswersByQuestionId(currentQuestion.getQuestionID());
+            hideButtons(answers.size());
+            randomizedAnswers = randomizeAnswers(answers);
+            assignAnswersToLetters();
+            fillTextArea();
+            currentQuestionResult = quizResult.getQuestionResult(questionIndex);
+            System.out.println(quizResult);
         }
     }
 
-    public ArrayList<String> randomizeAnswers(){
-        int index = answers.size()-1;
-        ArrayList<String> randomAnswers = new ArrayList<>();
-        while(index >=0 ) {
-            int randomNumber = ((int)Math.random() * index);
-            String answerToshuffle = answers.get(randomNumber).getText();
-            randomAnswers.add(answerToshuffle);
-            index--;
-        }return randomAnswers;
-    }
 
     public void doRegisterA() {
+
+        currentQuestionResult.setAnswer(answerA.getText());
+        doNextQuestion();
+
     }
 
-    public void doRegisterB() {}
+    public void doRegisterB() {
+        currentQuestionResult.setAnswer(answerB.getText());
+        doNextQuestion();
 
-    public void doRegisterC() {}
+    }
 
-    public void doRegisterD() {}
+    public void doRegisterC() {
+        currentQuestionResult.setAnswer(answerC.getText());
+        doNextQuestion();
+
+    }
+
+    public void doRegisterD() {
+        currentQuestionResult.setAnswer(answerD.getText());
+        doNextQuestion();
+    }
+    public void hideButtons(int numberOfAnswers){
+        buttonC.setVisible(true);
+        buttonD.setVisible(true);
+        if(numberOfAnswers == NUMBER_OF_ANSWERS_ABC ){
+            buttonD.setVisible(false);
+        }
+        else if(numberOfAnswers == NUMBER_OF_ANSWERS_AB ){
+            buttonC.setVisible(false);
+            buttonD.setVisible(false);
+        }
+    }
+    public void storeQuizResult(){
+
+    }
+
 
 
 
@@ -121,6 +240,8 @@ public class FillOutQuizController{
 
 
     public void doMenu() {
+       storeCurrentQuestionResult();
+      // Store QuizResult to GSON
        Main.getSceneManager().showWelcomeScene(user);
     }
     /**
@@ -136,13 +257,11 @@ public class FillOutQuizController{
             Alert okCancelDialogue = new Alert(Alert.AlertType.WARNING, CLICK_CONTINUE, jaKnop, neeKnop);
             okCancelDialogue.setTitle(Main.QUISMASTER);
             okCancelDialogue.setHeaderText(ARE_YOU_SURE);
-            okCancelDialogue.initModality(Modality.APPLICATION_MODAL); //Achtegrpond scherm wordt onbruikbaar gemaakt.
+            okCancelDialogue.initModality(Modality.APPLICATION_MODAL);
             okCancelDialogue.initOwner(Main.getPrimaryStage()); //show,
             Optional<ButtonType> result = okCancelDialogue.showAndWait();
             if (result.get() == jaKnop) {
                 doMenu();
             }
-            else if (!result.isPresent()){}
-
     }
 }

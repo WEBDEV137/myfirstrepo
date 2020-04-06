@@ -116,7 +116,6 @@ public class CourseDAO extends AbstractDAO {
         return courses;
     }
 
-<<<<<<< HEAD
     public void deleteCourse(Course course){
         System.out.println("verwijder cursus");
         String sql = "DELETE FROM cursus WHERE id = ?;";
@@ -129,9 +128,6 @@ public class CourseDAO extends AbstractDAO {
         }
 
     }
-
-=======
->>>>>>> c2f1345f2caf1dd78f23cda28f8212969b0e88e2
     public int getCourseIdByName(String courseName){
         int courseId = 0;
         String sql = "SELECT * FROM cursus WHERE naam = ?;";
@@ -148,4 +144,23 @@ public class CourseDAO extends AbstractDAO {
         }
         return courseId;
     }
+
+    public String getCourseNameById(int courseId){
+        String courseName = "";
+        String sql = "SELECT * FROM cursus WHERE id = ?;";
+        try {
+            PreparedStatement preparedStatement = getStatement(sql);
+            preparedStatement.setInt(1, courseId);
+            ResultSet rs = executeSelectPreparedStatement(preparedStatement);
+            if (rs.next()) {
+                courseName = rs.getString("naam");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+            AbstractController.showAlert("x", "x", "x");
+        }
+        return courseName;
+    }
+
+
 }

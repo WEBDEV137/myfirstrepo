@@ -6,48 +6,37 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="416.0" prefWidth="619.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateUpdateCourseController">
     <children>
-        <Label fx:id="titleLabel" layoutX="129.0" layoutY="85.0" text="Nieuwe cursus">
+        <Label fx:id="titleLabel" layoutX="223.0" layoutY="85.0" text="Cursus aanmaken of wijzigen">
             <font>
-                <Font size="27.0" />
+                <Font size="18.0" />
             </font>
         </Label>
-        <GridPane layoutX="129.0" layoutY="142.0" prefHeight="174.0" prefWidth="459.0">
+        <GridPane layoutX="129.0" layoutY="142.0" prefHeight="146.0" prefWidth="341.0">
             <columnConstraints>
-                <ColumnConstraints maxWidth="154.0" minWidth="113.0" prefWidth="154.0" />
-                <ColumnConstraints maxWidth="154.0" minWidth="113.0" prefWidth="154.0" />
+                <ColumnConstraints maxWidth="148.0" minWidth="96.00001525878906" prefWidth="96.00001525878906" />
+                <ColumnConstraints maxWidth="211.99998474121094" minWidth="113.0" prefWidth="211.99998474121094" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints />
                 <RowConstraints />
                 <RowConstraints />
                 <RowConstraints />
-            <RowConstraints />
+                <RowConstraints />
             </rowConstraints>
             <children>
-                <Label prefHeight="50.0" prefWidth="155.0" text="Cursusnummer" GridPane.rowIndex="0">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Label>
-                <Label prefHeight="50.0" prefWidth="155.0" text="Cursusnaam" GridPane.rowIndex="2">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Label>
-                <Label prefHeight="50.0" prefWidth="155.0" text="Coordinatornummer" GridPane.rowIndex="3">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Label>
+                <Label prefHeight="50.0" prefWidth="155.0" text="Cursusnummer" textAlignment="RIGHT" GridPane.rowIndex="0" />
+                <Label prefHeight="50.0" prefWidth="155.0" text="Cursusnaam" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                <Label prefHeight="50.0" prefWidth="155.0" text="Coördinator" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
                 <TextField fx:id="cursusnaamTextfield" minWidth="-Infinity" prefHeight="25.0" prefWidth="155.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <TextField fx:id="cursusnummerTextfield" disable="true" editable="false" text="cursusnummer" GridPane.columnIndex="1" />
-            <MenuButton fx:id="coordinatorIdTextfield" mnemonicParsing="false" onAction="#doCreateUpdateCourse" prefHeight="25.0" prefWidth="154.0" text="Kies Coordinator" GridPane.columnIndex="1" GridPane.rowIndex="3">
-              <items>
-              </items>
-            </MenuButton>
+                <MenuButton fx:id="coordinatornaamTextfield" mnemonicParsing="false" onAction="#doCreateUpdateCourse" prefHeight="25.0" prefWidth="154.0" text="Kies coördinator" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                    <items>
+                    </items>
+                </MenuButton>
             </children>
         </GridPane>
-        <Button fx:id="saveButton" layoutX="127.0" layoutY="311.0" mnemonicParsing="false" onAction="#doCreateUpdateCourse" prefHeight="0.0" prefWidth="60.0" text="Save" />
-      <Button fx:id="MenuButton" layoutX="242.0" layoutY="311.0" mnemonicParsing="false" onAction="#doMenu" prefHeight="0.0" prefWidth="60.0" text="Menu" />
+        <Button fx:id="saveButton" layoutX="227.0" layoutY="314.0" maxHeight="1.8" mnemonicParsing="false" onAction="#doCreateUpdateCourse" prefHeight="0.0" prefWidth="60.0" text="Save" />
+        <Button fx:id="MenuButton" layoutX="405.0" layoutY="315.0" maxHeight="1.8" mnemonicParsing="false" onAction="#doMenu" prefHeight="0.0" prefWidth="60.0" text="Menu" />
+        <Button fx:id="lijstButton" layoutX="310.0" layoutY="315.0" maxHeight="1.8" mnemonicParsing="false" onAction="#doBackToList" text="Cursuslijst" />
     </children>
 </AnchorPane>
