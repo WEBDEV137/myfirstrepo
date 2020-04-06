@@ -10,12 +10,16 @@ import model.Course;
 import model.User;
 import view.Main;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CreateUpdateCourseController {
     private CourseDAO courseDAO;
+    private UserDAO userDAO;
     private DBAccess dbAccess;
     private Course course;
+    private User user;
+
     @FXML
     private Label titleLabel;
 
@@ -43,13 +47,13 @@ public class CreateUpdateCourseController {
     public void setup(Course course) {
         dbAccess = Main.getDBaccess();
         dbAccess.openConnection();
+        userDAO = new UserDAO(dbAccess);
+//        List<Course> allCourses = courseDAO.getAllCourses();
+       List<User> allUsers = userDAO.getUsersByRole("Coordinator");
 
         if (course == null) {
-            CourseDAO courseDAO = new CourseDAO((dbAccess));
-            UserDAO userdao = new UserDAO(dbAccess);
             titleLabel.setText("Nieuwe cursus aanmaken");
-//            List<Course> allCourses = courseDAO.getAllCourses();
-            List<User> allUsers = userdao.getUsersByRole("coordinator");
+
             for (int i = 0; i < allUsers.size(); i++) {
                 String coordinatorname = allUsers.get(i).getUserName();
                 MenuItem menuItem = new MenuItem(coordinatorname);
@@ -57,11 +61,17 @@ public class CreateUpdateCourseController {
                 menuItem.setOnAction(event -> setCoordinatorName(coordinatorname));
             }
         } else {
-            titleLabel.setText("Beheer cursus");
+            titleLabel.setText("Cursus wijzigen");
+            for (int i = 0; i< allUsers.size(); i++) {
+                String coordinatorname = allUsers.get(i).getUserName();
+                MenuItem menuItem = new MenuItem(coordinatorname);
+                coordinatorIdTextfield.getItems().add(menuItem);
+                menuItem.setOnAction(event -> setCoordinatorName(coordinatorname));
+            }
             cursusnummerTextfield.setText(String.valueOf(course.getId()));
             cursusnaamTextfield.setText(course.getCoursename());
+            coordinatorIdTextfield.setText(userDAO.getUserNameById(course.getCoordinatorid()));
 
-            coordinatorIdTextfield.setText(String.valueOf(course.getCoordinatorid()));
         }
     }
 
@@ -80,8 +90,8 @@ public class CreateUpdateCourseController {
         int userId;
         int courseId;
         String cursusnaam = cursusnaamTextfield.getText();
-    //        int coordinatorid = Integer.parseInt(coordinatorIdTextfield.getText());
-        String userName =coordinatorIdTextfield.getText();
+        //        int coordinatorid = Integer.parseInt(coordinatorIdTextfield.getText());
+        String userName = coordinatorIdTextfield.getText();
         userId = userDAO.getUserIdByLoginName(userName);
         courseId = courseDAO.getCourseIdByName(cursusnaam);
 
@@ -110,9 +120,9 @@ public class CreateUpdateCourseController {
             if (cursusnummerTextfield.getText().equals(("cursusnummer"))) {
                 System.out.println(course.getCoursename());
                 courseDAO.storeCourse(course);
-                System.out.println(course.getCoursename()+"2");
+                System.out.println(course.getCoursename() + "2");
                 cursusnummerTextfield.setText(String.valueOf(course.getId()));
-                                Alert opgeslagen = new Alert(Alert.AlertType.INFORMATION);
+                Alert opgeslagen = new Alert(Alert.AlertType.INFORMATION);
                 opgeslagen.setContentText("Cursus opgeslagen");
                 opgeslagen.show();
             } else {
@@ -125,7 +135,6 @@ public class CreateUpdateCourseController {
             }
         }
     }
-
 
 
     public void doMenu(ActionEvent e) {
