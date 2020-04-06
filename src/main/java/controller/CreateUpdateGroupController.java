@@ -5,6 +5,7 @@ import database.mysql.DBAccess;
 import database.mysql.GroupDAO;
 import database.mysql.UserDAO;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import model.Course;
@@ -71,12 +72,15 @@ public class CreateUpdateGroupController extends AbstractController {
                 teacherMenuButton.getItems().add(menuItem);
                 menuItem.setOnAction(e -> setTeachername(teachername));
             }
-                groupNumberTextfield.setText(String.valueOf(group.getGroupId()));
-                groupNameTextfield.setText(group.getGroupName());
-                courseMenuButton.setText(courseDAO.getCourseNameById(group.getCourseId()));
-                teacherMenuButton.setText(userDAO.getUserNameById(group.getUserId()));
-            }
+            groupNumberTextfield.setText(String.valueOf(group.getGroupId()));
+            groupNameTextfield.setText(group.getGroupName());
+            courseMenuButton.setText(courseDAO.getCourseNameById(group.getCourseId()));
+            teacherMenuButton.setText(userDAO.getUserNameById(group.getUserId()));
+/*            courseMenuButton.setOnAction(event -> {
+                courseMenuButton.setText("Cursus kan niet worden gewijzigd. Maak een nieuwe groep aan.");
+            });*/
         }
+    }
 
 
 public void setCoursename(String coursename){

@@ -1,13 +1,11 @@
 package database.mysql;
 
-import javafx.scene.control.Alert;
 import model.Group;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class GroupDAO extends AbstractDAO implements GenericDAO {
 
