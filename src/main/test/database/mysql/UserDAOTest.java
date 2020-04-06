@@ -43,7 +43,7 @@ class UserDAOTest {
         dbAccess.openConnection();
         UserDAO userDAO = new UserDAO(dbAccess);
         assertNotNull(userDAO.getOneById(2));
-        /*DBAccess dbAccess = Main.getDBaccess();
+       /* DBAccess dbAccess = Main.getDBaccess();
         dbAccess.openConnection();
         UserDAO userDAO = new UserDAO(dbAccess);
         int id = 1;
@@ -77,6 +77,7 @@ class UserDAOTest {
         assertEquals(expectedAchternaam,actuelAchternaam);
         System.out.println(testUser);
         System.out.println(actuelUser);*/
+
     }
 
     @Test

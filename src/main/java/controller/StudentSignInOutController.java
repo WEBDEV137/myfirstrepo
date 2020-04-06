@@ -58,7 +58,7 @@ public class StudentSignInOutController {
            return;
        }
        cdao.storeInscrijving(course);
-//       signedInCourseList.getItems().add(course);
+        Main.getSceneManager().showStudentSignInOutScene();
         Alert verkeerdeInlogGegevens = new Alert(Alert.AlertType.INFORMATION);
         verkeerdeInlogGegevens.setContentText("Je bent ingescrijft voor " + course + " .");
         verkeerdeInlogGegevens.show();
@@ -74,7 +74,7 @@ public class StudentSignInOutController {
             return;
         }
         cdao.deleteInshrijvingCourse(course);
-//        signedInCourseList.getItems().remove(course);
+        Main.getSceneManager().showStudentSignInOutScene();
         Alert verkeerdeInlogGegevens = new Alert(Alert.AlertType.INFORMATION);
         verkeerdeInlogGegevens.setContentText("Je bent uitgescrijft voor " + course + " .");
         verkeerdeInlogGegevens.show();

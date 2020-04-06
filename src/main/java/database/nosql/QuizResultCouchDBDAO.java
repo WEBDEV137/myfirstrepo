@@ -3,7 +3,6 @@ package database.nosql;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import model.Gebruiker;
 import model.QuizResult;
 import java.util.List;
 
