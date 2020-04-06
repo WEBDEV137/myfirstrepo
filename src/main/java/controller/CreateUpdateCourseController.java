@@ -90,10 +90,9 @@ public class CreateUpdateCourseController {
         int userId;
         int courseId;
         String cursusnaam = cursusnaamTextfield.getText();
-        //        int coordinatorid = Integer.parseInt(coordinatorIdTextfield.getText());
         String userName = coordinatornaamTextfield.getText();
         userId = userDAO.getUserIdByLoginName(userName);
-        courseId = courseDAO.getCourseIdByName(cursusnaam);
+//        courseId = courseDAO.getCourseIdByName(cursusnaam);
 
         if (cursusnaam.isEmpty()) {
             warningText.append("Je moet de cursusnaam invullen\n");
@@ -141,7 +140,7 @@ public class CreateUpdateCourseController {
         Main.getSceneManager().showManageCoursesScene();;
     }
 
-
+    @FXML
     public void doMenu(ActionEvent e) {
         dbAccess.closeConnection();
         System.out.println("Connection closes");
