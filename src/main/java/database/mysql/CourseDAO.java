@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class CourseDAO extends AbstractDAO {
-    private User user;
+//    private User user;
     public CourseDAO(DBAccess dbAccess){
         super(dbAccess);
     }
@@ -55,8 +55,6 @@ public class CourseDAO extends AbstractDAO {
             if (resultSet.next()) {
                 String name = resultSet.getString("naam");
                 int coordinatorId = resultSet.getInt("coordinatorid");
-                UserDAO userDAO = new UserDAO(dBaccess);
-                User userCoordinator = userDAO.getOneById(coordinatorId);
                 course = new Course(id, name, coordinatorId);
             }
         } catch (SQLException e) {
@@ -77,10 +75,6 @@ public class CourseDAO extends AbstractDAO {
             ps.setString(1, course.getCoursename());
             ps.setInt(2, course.getCoordinatorid());
             executeManipulatePreparedStatement(ps);
-
-
-//            int key = executeInsertPreparedStatement(ps);
-//            course.setId(key);
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
         }
@@ -153,18 +147,20 @@ public class CourseDAO extends AbstractDAO {
      * om get aal inscrijving courses
      * @return
      */
-    public  ArrayList <Course> getAllInscrijvingCourses(int id) {
-
-        String query = "SELECT * FROM quizmaster.inschrijving where studentid = ?;";
+    public  ArrayList <Course> getAllInscrijvingCourses(int studentid) {
+        String query = "SELECT c.id ,c.naam  \n" +
+                "FROM cursus c JOIN inschrijving i\n" +
+                "ON c.id = i.cursusid where studentid = ?;";
         ArrayList<Course> inschrijvingList = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = getStatement(query);
-            preparedStatement.setInt(1,id);
+            preparedStatement.setInt(1,studentid);
             ResultSet resultSet = executeSelectPreparedStatement(preparedStatement);
             Course course;
             while (resultSet.next()) {
-                int coursusid = resultSet.getInt("cursusid");
-                course = new Course(id,coursusid);
+                int id = resultSet.getInt("id");
+                String naam = resultSet.getString("naam");
+                course = new Course(id,naam, studentid);
                 inschrijvingList.add (course);
             }
         }
@@ -190,8 +186,12 @@ public class CourseDAO extends AbstractDAO {
         }
     }
 
+    /**
+     * om uitscrijven van course
+     * @param course
+     */
     public void deleteInshrijvingCourse(Course course) {
-        String sql = "DELETE FROM inschrijving WHERE id = ?;";
+        String sql = "DELETE FROM inschrijving WHERE cursusid = ?;";
         try {
             PreparedStatement ps = getStatement(sql);
             ps.setInt(1, course.getId());
