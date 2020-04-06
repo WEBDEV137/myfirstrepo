@@ -52,6 +52,7 @@ public abstract class AbstractController {
      *          Type parameter
      */
     public <T> void populateListView(ListView listView, List<T> list) {
+        listView.getItems().clear();
         for (Object o : list) {
             listView.getItems().add(o);
         }

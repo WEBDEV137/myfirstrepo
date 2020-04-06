@@ -1,5 +1,6 @@
 package controller;
 
+import database.mysql.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -7,8 +8,24 @@ import javafx.scene.control.ListView;
 import model.Course;
 import model.Question;
 import model.Quiz;
+import model.User;
+import view.Main;
 
-public class CoordinatorDashboardController {
+import java.util.ArrayList;
+import java.util.List;
+
+public class CoordinatorDashboardController extends AbstractController{
+
+    private QuizDAO quizDAO;
+    private QuestionDAO questionDAO;
+    private CourseDAO courseDAO;
+    private DBAccess dbAccess;
+    private User user;
+    private Quiz quiz;
+    private Question question;
+    private ArrayList<Quiz> quizzes;
+    private List<Question> questions;
+
 
     @FXML
     private ListView<Course> courseList;
@@ -17,31 +34,56 @@ public class CoordinatorDashboardController {
     @FXML
     private ListView<Question> questionList;
 
+
     public void setup() {
+        setupMainObjects();
+
+        populateListView(courseList, courseDAO.getAllByCoordinatorId(user.getUserId()));
         courseList.getSelectionModel().selectedItemProperty().addListener(
                 new ChangeListener<Course>() {
                     @Override
                     public void changed(ObservableValue<? extends Course> observableValue, Course oldCourse, Course newCourse) {
-                        System.out.println("Geselecteerde cursus: " + observableValue + ", " + oldCourse + ", " + newCourse);
+                        quizzes = quizDAO.getAllByCourseId(newCourse.getId());
+                        populateListView(quizList, quizzes);
                     }
                 });
-
         quizList.getSelectionModel().selectedItemProperty().addListener(
                 new ChangeListener<Quiz>() {
                     @Override
                     public void changed(ObservableValue<? extends Quiz> observableValue, Quiz oldQuiz, Quiz newQuiz) {
-                        System.out.println("Geselecteerde quiz: " + observableValue + ", " + oldQuiz + ", " + newQuiz);
+                        questions = questionDAO.getAllQuestionsByQuizId(newQuiz.getId());
+                        populateListView(questionList, questions);
                     }
                 });
     }
 
-    public void doNewQuiz() { }
+    public void setupMainObjects(){
+        user = Main.getCurrentUser();
+        dbAccess = Main.getDBaccess();
+        dbAccess.openConnection();
+        this.quizDAO = new QuizDAO(dbAccess);
+        this.courseDAO = new CourseDAO(dbAccess);
+        this.questionDAO = new QuestionDAO(dbAccess);
+    }
+    public void doNewQuiz() {
+        Main.getSceneManager().showCreateUpdateQuizScene(null);
+    }
 
-    public void doEditQuiz() { }
+    public void doEditQuiz() {
+        quiz = quizList.getSelectionModel().getSelectedItem();
+        Main.getSceneManager().showCreateUpdateQuizScene(quiz);
+    }
 
-    public void doNewQuestion() { }
+    public void doNewQuestion() {
+        Main.getSceneManager().showCreateUpdateQuestionScene(null);
+    }
 
-    public void doEditQuestion() { }
+    public void doEditQuestion() {
+        question = questionList.getSelectionModel().getSelectedItem();
+        Main.getSceneManager().showCreateUpdateQuestionScene(question);
+    }
 
-    public void doMenu() { }
+    public void doMenu() {
+        Main.getSceneManager().showWelcomeScene();
+    }
 }

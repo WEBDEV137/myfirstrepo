@@ -115,6 +115,7 @@ public class CourseDAO extends AbstractDAO {
         return courses;
     }
 
+
     public void deleteCourse(final Course course){
         System.out.println("verwijder cursus");
         final String sql = "DELETE FROM cursus WHERE id = ?;";
