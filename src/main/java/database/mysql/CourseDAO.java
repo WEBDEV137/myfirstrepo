@@ -6,6 +6,7 @@ import model.Course;
 import model.Group;
 import model.Quiz;
 import model.User;
+import view.Main;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class CourseDAO extends AbstractDAO {
+    private User user;
     public CourseDAO(DBAccess dbAccess){
         super(dbAccess);
     }
@@ -53,6 +55,8 @@ public class CourseDAO extends AbstractDAO {
             if (resultSet.next()) {
                 String name = resultSet.getString("naam");
                 int coordinatorId = resultSet.getInt("coordinatorid");
+                UserDAO userDAO = new UserDAO(dBaccess);
+                User userCoordinator = userDAO.getOneById(coordinatorId);
                 course = new Course(id, name, coordinatorId);
             }
         } catch (SQLException e) {
@@ -143,5 +147,58 @@ public class CourseDAO extends AbstractDAO {
             AbstractController.showAlert("x", "x", "x");
         }
         return courseId;
+    }
+
+    /**
+     * om get aal inscrijving courses
+     * @return
+     */
+    public  ArrayList <Course> getAllInscrijvingCourses(int id) {
+
+        String query = "SELECT * FROM quizmaster.inschrijving where studentid = ?;";
+        ArrayList<Course> inschrijvingList = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = getStatement(query);
+            preparedStatement.setInt(1,id);
+            ResultSet resultSet = executeSelectPreparedStatement(preparedStatement);
+            Course course;
+            while (resultSet.next()) {
+                int coursusid = resultSet.getInt("cursusid");
+                course = new Course(id,coursusid);
+                inschrijvingList.add (course);
+            }
+        }
+        catch (SQLException e) {
+            System.out.println(" SQL error " + e.getMessage());
+        }
+        return inschrijvingList;
+    }
+
+    /**
+     * om inschrijving course op te slaan
+     * @param course
+     */
+    public void storeInscrijving(Course course) {
+        String sql = "Insert into inschrijving values(?, ?) ;";
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setInt(1, Main.getCurrentUser().getUserId());
+            ps.setInt(2, course.getId());
+            executeManipulatePreparedStatement(ps);
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+    }
+
+    public void deleteInshrijvingCourse(Course course) {
+        String sql = "DELETE FROM inschrijving WHERE id = ?;";
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setInt(1, course.getId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("SQL Error " + e.getMessage());
+        }
+
     }
 }

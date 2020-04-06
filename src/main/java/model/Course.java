@@ -28,6 +28,10 @@ package model;
         public Course( String cursusnaam, String userName) {
         }
 
+        public Course(int studentid, int coursusid) {
+
+        }
+
         public int getId() {
             return id;
         }

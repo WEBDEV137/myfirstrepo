@@ -36,7 +36,7 @@ public class CouchDBQuizmasterLauncher {
             System.out.println("\nEr is iets fout gegaan\n");
         }
         //Sla een gerbruiker in de CouchDb database.
-        User a = new User("studen","emr123","12345","Emrullah",null,"kilic");
+        User a = new User(10,"Docent","minke1234","12345","Minke2",null,"Jansen");
         System.out.println(a);
         udb.saveSingleUser(a);
 

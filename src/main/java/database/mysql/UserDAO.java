@@ -58,7 +58,7 @@ public class UserDAO extends AbstractDAO implements GenericDAO {
      * @return
      */
     @Override
-    public Object getOneById(int id) {
+    public User getOneById(int id) {
         String query = "SELECT * FROM gebruiker WHERE id = ?;";
         User user = null;
         try {
