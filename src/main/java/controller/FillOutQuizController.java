@@ -165,6 +165,7 @@ public class FillOutQuizController{
             currentQuestion = questions.get(questionIndex);
             System.out.println(currentQuestion);
             answers = getAnswersByQuestionId(currentQuestion.getQuestionID());
+            hideButtons(answers.size());
             for (Answer answer : answers){
                 System.out.println(answer);
             }
@@ -184,6 +185,7 @@ public class FillOutQuizController{
             questionIndex--;
             currentQuestion = questions.get(questionIndex);
             answers = getAnswersByQuestionId(currentQuestion.getQuestionID());
+            hideButtons(answers.size());
             randomizedAnswers = randomizeAnswers(answers);
             assignAnswersToLetters();
             fillTextArea();
@@ -239,6 +241,7 @@ public class FillOutQuizController{
 
     public void doMenu() {
        storeCurrentQuestionResult();
+      // Store QuizResult to GSON
        Main.getSceneManager().showWelcomeScene(user);
     }
     /**
@@ -254,7 +257,7 @@ public class FillOutQuizController{
             Alert okCancelDialogue = new Alert(Alert.AlertType.WARNING, CLICK_CONTINUE, jaKnop, neeKnop);
             okCancelDialogue.setTitle(Main.QUISMASTER);
             okCancelDialogue.setHeaderText(ARE_YOU_SURE);
-            okCancelDialogue.initModality(Modality.APPLICATION_MODAL); //Achtegrpond scherm wordt onbruikbaar gemaakt.
+            okCancelDialogue.initModality(Modality.APPLICATION_MODAL);
             okCancelDialogue.initOwner(Main.getPrimaryStage()); //show,
             Optional<ButtonType> result = okCancelDialogue.showAndWait();
             if (result.get() == jaKnop) {
