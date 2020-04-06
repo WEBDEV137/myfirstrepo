@@ -3,8 +3,6 @@ package controller;
 import database.mysql.CourseDAO;
 import database.mysql.DBAccess;
 import database.mysql.QuizDAO;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
@@ -91,7 +89,7 @@ public class ManageQuizzesController extends AbstractController {
         ButtonType jaKnop = new ButtonType("Ja", ButtonBar.ButtonData.YES);
         ButtonType neeKnop = new ButtonType("Nee", ButtonBar.ButtonData.CANCEL_CLOSE);
         Alert okCancelDialogue = new Alert(Alert.AlertType.WARNING, CLICK_CONTINUE, jaKnop, neeKnop);
-        okCancelDialogue.setTitle(Main.QUISMASTER);
+        okCancelDialogue.setTitle(Main.QUIZMASTER);
         okCancelDialogue.setHeaderText(ARE_YOU_SURE);
         okCancelDialogue.initModality(Modality.APPLICATION_MODAL); //Achtegrpond scherm wordt onbruikbaar gemaakt.
         okCancelDialogue.initOwner(Main.getPrimaryStage()); //show,

@@ -5,7 +5,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import model.Gebruiker;
 import model.Group;
-import model.QuizResult;
 import model.User;
 
 import java.util.List;
@@ -29,9 +28,9 @@ public class UserCouchDBDAO {
         return doc_Id;
     }
 
-    public QuizResult getQuizResultByDocId(String doc_Id) {
+    public Gebruiker getUserByDocId(String doc_Id) {
         JsonObject json = db.getClient().find(JsonObject.class, doc_Id);
-        QuizResult resultaat = gson.fromJson(json, QuizResult.class);
+        Gebruiker resultaat = gson.fromJson(json, Gebruiker.class);
         return resultaat;
     }
 

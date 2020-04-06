@@ -1,18 +1,34 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+/**
+ * Deze klasse wordt gebruikt op de resultaten van een door een student ingevulde quiz op te slaan.
+ * omdat cursussen en quizzen kunnen worden verwijderdt, worden de bwlangrijkste gegevens daarvan voor ook hierin opgeslagen.
+ */
+
 public class QuizResult {
-    private User user;
-    private Course course;
-    private Quiz quiz;
+    private int userid;
+    private String username;
+    private int courseId;
+    private String courseName;
+    private int quizId;
+    private String quizName;
+    private int succesDefinition;
     private List<QuestionResult> questionResults;
 
+
+
     public QuizResult(User user, Quiz quiz, Course course) {
-        this.user = user;
-        this.quiz = quiz;
-        this.course = course;
+        this.userid = user.getUserId();
+        this.username = user.getUserName();
+        this.courseId = course.getId();
+        this.courseName = course.getCoursename();
+        this.quizId = quiz.getId();
+        this.quizName = quiz.getName();
+        this.succesDefinition = quiz.getSuccesDefinition();
         this.questionResults = new ArrayList<>();
     }
     public void addQuestionResult(QuestionResult questionResult){
@@ -30,19 +46,41 @@ public class QuizResult {
         questionResults.set(index, questionResult);
     }
 
+
+
     @Override
     public String toString() {
         StringBuilder quizResulString = new StringBuilder();
         quizResulString.append("Quizresults \n");
         quizResulString.append("Student: \n");
-        quizResulString.append(user.toString()).append("\n");
+        quizResulString.append(username).append("\n");
         quizResulString.append("Course: \n");
-        quizResulString.append(course).append("\n");
+        quizResulString.append(courseName).append("\n");
         quizResulString.append("Quiz \n");
-        quizResulString.append(quiz.getName()).append("\n");
-        quizResulString.append(quiz.getSuccesDefinition()).append("\n");
+        quizResulString.append(quizName).append("\n");
+        quizResulString.append(succesDefinition).append("\n");
         for(QuestionResult questionResult: questionResults){
             quizResulString.append(questionResult).append("\n");
         }return quizResulString.toString();
+    }
+    //Getters
+    public String getQuizName() {
+        return quizName;
+    }
+    public int getSuccesDefinition() {
+        return succesDefinition;
+    }
+    public List<QuestionResult> getQuestionResults() {
+        return questionResults;
+    }
+    public int getCountCorrectAnswers(){
+        int correctAnswerCount = 0;
+        for (QuestionResult questionResult : questionResults)
+            if (questionResult.getRightAnswer().equals(questionResult.getAnswer())){
+                correctAnswerCount++;
+        }return correctAnswerCount;
+    }
+    public int getCountQuestions(){
+        return questionResults.size();
     }
 }

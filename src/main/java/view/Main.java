@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Main extends Application {
     //CONSTANTS
-    public static final String QUISMASTER = "Quismaster";
+    public static final String QUIZMASTER = "Quismaster";
 
     //Object declaratie
     private static SceneManager sceneManager = null;
