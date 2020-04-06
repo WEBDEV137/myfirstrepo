@@ -5,6 +5,7 @@ import database.nosql.CouchDBaccess;
 import database.nosql.GroupCouchDBDAO;
 import database.nosql.UserCouchDBDAO;
 import model.Gebruiker;
+import model.Group;
 
 import java.util.List;
 
@@ -26,7 +27,9 @@ public class CouchDBQuizmasterLauncher {
         myself.run();
     }
 
-    /** om connectin maken met couchDB, sla gebruiker in database, bring gebruiker bij id en bring all gebruikrs.
+    /**
+     * om connectin maken met couchDB, sla gebruiker in database, bring gebruiker bij id en bring all gebruikrs.
+     *
      * @run
      */
     public void run() {
@@ -34,8 +37,7 @@ public class CouchDBQuizmasterLauncher {
         try {
             db.setupConnection();
             System.out.println("Connection open");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("\nEr is iets fout gegaan\n");
         }
         //Sla een gerbruiker in de CouchDb database.
@@ -54,5 +56,17 @@ public class CouchDBQuizmasterLauncher {
         }*/
 
 //        udb.getUser("emr","Student");
+
+        // sla een groep op in de CouchDB-database
+        Group Mauve2 = new Group("Mauve2", 3, 5);
+        System.out.println(Mauve2);
+        groupDb.saveSingleGroup(Mauve2);
+
+        // haal een groep op met JSON-docId
+        Group group = groupDb.getGroupByDocId("ca5e1bae9aa94366a9d194563bca37d8");
+        System.out.println(group);
+
+        // hier nog een andere query/methode toevoegen voor group
+
+        }
     }
-}
