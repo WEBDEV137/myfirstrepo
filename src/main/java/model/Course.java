@@ -21,6 +21,11 @@ package model;
             this.coordinatorid = coordinatorid;
         }
 
+        public Course(int id, String coursename) {
+            this.id = id;
+            this.coursename = coursename;
+        }
+
         public Course (int coordinatorid){
             this.coordinatorid = coordinatorid;
         }

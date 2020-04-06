@@ -6,24 +6,24 @@ public class Group {
     //variabelen
 private int groupId;
 private String groupName;
-private int userId; //dit is de docent
-private int courseId;
+private User user; //dit is de docent
+private Course course;
 private ArrayList<User> studenten; //dit zijn de studenten
 
     // all args constructor
     public Group(int groupId, String groupName, int userId, int courseId) {
         this.groupId = groupId;
         this.groupName = groupName;
-        this.userId = userId;
-        this.courseId = courseId;
+        user = new User(userId, "onbekend");
+        course = new Course(courseId, "onbekend");
         studenten = new ArrayList<>();
     }
 
-    // constructor zonder id. chainen?
+    // constructor zonder groupId. chainen???
     public Group(String groupName, int userId, int courseId) {
         this.groupName = groupName;
-        this.userId = userId;
-        this.courseId = courseId;
+        user = new User(userId, "onbekend");
+        course = new Course(courseId, "onbekend");
         studenten = new ArrayList<>();
     }
 
@@ -46,20 +46,21 @@ private ArrayList<User> studenten; //dit zijn de studenten
     }
 
     public int getUserId() {
-        return userId;
+        return user.getUserId();
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserId(User user) {
+        this.user.setUserId(getUserId());
     }
 
     public int getCourseId() {
-        return courseId;
+        return course.getId();
     }
 
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
+    public void setCourseId(Course course) {
+        this.course.setId(course.getId());
     }
+
 
     //toString
     @Override

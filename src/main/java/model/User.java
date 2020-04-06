@@ -46,6 +46,11 @@ public class User {
         this.surname = surname;
     }
 
+    public User (int userId, String userName){
+        this(userId, "onbekend", userName, "onbekend", "onbekend", "onbekend", "onbekend");
+    }
+
+
     //GETTERS
     public int getUserId() {
         return userId;

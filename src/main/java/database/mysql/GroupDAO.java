@@ -29,7 +29,7 @@ public class GroupDAO extends AbstractDAO {
                 int groupId = rs.getInt("id");
                 int teacherId = rs.getInt("docentid");
                 int courseId = rs.getInt("cursusid");
-                Group group = new Group(groupId, groupName, courseId, teacherId);
+                Group group = new Group(groupId, groupName, teacherId, courseId);
                 result.add(group);
             }
         } catch (SQLException errormessage) {
@@ -64,13 +64,12 @@ public void deleteGroupByName (String groupName) {
     }
 
     public void updateGroup(Group group) { // hier vak niet wijzigen, alleen UPDATE groep SET naam= ? , docentid = ?
-        String sql = "UPDATE groep SET naam = ?, docentid = ?, cursusid = ? where id = ?;";
+        String sql = "UPDATE groep SET naam = ?, docentid = ? where id = ?;";
         try {
             PreparedStatement ps = getStatement(sql);
             ps.setString(1, group.getGroupName());
             ps.setInt(2, group.getUserId());
-            ps.setInt(3, group.getCourseId());
-            ps.setInt(4, group.getGroupId());
+            ps.setInt(3, group.getGroupId());
             executeManipulatePreparedStatement(ps);
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
