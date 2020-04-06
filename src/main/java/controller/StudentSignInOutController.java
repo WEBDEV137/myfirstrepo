@@ -28,6 +28,7 @@ public class StudentSignInOutController {
     @FXML
     private ListView <Course> signedInCourseList;
 
+
     public void setup() {
         this.cdao = new CourseDAO(Main.getDBaccess());
         List<Course> allCourses = cdao.getAllCourses();
