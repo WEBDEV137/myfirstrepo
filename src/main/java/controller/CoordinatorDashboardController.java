@@ -19,11 +19,11 @@ public class CoordinatorDashboardController extends AbstractController{
     private QuizDAO quizDAO;
     private QuestionDAO questionDAO;
     private CourseDAO courseDAO;
-    private QuizQuestionDAO quizQuestionDAO;
     private DBAccess dbAccess;
     private User user;
     private Quiz quiz;
-    private ArrayList<Quiz> Quizzes;
+    private Question question;
+    private ArrayList<Quiz> quizzes;
     private List<Question> questions;
 
 
@@ -43,11 +43,10 @@ public class CoordinatorDashboardController extends AbstractController{
                 new ChangeListener<Course>() {
                     @Override
                     public void changed(ObservableValue<? extends Course> observableValue, Course oldCourse, Course newCourse) {
-                        Quizzes = quizDAO.getAllByCourseId(newCourse.getId());
-                        populateListView(quizList, Quizzes);
+                        quizzes = quizDAO.getAllByCourseId(newCourse.getId());
+                        populateListView(quizList, quizzes);
                     }
                 });
-
         quizList.getSelectionModel().selectedItemProperty().addListener(
                 new ChangeListener<Quiz>() {
                     @Override
@@ -66,13 +65,23 @@ public class CoordinatorDashboardController extends AbstractController{
         this.courseDAO = new CourseDAO(dbAccess);
         this.questionDAO = new QuestionDAO(dbAccess);
     }
-    public void doNewQuiz() { }
+    public void doNewQuiz() {
+        Main.getSceneManager().showCreateUpdateQuizScene(null);
+    }
 
-    public void doEditQuiz() { }
+    public void doEditQuiz() {
+        quiz = quizList.getSelectionModel().getSelectedItem();
+        Main.getSceneManager().showCreateUpdateQuizScene(quiz);
+    }
 
-    public void doNewQuestion() { }
+    public void doNewQuestion() {
+        Main.getSceneManager().showCreateUpdateQuestionScene(null);
+    }
 
-    public void doEditQuestion() { }
+    public void doEditQuestion() {
+        question = questionList.getSelectionModel().getSelectedItem();
+        Main.getSceneManager().showCreateUpdateQuestionScene(question);
+    }
 
     public void doMenu() {
         Main.getSceneManager().showWelcomeScene();
