@@ -28,7 +28,7 @@ public class CreateUpdateCourseController {
     @FXML
     private TextField cursusnaamTextfield;
     @FXML
-    private MenuButton coordinatorIdTextfield;
+    private MenuButton coordinatornaamTextfield;
     @FXML
     private ListView<Course> courseList;
     private String coursename;
@@ -57,7 +57,7 @@ public class CreateUpdateCourseController {
             for (int i = 0; i < allUsers.size(); i++) {
                 String coordinatorname = allUsers.get(i).getUserName();
                 MenuItem menuItem = new MenuItem(coordinatorname);
-                coordinatorIdTextfield.getItems().add(menuItem);
+                coordinatornaamTextfield.getItems().add(menuItem);
                 menuItem.setOnAction(event -> setCoordinatorName(coordinatorname));
             }
         } else {
@@ -65,18 +65,18 @@ public class CreateUpdateCourseController {
             for (int i = 0; i< allUsers.size(); i++) {
                 String coordinatorname = allUsers.get(i).getUserName();
                 MenuItem menuItem = new MenuItem(coordinatorname);
-                coordinatorIdTextfield.getItems().add(menuItem);
+                coordinatornaamTextfield.getItems().add(menuItem);
                 menuItem.setOnAction(event -> setCoordinatorName(coordinatorname));
             }
             cursusnummerTextfield.setText(String.valueOf(course.getId()));
             cursusnaamTextfield.setText(course.getCoursename());
-            coordinatorIdTextfield.setText(userDAO.getUserNameById(course.getCoordinatorid()));
+            coordinatornaamTextfield.setText(userDAO.getUserNameById(course.getCoordinatorid()));
 
         }
     }
 
     public void setCoordinatorName(String coordinatorName) {
-        coordinatorIdTextfield.setText(coordinatorName);
+        coordinatornaamTextfield.setText(coordinatorName);
 
     }
 
@@ -91,7 +91,7 @@ public class CreateUpdateCourseController {
         int courseId;
         String cursusnaam = cursusnaamTextfield.getText();
         //        int coordinatorid = Integer.parseInt(coordinatorIdTextfield.getText());
-        String userName = coordinatorIdTextfield.getText();
+        String userName = coordinatornaamTextfield.getText();
         userId = userDAO.getUserIdByLoginName(userName);
         courseId = courseDAO.getCourseIdByName(cursusnaam);
 
@@ -136,11 +136,16 @@ public class CreateUpdateCourseController {
         }
     }
 
+    @FXML
+    public void doBackToList(ActionEvent actionEvent) {
+        Main.getSceneManager().showManageCoursesScene();;
+    }
+
 
     public void doMenu(ActionEvent e) {
         dbAccess.closeConnection();
         System.out.println("Connection closes");
-        Main.getSceneManager().showManageCoursesScene();
+        Main.getSceneManager().showWelcomeScene(Main.getCurrentUser());
     }
 
 
