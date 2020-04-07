@@ -48,7 +48,9 @@ public class CreateUpdateGroupController extends AbstractController {
         CourseDAO courseDAO = new CourseDAO(dbAccess);
         UserDAO userDAO = new UserDAO(dbAccess);
         List<Course> allCourses = courseDAO.getAllCourses();
-        List<User> allUsers = userDAO.getUsersByRole("docent");
+        List<User> allUsers = userDAO.getUsersByRole("coordinator");
+        System.out.println(allUsers.get(0));
+        System.out.println(allUsers.get(1));
         if (group == null) {
             titleLabel.setText("Nieuwe groep aanmaken");
             for (int i = 0; i < allCourses.size(); i++) {

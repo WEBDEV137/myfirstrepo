@@ -35,14 +35,6 @@ public class Quiz {
         }
         questions.add(question);
     }
-    public void removeQuestion(Question question){
-        if (questions.contains(question)){
-        questions.remove(question);
-        }
-    }
-
-
-
 
     //GETTERS
     public int getId() {
@@ -79,7 +71,6 @@ public class Quiz {
             addQuestion(question);
         }
     }
-    //SETTERS voor de Course waar de quiz bij hoort
     public void setCourseName(String name) {
         course.setCoursename(name);
     }
