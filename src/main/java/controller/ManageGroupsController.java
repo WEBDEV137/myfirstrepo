@@ -2,7 +2,6 @@ package controller;
 
 import database.mysql.DBAccess;
 import database.mysql.GroupDAO;
-import database.mysql.UserDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -30,6 +29,7 @@ public class ManageGroupsController{
     @FXML
     private Button doMenuButton;
 
+    // setup, lijst van groepen tonen
     public void setup() {
         dbAccess = Main.getDBaccess();
         dbAccess.openConnection();
@@ -49,7 +49,7 @@ public class ManageGroupsController{
     }
 
 
-// met menuknop terug naar WelcomeScene (inlog wordt behouden)
+// Menuknop: terug naar WelcomeScene (inlog blijft behouden)
     @FXML
     public void doMenu(ActionEvent event) {
         Main.getSceneManager().showWelcomeScene(Main.getCurrentUser());

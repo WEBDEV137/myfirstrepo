@@ -19,7 +19,7 @@ private ArrayList<User> students; //dit zijn de studenten
         students = new ArrayList<>();
     }
 
-    // constructor zonder groupId. chainen???
+    // constructor zonder groupId
     public Group(String groupName, int userId, int courseId) {
         this.groupName = groupName;
         user = new User(userId, "onbekend");

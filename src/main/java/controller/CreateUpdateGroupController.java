@@ -42,6 +42,7 @@ public class CreateUpdateGroupController {
     @FXML
     private Label titleLabel;
 
+    // setup voor CRUD-scherm voor nieuwe groep en voor groep wijzigen
     public void setup(Group group) {
         dbAccess = Main.getDBaccess();
         dbAccess.openConnection();
@@ -49,30 +50,18 @@ public class CreateUpdateGroupController {
         UserDAO userDAO = new UserDAO(dbAccess);
         List<Course> allCourses = courseDAO.getAll();
         List<User> allUsers = userDAO.getUsersByRole("docent");
-        System.out.println(allUsers.get(0));
-        System.out.println(allUsers.get(1));
         if (group == null) {
             titleLabel.setText("Nieuwe groep aanmaken");
+            setupTeacherMenuButton(allUsers);
             for (int i = 0; i < allCourses.size(); i++) {
                 String coursename = allCourses.get(i).getCoursename();
                 MenuItem menuItem = new MenuItem(coursename);
                 courseMenuButton.getItems().add(menuItem);
                 menuItem.setOnAction(e -> setCoursename(coursename));
             }
-            for (int ib = 0; ib < allUsers.size(); ib++) {
-                String teachername = allUsers.get(ib).getUserName();
-                MenuItem menuItem = new MenuItem(teachername);
-                teacherMenuButton.getItems().add(menuItem);
-                menuItem.setOnAction(e -> setTeachername(teachername));
-            }
         } else {
             titleLabel.setText("Groep wijzigen");
-            for (int ib = 0; ib < allUsers.size(); ib++) {
-                String teachername = allUsers.get(ib).getUserName();
-                MenuItem menuItem = new MenuItem(teachername);
-                teacherMenuButton.getItems().add(menuItem);
-                menuItem.setOnAction(e -> setTeachername(teachername));
-            }
+            setupTeacherMenuButton(allUsers);
             for (int i = 0; i < allCourses.size(); i++) {
                 String coursename = allCourses.get(i).getCoursename();
                 MenuItem menuItem = new MenuItem(coursename);
@@ -87,14 +76,22 @@ public class CreateUpdateGroupController {
             }
             groupNumberTextfield.setText(String.valueOf(group.getGroupId()));
             groupNameTextfield.setText(group.getGroupName());
-            courseMenuButton.setText(courseDAO.getCourseNameById(group.getCourseId()));
             teacherMenuButton.setText(userDAO.getUserNameById(group.getUserId()));
-/*            courseMenuButton.setOnAction(event -> {
-                courseMenuButton.setText("Cursus kan niet worden gewijzigd. Maak een nieuwe groep aan.");
-            });*/
         }
     }
 
+// hulpmethode om MenuButton Docent te vullen met lijst en gekozen naam in te stellen
+    private void setupTeacherMenuButton(List<User> allUsers) {
+        for (int ib = 0; ib < allUsers.size(); ib++) {
+            String teachername = allUsers.get(ib).getUserName();
+            MenuItem menuItem = new MenuItem(teachername);
+            teacherMenuButton.getItems().add(menuItem);
+            menuItem.setOnAction(e -> setTeachername(teachername));
+        }
+    }
+
+
+// hulpmethodes om gekozen naam in te stellen als tekst van MenuButton
 
 public void setCoursename(String coursename){
         this.coursename = coursename;
@@ -107,7 +104,8 @@ public void setTeachername(String teachername){
     }
 
 
-    @FXML // wordt geactiveerd met de save-knop
+    // Save-knop
+    @FXML
     public void doCreateUpdateGroup(ActionEvent event) {
         createGroup();
         DBAccess dbAccess = Main.getDBaccess();
@@ -130,7 +128,7 @@ public void setTeachername(String teachername){
         }
     }
 
-//
+// nieuwe groep aanmaken
     private void createGroup() {
         StringBuilder warningText = new StringBuilder();
         boolean correcteInvoer = true;
