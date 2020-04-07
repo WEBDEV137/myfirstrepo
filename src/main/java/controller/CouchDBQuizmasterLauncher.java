@@ -19,7 +19,6 @@ public class CouchDBQuizmasterLauncher {
         super();
         this.db = new CouchDBaccess();
         this.udb = new UserCouchDBDAO(db);
-        this.groupDb = new GroupCouchDBDAO(db);
     }
 
     public static void main(String[] args) {
@@ -56,18 +55,8 @@ public class CouchDBQuizmasterLauncher {
 
     }
 }
-//
-
-/*        // sla een groep op in de CouchDB-database
-        Group Mauve2 = new Group("Mauve2", 3, 5);
-        System.out.println(Mauve2);
-        groupDb.saveSingleGroup(Mauve2);
-
-        // haal een groep op met JSON-docId
-        Group group = groupDb.getGroupByDocId("ca5e1bae9aa94366a9d194563bca37d8");
-        System.out.println(group);
-
-        // hier nog een andere query/methode toevoegen voor group*/
 
 
 
+        }
+    }

@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class CreateUpdateGroupController{
+public class CreateUpdateGroupController extends AbstractController {
 
     private GroupDAO groupDAO;
     private DBAccess dbAccess;
@@ -42,14 +42,13 @@ public class CreateUpdateGroupController{
     @FXML
     private Label titleLabel;
 
-
     public void setup(Group group) {
         dbAccess = Main.getDBaccess();
         dbAccess.openConnection();
         CourseDAO courseDAO = new CourseDAO(dbAccess);
         UserDAO userDAO = new UserDAO(dbAccess);
         List<Course> allCourses = courseDAO.getAll();
-        List<User> allUsers = userDAO.getUsersByRole("coordinator");
+        List<User> allUsers = userDAO.getUsersByRole("docent");
         System.out.println(allUsers.get(0));
         System.out.println(allUsers.get(1));
         if (group == null) {
@@ -73,6 +72,18 @@ public class CreateUpdateGroupController{
                 MenuItem menuItem = new MenuItem(teachername);
                 teacherMenuButton.getItems().add(menuItem);
                 menuItem.setOnAction(e -> setTeachername(teachername));
+            }
+            for (int i = 0; i < allCourses.size(); i++) {
+                String coursename = allCourses.get(i).getCoursename();
+                MenuItem menuItem = new MenuItem(coursename);
+                courseMenuButton.getItems().add(menuItem);
+                menuItem.setOnAction(e -> setCoursename(coursename));
+                courseMenuButton.setText(courseDAO.getCourseNameById(group.getCourseId()));
+                menuItem.setOnAction(e -> {
+                    Alert opgeslagen = new Alert(Alert.AlertType.INFORMATION);
+                    opgeslagen.setContentText("Je kunt de cursus niet wijzigen. Maak een nieuwe groep.");
+                    opgeslagen.show();
+                });
             }
             groupNumberTextfield.setText(String.valueOf(group.getGroupId()));
             groupNameTextfield.setText(group.getGroupName());
