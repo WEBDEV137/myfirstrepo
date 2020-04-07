@@ -57,7 +57,7 @@ public class CouchDBQuizmasterLauncher {
 
 //        udb.getUser("emr","Student");
 
-        // sla een groep op in de CouchDB-database
+/*        // sla een groep op in de CouchDB-database
         Group Mauve2 = new Group("Mauve2", 3, 5);
         System.out.println(Mauve2);
         groupDb.saveSingleGroup(Mauve2);
@@ -66,7 +66,7 @@ public class CouchDBQuizmasterLauncher {
         Group group = groupDb.getGroupByDocId("ca5e1bae9aa94366a9d194563bca37d8");
         System.out.println(group);
 
-        // hier nog een andere query/methode toevoegen voor group
+        // hier nog een andere query/methode toevoegen voor group*/
 
         }
     }
