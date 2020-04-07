@@ -69,5 +69,5 @@ public class CouchDBQuizmasterLauncher {
 
         // hier nog een andere query/methode toevoegen voor group*/
 
-        }
-    }
+
+

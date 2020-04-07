@@ -17,18 +17,20 @@ public class QuestionDAO extends AbstractDAO implements GenericDAO<Question>{
     }
 
 
-    public Question getOneById(int id) {
+    public Question getOneById(int questionid) {
         String query = "SELECT * FROM Vraag WHERE id = ?;";
         Question question = null;
         try {
             PreparedStatement preparedStatement = getStatement(query);
-            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(1, questionid);
             ResultSet resultSet = super.executeSelectPreparedStatement(preparedStatement);
-            int questionId = resultSet.getInt("id");
-            String quizQuestion = resultSet.getString("tekst");
-            int quizId = resultSet.getInt("quizid");
-            question = new Question(questionId, quizQuestion, quizId);
-            System.out.println(question);
+            if (resultSet.next()){
+                int questionId = resultSet.getInt("id");
+                String quizQuestion = resultSet.getString("tekst");
+                int quizId = resultSet.getInt("quizid");
+                question = new Question(questionId, quizQuestion, quizId);
+                System.out.println(question);
+            }
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
         }
