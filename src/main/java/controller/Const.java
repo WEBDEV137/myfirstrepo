@@ -5,7 +5,9 @@ public class Const {
     final static String  NOT_ALLOWED_CHARACTERS_QUESTION = "%$@~`;:*^#!+}{[]=\\|";
     final static String SUCCESFACTOR_ = "Geef een andere waarde voor de succesfactor op";
     final static String SUCCESFACTOR_TOO_HIGH = "Succesfactor mag niet hoger zijn dan het aantal vragen";
-    final static String SUCCESFACTOR_TOO_LOW = "De succesfactor moet minimaal 1 zijn";
+    final static String SUCCESFACTOR_NOT_NUMBER= "De succesdefinitie moet een getal zijn";
+    final static String SUCCESFACTOR_TOO_LOW = "De succesdefinitie kan niet kleiner zijn dan 0";
+    final static String NO_SUCCESFACTOR = "Voer een succesdefinitie in";
     final static String STRING_TOO_SHORT = "Geen naam ingevuld";
     final static String STORING_SUCCES = "Het item is succesvol opgeslagen";
     final static String SOME_CHARACTERS_NOT_ALLOWED = "De volgende karakters zijn niet toegestaan: %$@~`?;:*^#!+}{[]=\\|";
@@ -23,6 +25,7 @@ public class Const {
      static final String FOUTMELDING_INLOGNAAM = "De opgegeven inlognaam is niet correct";
      static final String FOUTMELDING_WACHTWOORD = "Het opgegeven wachtwoord is niet correct";
      static final String MELDING_PROBEER_OPNIEUW = "Probeer het opnieuw";
+     static final String SLECT_COURSE = "U moet een cursus selecteren";
      static final String UW_ROL_IS = "Uw rol is";
      static final String ROL_STUDENT = "Student";
      static final String ROL_DOCENT = "Docent";

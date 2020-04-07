@@ -5,6 +5,7 @@ import javafx.scene.control.*;
 import javafx.stage.Modality;
 import view.Main;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -97,5 +98,16 @@ public class Coll {
             }
             Platform.exit();
         }
+
+    public boolean doesArraylistContainNumber(ArrayList<Integer> list, Integer number) {
+        for (int index = 0; index < list.size(); index++) {
+            if (list.get(index) == number) {
+                return true;
+            }
+        }
+        return false;
     }
+
+}
+
 
