@@ -15,10 +15,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CreateUpdateUserController {
+    protected static final String ROL_STUDENT = "Student";
+    protected static final String ROL_DOCENT = "Docent";
+    protected static final String ROL_COORDINATOR = "Coordinator";
+    protected static final String ROL_ADMINISTRATOR = "Administrator";
+    protected static final String ROL_TECHNISCH_BEHEERDER = "Technisch beheerder";
     private UserDAO udao;
     private DBAccess db;
     private User user;
     private ArrayList<String> rolList = new ArrayList<>();
+    
     @FXML
     private Label gebruikerIsToegevoegd;
     @FXML
@@ -47,11 +53,11 @@ public class CreateUpdateUserController {
     public void setup(User user) {
         if (user == null) {
             titleLabel.setText("Nieuwe gebruiker aanmaken");
-            rolList.add("Docent");
-            rolList.add("Teknisch beherder");
-            rolList.add("Student");
-            rolList.add("Administrator");
-            rolList.add("Coordinator");
+            rolList.add(ROL_DOCENT);
+            rolList.add(ROL_TECHNISCH_BEHEERDER);
+            rolList.add(ROL_STUDENT);
+            rolList.add(ROL_ADMINISTRATOR);
+            rolList.add(ROL_COORDINATOR);
             for (int i = 0; i < rolList.size(); i++) {
                 String rolName = rolList.get(i);
                 MenuItem menuItem = new MenuItem(String.valueOf(rolName));
@@ -70,11 +76,11 @@ public class CreateUpdateUserController {
             prefixTextfield.setText(user.getPrefix());
             surnameTextfield.setText(user.getSurname());
             ArrayList<String> rolList = new ArrayList<>();
-            rolList.add("Docent");
-            rolList.add("Teknisch beherder");
-            rolList.add("Student");
-            rolList.add("Administrator");
-            rolList.add("Coordinator");
+            rolList.add(ROL_DOCENT);
+            rolList.add(ROL_TECHNISCH_BEHEERDER);
+            rolList.add(ROL_STUDENT);
+            rolList.add(ROL_ADMINISTRATOR);
+            rolList.add(ROL_COORDINATOR);
             for (int i = 0; i < rolList.size(); i++) {
                 String rolName = rolList.get(i);
                 MenuItem menuItem = new MenuItem(String.valueOf(rolName));
@@ -113,7 +119,6 @@ public class CreateUpdateUserController {
                 gewijzigd.show();
             }
         }
-
     }
 
     private void createUser() {
@@ -128,6 +133,10 @@ public class CreateUpdateUserController {
         }
     }
 
+    /**
+     * information melding voor  nieuwe user om aal verplichte area in te voeren
+     * @return
+     */
     private boolean checkOfAllesingevuldIs() {
         if (userNameTextfield.getText().equals("")) {
             gebruikerIsToegevoegd.setText("Je moet een inlognaam invullen!\n");
@@ -152,5 +161,4 @@ public class CreateUpdateUserController {
         return true;
     }
 
-
-    }
+}
