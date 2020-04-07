@@ -140,5 +140,4 @@ public class AnswerDAO extends AbstractDAO {
             System.out.println("SQL error " + e.getMessage());
         }
     }
-
 }

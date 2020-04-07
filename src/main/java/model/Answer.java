@@ -5,6 +5,10 @@ public class Answer {
     private boolean isRightAnswer;
     private int questionId;
 
+    public int getQuestionId() {
+        return questionId;
+    }
+
     public void setQuestionId(int questionId) {
         this.questionId = questionId;
     }
@@ -12,6 +16,7 @@ public class Answer {
     public Answer(){
         this("", false);
     }
+
     public Answer(String text, boolean isRightAnswer) {
         this.text = text;
         this.isRightAnswer = isRightAnswer;
