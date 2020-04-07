@@ -2,17 +2,14 @@ package controller;
 
 import com.google.gson.JsonObject;
 import database.nosql.CouchDBaccess;
-import database.nosql.GroupCouchDBDAO;
 import database.nosql.UserCouchDBDAO;
 import model.User;
-import model.Group;
 
 import java.util.List;
 
 public class CouchDBQuizmasterLauncher {
     private CouchDBaccess db;
     private UserCouchDBDAO udb;
-    private GroupCouchDBDAO groupDb;
 
 
     public CouchDBQuizmasterLauncher() {
@@ -57,6 +54,3 @@ public class CouchDBQuizmasterLauncher {
 }
 
 
-
-        }
-    }
