@@ -114,10 +114,11 @@ public class QuestionDAO extends AbstractDAO implements GenericDAO<Question>{
     }
 
     public void storeOne(Question question) {
-        String query = "INSERT INTO vraag VALUES (DEFAULT, ?, NULL);";
+        String query = "INSERT INTO vraag VALUES (DEFAULT, ?, ?);";
         try {
             PreparedStatement preparedStatement = getStatement(query);
             preparedStatement.setString(1,question.getQuestionText());
+            preparedStatement.setInt(2,question.getQuizID());
             preparedStatement.execute();
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());

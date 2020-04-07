@@ -8,6 +8,7 @@ public class Question {
     private String wrongAnswer3;
     private int questionID;
     private int quizID;
+    private String quizName;
 
 
 //    public Question(String rightAnswer) {

@@ -81,13 +81,13 @@ public class AnswerDAO extends AbstractDAO {
         } return answers;
     }
 
-    public void storeOne(Answer answer, int rightAnswer, int questionId) {
+    public void storeOne(Answer answer) {
         String query = "INSERT INTO antwoord VALUES (DEFAULT, ?, ?, ?);";
         try {
             PreparedStatement preparedStatement = getStatement(query);
             preparedStatement.setString(1,answer.getText());
-            preparedStatement.setInt(2, questionId);
-            preparedStatement.setString(3,String.valueOf(rightAnswer));
+            preparedStatement.setInt(2, answer.getQuestionId());
+            preparedStatement.setBoolean(3, answer.isRightAnswer());
             preparedStatement.execute();
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
