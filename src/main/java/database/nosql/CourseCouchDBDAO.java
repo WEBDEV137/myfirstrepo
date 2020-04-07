@@ -8,10 +8,10 @@ import model.Course;
 import java.util.List;
 
 public class CourseCouchDBDAO {
-    private CouchDBaccess db;
+    private CourseCouchDBAcces db;
     private Gson gson;
 
-    public CourseCouchDBDAO(CouchDBaccess db) {
+    public CourseCouchDBDAO(CourseCouchDBAcces db) {
         super();
         this.db = db;
         gson = new Gson();
@@ -37,11 +37,12 @@ public class CourseCouchDBDAO {
         List<JsonObject> allCourses = db.getClient().view("_all_docs").includeDocs(true).query(JsonObject.class);
         for (JsonObject json : allCourses) {
             resultaat = gson.fromJson(json, Course.class);
-            // wat betekent onderstaande?
             if (resultaat.getId() == id  && (resultaat.getCoursename().equals(cursusnaam))) {
                 return resultaat;
             }
         }
         return resultaat;
     }
+
+
 }

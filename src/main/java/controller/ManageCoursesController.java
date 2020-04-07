@@ -36,7 +36,7 @@ public class ManageCoursesController {
         dbAccess = Main.getDBaccess();
         dbAccess.openConnection();
         this.courseDAO = new CourseDAO(dbAccess);
-        List<Course> allCourses = courseDAO.getAllCourses();
+        List<Course> allCourses = courseDAO.getAll();
         Collections.sort(allCourses);
         for (Course course : allCourses) {
             courseList.getItems().add(course);

@@ -116,7 +116,6 @@ public class CreateUpdateCourseController {
             if (this.cursusnummerTextfield.getText().equals(("cursusnummer"))) {
                 System.out.println(course.getCoursename());
                 courseDAO.storeCourse(this.course);
-                System.out.println(this.course.getCoursename() + "2");
                 this.cursusnummerTextfield.setText(String.valueOf(course.getId()));
                 Alert opgeslagen = new Alert(Alert.AlertType.INFORMATION);
                 opgeslagen.setContentText("Cursus opgeslagen");
