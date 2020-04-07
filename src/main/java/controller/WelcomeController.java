@@ -62,7 +62,7 @@ public class WelcomeController {
         taak2.setOnAction(actionEvent -> Main.getSceneManager().showManageQuizScene());
         taak3.setOnAction(actionEvent -> Main.getSceneManager().showManageQuestionsScene());
         taak4.setOnAction(e -> Main.getSceneManager().showCreateUpdateQuizScene(null));
-        taak5.setOnAction(e -> Main.getSceneManager().showCreateUpdateQuizScene(null));
+        taak5.setOnAction(e -> Main.getSceneManager().showCreateUpdateQuestionScene(null));
         taskMenuButton.getItems().add(taak1);
         taskMenuButton.getItems().add(taak2);
         taskMenuButton.getItems().add(taak3);

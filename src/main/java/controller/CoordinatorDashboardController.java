@@ -45,6 +45,7 @@ public class CoordinatorDashboardController extends AbstractController{
                     public void changed(ObservableValue<? extends Course> observableValue, Course oldCourse, Course newCourse) {
                         quizzes = quizDAO.getAllByCourseId(newCourse.getId());
                         populateListView(quizList, quizzes);
+                        questionList.getItems().clear();
                     }
                 });
         quizList.getSelectionModel().selectedItemProperty().addListener(

@@ -118,11 +118,12 @@ public class QuestionDAO extends AbstractDAO implements GenericDAO<Question>{
     }
 
     public void storeOne(Question question) {
-        String query = "INSERT INTO vraag VALUES (DEFAULT, ?, NULL);";
+        String query = "INSERT INTO vraag VALUES (DEFAULT, ?, ?);";
         try {
             PreparedStatement preparedStatement = getStatement(query);
             preparedStatement.setString(1,question.getQuestionText());
-            preparedStatement.execute();
+            preparedStatement.setInt(2,question.getQuizID());
+            executeManipulatePreparedStatement(preparedStatement);
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
         }
@@ -151,6 +152,18 @@ public class QuestionDAO extends AbstractDAO implements GenericDAO<Question>{
             System.out.println("SQL error " + e.getMessage());
         }return 0;
     }
+    public int storeOneReturnQuizId(String tekst, int quizId) {
+        String query = "INSERT INTO vraag VALUES (DEFAULT,?,?);";
+        try {
+            PreparedStatement preparedStatement = getStatementWithKey(query);
+            preparedStatement.setString(1, tekst);
+            preparedStatement.setInt(2, quizId);
+            int vraagId = executeInsertPreparedStatement(preparedStatement);
+            return vraagId;
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }return 0;
+    }
 
     public int getIdByQuestionText(String questionText) {
         String query = "SELECT id FROM Vraag WHERE tekst = ?;";
@@ -164,5 +177,19 @@ public class QuestionDAO extends AbstractDAO implements GenericDAO<Question>{
             System.out.println("SQL error " + e.getMessage());
         }
         return questionId;
+    }
+
+    public int updateQuestion(Question question) {
+        String query = "UPDATE vraag SET tekst = ?, quizid = ? WHERE id = ? ;";
+        try {
+            PreparedStatement preparedStatement = getStatementWithKey(query);
+            preparedStatement.setString(1, question.getQuestionText());
+            preparedStatement.setInt(2,question.getQuizID());
+            preparedStatement.setInt(3,question.getQuestionID());
+            int vraagId = executeInsertPreparedStatement(preparedStatement);
+            return vraagId;
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }return 0;
     }
 }

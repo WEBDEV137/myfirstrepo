@@ -7,7 +7,7 @@ public class Const {
     final static String STORING_SUCCES = "De gegevens zijn opgeslagen";
     final static String SOME_CHARACTERS_NOT_ALLOWED = "De volgende karakters zijn niet toegestaan: %$@~`?;:*^#!+}{[]=\\|";
     final static String GIVE_OTHER_VALUE = "Geef een andere waarde op.";
-    final static String CHOOSE_OTHER_NAME = "Geef een andere naam op.";
+    final static String CHOOSE_OTHER = "Geef een andere op.";
     final static String INFORMATION = "Information";
 
 }

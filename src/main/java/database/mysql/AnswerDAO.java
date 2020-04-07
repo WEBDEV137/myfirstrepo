@@ -88,7 +88,7 @@ public class AnswerDAO extends AbstractDAO {
             preparedStatement.setString(1,answer.getText());
             preparedStatement.setInt(2, questionId);
             preparedStatement.setString(3,String.valueOf(rightAnswer));
-            preparedStatement.execute();
+            executeManipulatePreparedStatement(preparedStatement);
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
         }
@@ -100,9 +100,45 @@ public class AnswerDAO extends AbstractDAO {
             PreparedStatement preparedStatement = getStatement(query);
             preparedStatement.setString(1,newAnswerText);
             preparedStatement.setString(2,updatableText);
-            preparedStatement.execute();
+            executeManipulatePreparedStatement(preparedStatement);
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
         }
     }
+    public void storeAnswer(String tekst, int vraagId, boolean isJuist) {
+        String query = "INSERT INTO antwoord VALUES (DEFAULT, ?, ?, ?);";
+        try {
+            PreparedStatement preparedStatement = getStatement(query);
+            preparedStatement.setString(1,tekst);
+            preparedStatement.setInt(2, vraagId);
+            preparedStatement.setBoolean(3,isJuist);
+            executeManipulatePreparedStatement(preparedStatement);
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+    }
+    public void storeWrongAnswer1(Question question) {
+            String query = "INSERT INTO antwoord VALUES (DEFAULT, ?, ?, ?);";
+            try {
+                PreparedStatement preparedStatement = getStatement(query);
+                preparedStatement.setString(1,question.getQuestionText());
+                preparedStatement.setInt(2, question.getQuestionID());
+                preparedStatement.setBoolean(3,true);
+                executeManipulatePreparedStatement(preparedStatement);
+            } catch (SQLException e) {
+                System.out.println("SQL error " + e.getMessage());
+            }
+    }
+
+    public void dropAllFromQuestion(int questionId) {
+        String query = " DELETE FROM antwoord WHERE vraagid = ?;";
+        try {
+            PreparedStatement preparedStatement = getStatement(query);
+            preparedStatement.setInt(1, questionId);
+            executeManipulatePreparedStatement(preparedStatement);
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+    }
+
 }

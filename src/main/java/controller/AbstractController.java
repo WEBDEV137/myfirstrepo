@@ -52,10 +52,25 @@ public abstract class AbstractController {
      *          Type parameter
      */
     public <T> void populateListView(ListView listView, List<T> list) {
-        listView.getItems().clear();
+        if (listView.getItems().size() > 0) { listView.getItems().clear(); };
         for (Object o : list) {
             listView.getItems().add(o);
         }
+    }
+    /**
+     * Checks if an input String contains any of the not allowed characters. returns false if it does
+     *
+     * @param inputText
+     * @param notAllowedCharacters
+     * @return true if the String is allowed
+     */
+    public boolean checkIfNameAllowed(String inputText, String notAllowedCharacters) {
+        for (int index = 0; index < notAllowedCharacters.length(); index++) {
+            if (inputText.indexOf(notAllowedCharacters.charAt(index)) != -1) {
+                return false;
+            }
+        }
+        return true;
     }
 
 

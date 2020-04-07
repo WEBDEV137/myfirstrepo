@@ -7,7 +7,6 @@ import model.*;
 import view.Main;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class CreateUpdateQuizController extends AbstractController {
 
@@ -98,31 +97,14 @@ public class CreateUpdateQuizController extends AbstractController {
         else{
             quizDAO.updateOne(quiz);
         }
-    //    updateQuizQuestionTable();
-        //dropAndCreateNewQuizquestionTable();
     }
 
-    /**
-     * Checks if an input String contains any of the not allowed characters. returns false if it does
-     *
-     * @param inputText
-     * @param notAllowedCharacters
-     * @return true if the String is allowed
-     */
-    public boolean checkIfNameAllowed(String inputText, String notAllowedCharacters) {
-        for (int index = 0; index < notAllowedCharacters.length(); index++) {
-            if (inputText.indexOf(notAllowedCharacters.charAt(index)) != -1) {
-                return false;
-            }
-        }
-        return true;
-    }
     public void setQuizName(){
         String newQuizName = quizNameField.getText();
         boolean nameIsAllowed = checkIfNameAllowed(newQuizName, Const.NOT_ALLOWED_CHARACTERS);
         if (nameIsAllowed) {
             quiz.setName(quizNameField.getText());
-        } else showAlert(Const.SOME_CHARACTERS_NOT_ALLOWED, Const.CHOOSE_OTHER_NAME, "INFORMATION");
+        } else showAlert(Const.SOME_CHARACTERS_NOT_ALLOWED, Const.CHOOSE_OTHER, "INFORMATION");
     }
     public boolean doesArraylistContainNumber(ArrayList<Integer> list, Integer number) {
         for (int index = 0; index < list.size(); index++) {

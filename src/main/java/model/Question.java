@@ -26,11 +26,14 @@ public class Question {
         this.wrongAnswer3 = wrongAnswer3;
     }
 
-    //Toms Constructor
+
     public Question(int id, String text, int quizId) {
         this.questionID = id;
         this.questionText = text;
         this.quizID = quizId;
+    }
+    public Question() {
+        this(Const.ONBEKEND_INT, Const.ONBEKEND_STRING, Const.ONBEKEND_INT);
     }
 
     public String getRightAnswer() {
