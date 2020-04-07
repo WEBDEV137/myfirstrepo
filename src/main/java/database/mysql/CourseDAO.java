@@ -69,9 +69,6 @@ public class CourseDAO extends AbstractDAO implements GenericDAO {
 
     }
 
-    /**
-     * Wegschrijven van nieuwe course naar SQL TO DO: Bewaren lukt nog niet
-     */
 
     public void storeCourse(final Course course) {
         final String sql = "Insert into cursus values(DEFAULT,?,?) ;";
@@ -86,6 +83,28 @@ public class CourseDAO extends AbstractDAO implements GenericDAO {
         } catch (final SQLException e) {
             System.out.println("SQL error " + e.getMessage());
         }
+    }
+
+    /**
+     * Sla een quiz op in de database en geeft de automatisch gegenereerde quiz-id terug als int.
+     *
+     * @param course
+     *            De quiz die opgeslagen moet worden
+     */
+    public int storeOneAndReturnId(Course course){
+        String query = "INSERT INTO cursus VALUES (DEFAULT, ?, ?);";
+        try {
+            PreparedStatement preparedStatement = getStatementWithKey(query);
+            preparedStatement.setString(1, course.getCoursename());
+            preparedStatement.setInt(2, course.getCoordinatorid());
+
+            int courseId = executeInsertPreparedStatement(preparedStatement);
+            return courseId;
+        }
+        catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+        return 0;
     }
 
     public void updateCourse(final Course course) {
