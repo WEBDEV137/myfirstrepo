@@ -5,40 +5,40 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateUpdateQuestionController">
-   <Label fx:id="titleLabel" layoutX="47.0" layoutY="58.0" text="Nieuwe vraag">
+   <Label fx:id="titleLabel" layoutX="47.0" layoutY="55.0" text="Nieuwe vraag">
       <font>
          <Font size="18.0" />
       </font>
    </Label>
-   <TextField fx:id="createUpdateQuestionTextField" layoutX="47.0" layoutY="104.0" prefHeight="26.0" prefWidth="802.0" />
-   <Button fx:id="doMenu" layoutX="47.0" layoutY="529.0" mnemonicParsing="false" onAction="#doMenu" text="Menu">
+   <TextField fx:id="createUpdateQuestionTextField" layoutX="47.0" layoutY="97.0" prefHeight="26.0" prefWidth="802.0" />
+   <Button fx:id="doMenu" layoutX="282.0" layoutY="529.0" mnemonicParsing="false" onAction="#doMenu" text="Menu">
       <font>
          <Font size="14.0" />
       </font></Button>
-   <Button layoutX="123.0" layoutY="529.0" mnemonicParsing="false" onAction="#doBackToManage" text="Terug naar beheer">
+   <Button layoutX="358.0" layoutY="529.0" mnemonicParsing="false" onAction="#doBackToManage" text="Terug naar beheer">
       <font>
          <Font size="14.0" />
       </font>
    </Button>
-   <TextField fx:id="createUpdateRightAnswerTextField" layoutX="47.0" layoutY="185.0" prefHeight="26.0" prefWidth="802.0" />
-   <TextField fx:id="createUpdateWrongAnswerTextField1" layoutX="47.0" layoutY="237.0" onKeyTyped="#enableWrongAnswerTextfield2" prefHeight="26.0" prefWidth="802.0" />
-   <TextField fx:id="createUpdateWrongAnswerTextField2" disable="true" layoutX="47.0" layoutY="289.0" onKeyTyped="#enableWrongAnswerTextfield3" prefHeight="26.0" prefWidth="802.0" />
-   <TextField fx:id="createUpdateWrongAnswerTextField3" disable="true" layoutX="47.0" layoutY="340.0" prefHeight="26.0" prefWidth="802.0" />
-   <Label fx:id="answerLabel" layoutX="47.0" layoutY="130.0" text="Nieuwe antwoorden">
+   <TextField fx:id="createUpdateRightAnswerTextField" layoutX="47.0" layoutY="207.0" prefHeight="26.0" prefWidth="802.0" />
+   <TextField fx:id="createUpdateWrongAnswerTextField1" layoutX="47.0" layoutY="270.0" onKeyTyped="#enableWrongAnswerTextfield2" prefHeight="26.0" prefWidth="802.0" />
+   <TextField fx:id="createUpdateWrongAnswerTextField2" disable="true" layoutX="47.0" layoutY="332.0" onKeyTyped="#enableWrongAnswerTextfield3" prefHeight="26.0" prefWidth="802.0" />
+   <TextField fx:id="createUpdateWrongAnswerTextField3" disable="true" layoutX="47.0" layoutY="394.0" prefHeight="26.0" prefWidth="802.0" />
+   <Label fx:id="answerLabel" layoutX="47.0" layoutY="146.0" text="Antwoorden">
       <font>
          <Font size="18.0" />
       </font>
    </Label>
-   <Button fx:id="doStore" layoutX="282.0" layoutY="529.0" mnemonicParsing="false" onAction="#doStore" text="Voeg vraag en antwoorden toe">
+   <Button fx:id="doStore" layoutX="47.0" layoutY="529.0" mnemonicParsing="false" onAction="#doStore" text="Voeg vraag en antwoorden toe">
       <font>
          <Font size="14.0" />
       </font>
    </Button>
-   <Label layoutX="48.0" layoutY="217.0" text="Juiste antwoord" />
-   <Label layoutX="47.0" layoutY="269.0" text="Foute antwoord" />
-   <Label layoutX="47.0" layoutY="321.0" text="Foute antwoord" />
-   <Label layoutX="47.0" layoutY="372.0" text="Foute antwoord" />
-   <MenuButton fx:id="quizButton" layoutX="47.0" layoutY="450.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="213.0" text="Quiz">
+   <Label layoutX="48.0" layoutY="182.0" text="Juiste antwoord" />
+   <Label layoutX="47.0" layoutY="245.0" text="Foute antwoord" />
+   <Label layoutX="47.0" layoutY="308.0" text="Foute antwoord" />
+   <Label layoutX="47.0" layoutY="369.0" text="Foute antwoord" />
+   <MenuButton fx:id="quizButton" layoutX="47.0" layoutY="452.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="213.0" text="Quiz">
       <items>
      </items>
    </MenuButton>
