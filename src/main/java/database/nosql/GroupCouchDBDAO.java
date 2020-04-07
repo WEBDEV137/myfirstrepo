@@ -4,16 +4,17 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import model.Group;
+import model.Question;
 
 import java.util.List;
 
 public class GroupCouchDBDAO {
-    private CouchDBaccess db;
+    private GroupCouchDBaccess gdb;
     private Gson gson;
 
-    public GroupCouchDBDAO(CouchDBaccess db) {
+    public GroupCouchDBDAO(GroupCouchDBaccess gdb) {
         super();
-        this.db = db;
+        this.gdb = gdb;
         gson = new Gson();
     }
 
@@ -22,26 +23,28 @@ public class GroupCouchDBDAO {
         System.out.println(jsonstring);
         JsonParser parser = new JsonParser();
         JsonObject jsonobject = parser.parse(jsonstring).getAsJsonObject();
-        String doc_Id = db.saveDocument(jsonobject);
+        String doc_Id = gdb.saveDocument(jsonobject);
         return doc_Id;
     }
 
     public Group getGroupByDocId(String doc_Id) {
-        JsonObject json = db.getClient().find(JsonObject.class, doc_Id);
+        JsonObject json = gdb.getClient().find(JsonObject.class, doc_Id);
         Group resultaat = gson.fromJson(json, Group.class);
         return resultaat;
     }
 
-    public Group getGroup(int groepId, String groepNaam) {
+    //hier wordt momenteel alleen de naam getoond omdat de toString van Group alleen groupName heeft
+    public Group getGroup(String groepNaam) {
         Group resultaat = null;
-        List<JsonObject> allGroups = db.getClient().view("_all_docs").includeDocs(true).query(JsonObject.class);
+        List<JsonObject> allGroups = gdb.getClient().view("_all_docs").includeDocs(true).query(JsonObject.class);
         for (JsonObject json : allGroups) {
             resultaat = gson.fromJson(json, Group.class);
-            if (resultaat.getGroupId() == groepId  && (resultaat.getGroupName() == groepNaam)) {
+            if (resultaat.getGroupName().equals(groepNaam)) {
                 return resultaat;
             }
         }
         return resultaat;
     }
+
 
 }

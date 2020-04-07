@@ -35,6 +35,10 @@ public class SceneManager {
         }
     }
 
+    /**
+     * om existing user invoematie te zien
+     * @param user
+     */
     public void showExistingUserScene(User user) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/fxml/createUpdateUser.fxml"));

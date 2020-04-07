@@ -21,6 +21,7 @@ public class CreateUpdateQuestionController{
     private Quiz quiz;
     private Question question;
     private boolean isNewCourse = false;
+    private boolean filledIn = true;
 
     private Question selectedQuestion;
     @FXML
@@ -45,8 +46,8 @@ public class CreateUpdateQuestionController{
         dbAccess = Main.getDBaccess();
         questionDAO = new QuestionDAO(dbAccess);
         answerDAO = new AnswerDAO(dbAccess);
-       quizDAO = new QuizDAO(dbAccess);
-       quiz = new Quiz();
+        quizDAO = new QuizDAO(dbAccess);
+        quiz = new Quiz();
 
         if (question == null) {
             this.question = new Question();
@@ -75,7 +76,7 @@ public class CreateUpdateQuestionController{
         }
         if (answerList.size() > 1) {
             createUpdateWrongAnswerTextField1.setText(answerList.get(1).getText());
-            ;createUpdateWrongAnswerTextField2.setDisable(false);
+            createUpdateWrongAnswerTextField2.setDisable(false);
         }
         if (answerList.size() > 0) {
             createUpdateRightAnswerTextField.setText(answerList.get(0).getText());
@@ -103,18 +104,24 @@ public class CreateUpdateQuestionController{
 
     private void setQuestion(){ String questionTekst = createUpdateQuestionTextField.getText();
         System.out.println(questionTekst);
+        if (questionTekst.isEmpty()){Coll.showAlert(Const.QUESTION_ALERT_HEADER, Const.QUESTION_REQUIRED, "INFORMATION"); filledIn = false;}
+        else filledIn = true;
         boolean nameIsAllowed = Coll.checkIfNameAllowed(questionTekst, Const.NOT_ALLOWED_CHARACTERS_QUESTION);
         if (nameIsAllowed) {
             question.setQuestionText(questionTekst);
         } else Coll.showAlert(Const.SOME_CHARACTERS_NOT_ALLOWED, Const.CHOOSE_OTHER, "INFORMATION");
     }
     private void setNewRightAnswer(){ String answerTekst = createUpdateRightAnswerTextField.getText();
+        if (answerTekst.isEmpty()){Coll.showAlert(Const.QUESTION_ALERT_HEADER, Const.ANSWER_REQUIRED, "INFORMATION"); filledIn = false;}
+        else filledIn = true;
         boolean nameIsAllowed = Coll.checkIfNameAllowed(answerTekst, Const.NOT_ALLOWED_CHARACTERS);
         if (nameIsAllowed) {
             question.setRightAnswer(answerTekst);
         } else Coll.showAlert(Const.SOME_CHARACTERS_NOT_ALLOWED, Const.CHOOSE_OTHER, "INFORMATION");
     }
     private void setNewWrongAnswer1Answer(){ String answerTekst = createUpdateWrongAnswerTextField1.getText();
+        if (answerTekst.isEmpty()){Coll.showAlert(Const.QUESTION_ALERT_HEADER, Const.ANSWER_REQUIRED, "INFORMATION"); filledIn = false;}
+        else filledIn = true;
         boolean nameIsAllowed = Coll.checkIfNameAllowed(answerTekst, Const.NOT_ALLOWED_CHARACTERS);
         if (nameIsAllowed) {
             question.setWrongAnswer1(answerTekst);
@@ -135,8 +142,8 @@ public class CreateUpdateQuestionController{
 
     public void storeInQuestionObject(){
         setQuestion();
-        setNewRightAnswer();
-        setNewWrongAnswer1Answer();
+        if (filledIn){setNewRightAnswer();}
+        if (filledIn){setNewWrongAnswer1Answer();}
         setNewWrongAnswer2Answer();
         setNewWrongAnswer3Answer();
     }
@@ -150,22 +157,28 @@ public class CreateUpdateQuestionController{
 
     public void doStore(){
         storeInQuestionObject();
-        if(isNewCourse){
-            int questionId =  questionDAO.storeOneReturnQuizId(question.getQuestionText(), question.getQuizID());
-            answerDAO.storeAnswer(question.getRightAnswer(), questionId, true);
-            answerDAO.storeAnswer(question.getWrongAnswer1(), questionId, false);
-            answerDAO.storeAnswer(question.getWrongAnswer2(), questionId, false);
-            answerDAO.storeAnswer(question.getWrongAnswer3(), questionId, false);
+        if (this.quiz.getName().equals("onbekend")) { Coll.showAlert(Const.QUESTION_ALERT_HEADER, Const.QUIZ_REQUIRED, "INFORMATION"); filledIn = false;}
+        if (filledIn){
+            if(isNewCourse){
+                int questionId =  questionDAO.storeOneReturnQuizId(question.getQuestionText(), question.getQuizID());
+                answerDAO.storeAnswer(question.getRightAnswer(), questionId, true);
+                answerDAO.storeAnswer(question.getWrongAnswer1(), questionId, false);
+                answerDAO.storeAnswer(question.getWrongAnswer2(), questionId, false);
+                answerDAO.storeAnswer(question.getWrongAnswer3(), questionId, false);
+                Coll.showAlert(Const.QUESTION_ALERT_HEADER, Const.QUESTION_STORED, "INFORMATION");
+            }
+            else{
+                int id = question.getQuestionID();
+                questionDAO.updateQuestion(question);
+                answerDAO.dropAllFromQuestion(id);
+                answerDAO.storeAnswer(question.getRightAnswer(), id, true);
+                answerDAO.storeAnswer(question.getWrongAnswer1(), id, false);
+                answerDAO.storeAnswer(question.getWrongAnswer2(), id, false);
+                answerDAO.storeAnswer(question.getWrongAnswer3(), id, false);
+                Coll.showAlert(Const.QUESTION_ALERT_HEADER, Const.QUESTION_UPDATED, "INFORMATION");
+            }
         }
-        else{
-            int id = question.getQuestionID();
-            questionDAO.updateQuestion(question);
-            answerDAO.dropAllFromQuestion(id);
-            answerDAO.storeAnswer(question.getRightAnswer(), id, true);
-            answerDAO.storeAnswer(question.getWrongAnswer1(), id, false);
-            answerDAO.storeAnswer(question.getWrongAnswer2(), id, false);
-            answerDAO.storeAnswer(question.getWrongAnswer3(), id, false);
-        }
+
     }
 
     @FXML
