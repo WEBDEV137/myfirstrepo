@@ -73,7 +73,6 @@ public abstract class AbstractController {
         return true;
     }
 
-
     /**
      * Maak een menu-item voor een dropdownmenu of menubar met als label de opgegeven teks
      * *

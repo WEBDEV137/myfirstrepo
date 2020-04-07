@@ -40,10 +40,12 @@ public class ManageUsersController {
     public void doMenu(ActionEvent e) {
         Main.getSceneManager().showWelcomeScene(Main.getCurrentUser());
     }
+
     @FXML
     public void doCreateUser(ActionEvent e) {
         Main.getSceneManager().showCreateUpdateUserScene(null);
     }
+
     @FXML
     public void doUpdateUser(ActionEvent e) {
         User user = userList.getSelectionModel().getSelectedItem();
@@ -55,6 +57,7 @@ public class ManageUsersController {
         }
         Main.getSceneManager().showExistingUserScene(user);
     }
+
     @FXML
     public void doDeleteUser(ActionEvent e) {
         User user = userList.getSelectionModel().getSelectedItem();

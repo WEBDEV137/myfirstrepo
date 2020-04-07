@@ -28,38 +28,43 @@ public class StudentSignInOutController {
     @FXML
     private ListView<Course> signedOutCourseList;
     @FXML
-    private ListView <Course> signedInCourseList;
+    private ListView<Course> signedInCourseList;
 
 
     public void setup() {
         this.cdao = new CourseDAO(Main.getDBaccess());
         List<Course> allCourses = cdao.getAllCourses();
         Collections.sort(allCourses);
-        for (Course course : allCourses ) {
+        for (Course course : allCourses) {
             signedOutCourseList.getItems().add(course);
         }
         List<Course> inscrijvingCursus = cdao.getAllInscrijvingCourses(Main.getCurrentUser().getUserId());
         Collections.sort(inscrijvingCursus);
-        for (Course course:inscrijvingCursus
-             ) {
+        for (Course course : inscrijvingCursus
+        ) {
             signedInCourseList.getItems().add(course);
         }
         System.out.println(inscrijvingCursus);
     }
-
+    @FXML
     public void doMenu() {
         Main.getSceneManager().showWelcomeScene(Main.getCurrentUser());
     }
 
+    /**
+     * Scrijf een student in voor een course.
+     * @param e
+     */
+    @FXML
     public void doSignIn(ActionEvent e) {
-       Course course = signedOutCourseList.getSelectionModel().getSelectedItem();
-       if (course == null) {
-           Alert verkeerdeInlogGegevens = new Alert(Alert.AlertType.INFORMATION);
-           verkeerdeInlogGegevens.setContentText("Je moet een course kiezen!!!");
-           verkeerdeInlogGegevens.show();
-           return;
-       }
-       cdao.storeInscrijving(course);
+        Course course = signedOutCourseList.getSelectionModel().getSelectedItem();
+        if (course == null) {
+            Alert verkeerdeInlogGegevens = new Alert(Alert.AlertType.INFORMATION);
+            verkeerdeInlogGegevens.setContentText("Je moet een course kiezen!!!");
+            verkeerdeInlogGegevens.show();
+            return;
+        }
+        cdao.storeInscrijving(course);
         Main.getSceneManager().showStudentSignInOutScene();
         Alert verkeerdeInlogGegevens = new Alert(Alert.AlertType.INFORMATION);
         verkeerdeInlogGegevens.setContentText("Je heeft ingescreven voor " + course + " .");
@@ -67,6 +72,11 @@ public class StudentSignInOutController {
 
     }
 
+    /**
+     * Scrijf een student uit van course.
+     * @param e
+     */
+    @FXML
     public void doSignOut(ActionEvent e) {
         Course course = signedInCourseList.getSelectionModel().getSelectedItem();
         if (course == null) {

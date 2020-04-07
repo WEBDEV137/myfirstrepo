@@ -32,80 +32,48 @@ public class User implements Comparable<User> {
         this.surname = surname;
     }
 
-    public User (int userId, String userName){
+    public User(int userId, String userName) {
         this(userId, "onbekend", userName, "onbekend", "onbekend", "onbekend", "onbekend");
     }
 
-
-    //GETTERS
+    //SETTERS
     public int getUserId() {
         return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     public String getUserName() {
         return userName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     public String getName() {
         return name;
-    }
-
-    //SETTERS
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPrefix() {
-        if (prefix != null) {
-            return prefix;
-        } else {
-            return "";
-        }
-
-    }
-
-    public void setPrefix(String prefix) {
-            this.prefix = prefix;
     }
 
     public String getSurname() {
         return surname;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
     public String getPassword() {
         return password;
     }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
 
     public String getRolName() {
         return rolName;
     }
 
-    public void setRolName(String rolName) {
-        this.rolName = rolName;
+    //GETTERS
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getPrefix() {
+        return prefix;
     }
 
     //METHODEN
     @Override
     public String toString() {
         StringBuilder resultString = new StringBuilder("");
-//        resultString.append(userId + " ");
         resultString.append(name + " ");
         if (prefix != null) {
             resultString.append(prefix + " ");
