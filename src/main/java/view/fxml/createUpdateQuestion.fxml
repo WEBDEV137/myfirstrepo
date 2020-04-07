@@ -39,9 +39,6 @@
    <Label layoutX="47.0" layoutY="321.0" text="Foute antwoord" />
    <Label layoutX="47.0" layoutY="372.0" text="Foute antwoord" />
    <MenuButton fx:id="quizButton" layoutX="47.0" layoutY="450.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="213.0" text="Quiz">
-      <font>
-         <Font size="18.0" />
-      </font>
       <items>
      </items>
    </MenuButton>
