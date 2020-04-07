@@ -32,17 +32,17 @@ public class GroupCouchDBDAO {
         return resultaat;
     }
 
-    public Group getGroupByName(String groepNaam) {
+/*    public Group getGroupByName(String groepNaam, int docentcode) {
         Group resultaat = null;
         List<JsonObject> allGroups = gdb.getClient().view("_all_docs").includeDocs(true).query(JsonObject.class);
         for (JsonObject json : allGroups) {
             resultaat = gson.fromJson(json, Group.class);
-            if (resultaat.getGroupName().equals(groepNaam)) {
+            if (resultaat.getGroupName().equals(groepNaam) && (resultaat.getUserId() == docentcode)) {
                 return resultaat;
             }
         }
         return resultaat;
-    }
+    }*/
 
 
 }

@@ -44,15 +44,15 @@ public class GroupCouchDBLauncher {
         Group group = gdb.getGroupByDocId("817087e66a4e486cb0b4afcbc941a4be");
         System.out.println(group);*/
 
-        // hier nog een andere query/methode toevoegen voor group*/
-/*        Group Mauve4 = gdb.getGroupByName("Mauve4");
-        System.out.println(Mauve4);*/
-
         // alle groepen ophalen
 /*        List<JsonObject> allDocs = dbGroupaccess.getClient().view("_all_docs").includeDocs(true).query(JsonObject.class);
         for (JsonObject d : allDocs) {
             System.out.println(d.getAsJsonObject());
         }*/
+
+        // haal een groep op met naam/
+/*        Group groupByName = gdb.getGroupByName("Mauve4", 3);
+        System.out.println(groupByName);*/
 
     }
 }
