@@ -24,11 +24,13 @@ public class Course implements Comparable<Course> {
         this.id = id;
         this.coursename = coursename;
     }
-    public Course(){
+
+    public Course() {
         this(Const.ONBEKEND_INT, Const.ONBEKEND_STRING, Const.ONBEKEND_INT);
     }
 
-    public Course(int coordinatorid) {this.coordinatorid = coordinatorid;
+    public Course(int coordinatorid) {
+        this.coordinatorid = coordinatorid;
     }
 
     public int getId() {
@@ -51,9 +53,6 @@ public class Course implements Comparable<Course> {
         return this.coordinatorid;
     }
 
-    public void setCoordinatorid(int coordinatorid) {
-        this.coordinatorid = coordinatorid;
-    }
 
     public String toString() {
         return String.format("%s", this.coursename);
@@ -62,6 +61,13 @@ public class Course implements Comparable<Course> {
     @Override
     public int compareTo(Course o) {
         return coursename.compareTo(o.getCoursename());
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Course course = (Course) o;
+        return id == (course.id) && coordinatorid == (course.coordinatorid) && coursename == (course.coursename);
     }
 }
 
