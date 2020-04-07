@@ -288,8 +288,8 @@ public class FillOutQuizController{
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         formatter.format(date);
-
         quizResult.setDate(date);
+
         String doc_id = storeQuizResultReturnDocId(quizResult);
         Main.getSceneManager().showStudentFeedback(doc_id);
     }

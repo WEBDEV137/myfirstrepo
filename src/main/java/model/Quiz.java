@@ -12,7 +12,6 @@ public class Quiz {
     private Course course;
     private List<Question> questions;
 
-
     //CONSTRUCTOR
     public Quiz(int id, String naam, int succesDefinitie, int cursusId) {
         this.id = id;

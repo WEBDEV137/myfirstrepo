@@ -32,7 +32,7 @@ public class SelectQuizForStudentController{
      }
 
     public void doMenu() {
-        Main.getSceneManager().showWelcomeScene(user);
+        Main.getSceneManager().showWelcomeScene(Main.getCurrentUser());
     }
 
     public void doQuiz() {

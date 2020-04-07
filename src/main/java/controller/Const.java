@@ -6,6 +6,7 @@ public class Const {
     final static String SUCCESFACTOR_ = "Geef een andere waarde voor de succesfactor op";
     final static String SUCCESFACTOR_TOO_HIGH = "Succesfactor mag niet hoger zijn dan het aantal vragen";
     final static String SUCCESFACTOR_TOO_LOW = "De succesfactor moet minimaal 1 zijn";
+    final static String STRING_TOO_SHORT = "Geen naam ingevuld";
     final static String STORING_SUCCES = "Het item is succesvol opgeslagen";
     final static String SOME_CHARACTERS_NOT_ALLOWED = "De volgende karakters zijn niet toegestaan: %$@~`?;:*^#!+}{[]=\\|";
     final static String GIVE_OTHER_VALUE = "Geef een andere waarde op.";

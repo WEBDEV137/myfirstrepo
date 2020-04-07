@@ -10,10 +10,8 @@ import java.util.ArrayList;
 
 public class CreateUpdateQuizController{
 
-    private QuestionDAO questionDAO;
     private QuizDAO quizDAO;
     private CourseDAO courseDAO;
-    private QuizQuestionDAO quizQuestionDAO;
     private DBAccess dbAccess;
     private User user;
     private Quiz quiz;
@@ -88,7 +86,7 @@ public class CreateUpdateQuizController{
             setQuizName();
         } catch (Exception foutmelding) {
             System.out.println(foutmelding.toString());
-            Coll.showAlert(Const.SUCCESFACTOR_TOO_HIGH, Const.EMPTY_STRING, Const.INFORMATION);
+            Coll.showAlert(Const.SUCCESFACTOR_, Const.EMPTY_STRING, Const.INFORMATION);
         }
         try {
             quiz.setSuccesDefinition(Integer.valueOf(succesDefinitionField.getText()));
@@ -113,14 +111,21 @@ public class CreateUpdateQuizController{
         }
     }
 
-    public void setQuizName() {
+    public boolean setQuizName() {
         String newQuizName = quizNameField.getText();
         boolean nameIsAllowed = Coll.checkIfNameAllowed(newQuizName, Const.NOT_ALLOWED_CHARACTERS);
-        if (nameIsAllowed) {
+        if (!nameIsAllowed) {
+            Coll.showAlert(Const.SOME_CHARACTERS_NOT_ALLOWED, Const.CHOOSE_OTHER, "INFORMATION");
+            return false;
+        } else if (newQuizName.length() < 1) {
+            Coll.showAlert(Const.STRING_TOO_SHORT, Const.EMPTY_STRING, "INFORMATION");
+            return false;
+        }
+         else {
             quiz.setName(quizNameField.getText());
-        } else Coll.showAlert(Const.SOME_CHARACTERS_NOT_ALLOWED, Const.CHOOSE_OTHER, "INFORMATION");
+            return true;
+        }
     }
-
     public boolean doesArraylistContainNumber(ArrayList<Integer> list, Integer number) {
         for (int index = 0; index < list.size(); index++) {
             if (list.get(index) == number) {

@@ -38,8 +38,6 @@ public class CreateUpdateQuestionController{
     @FXML
     public TextField createUpdateQuestionTextField;
     @FXML
-    public Button createUpdateAnswerButton;
-    @FXML
     public MenuButton quizButton;
 
     public void setup(Question question) {
@@ -64,41 +62,37 @@ public class CreateUpdateQuestionController{
         titleLabel.setText("Wijzig vraag");
         answerLabel.setText("Wijzig antwoorden");
         createUpdateQuestionTextField.setText(question.toString());
+        quiz = quizDAO.getOneById(question.getQuizID());
         populateQuizMenuButton();
+        quizButton.setText(quiz.getName());
         ArrayList<Answer> answerList = answerDAO.getAllByQuestionId(question.getQuestionID());
         if (answerList.size() > 3) {
             createUpdateWrongAnswerTextField3.setText(answerList.get(3).getText());
-        } else if (answerList.size() > 2) {
+        }
+        if (answerList.size() > 2) {
             createUpdateWrongAnswerTextField2.setText(answerList.get(2).getText());
-        } else if (answerList.size() > 1) {
-            createUpdateWrongAnswerTextField2.setText(answerList.get(1).getText());
-        } else if (answerList.size() > 0) {
-            createUpdateWrongAnswerTextField1.setText(answerList.get(0).getText());
+            createUpdateWrongAnswerTextField3.setDisable(false);
+        }
+        if (answerList.size() > 1) {
+            createUpdateWrongAnswerTextField1.setText(answerList.get(1).getText());
+            ;createUpdateWrongAnswerTextField2.setDisable(false);
+        }
+        if (answerList.size() > 0) {
+            createUpdateRightAnswerTextField.setText(answerList.get(0).getText());
         }
     }
-
-       //createUpdateWrongAnswerTextField3.setDisable(false);
-
-
-
-
     public void setupCreateNewQuestion() {
         titleLabel.setText("Vraag");
         answerLabel.setText("Geef de antwoorden");
-        //createUpdateAnswerButton.setText("Save");
-/*        createUpdateWrongAnswerTextField2.setDisable(false);
-        createUpdateWrongAnswerTextField3.setDisable(false);*/
         populateQuizMenuButton();
     }
     public void populateQuizMenuButton() {
         ArrayList<Quiz> quizzes = quizDAO.getAllByCoordinatorId(user.getUserId());
-
         for (Quiz quiz : quizzes) {
             System.out.println(quiz.getName());
             MenuItem menuItem = new MenuItem(quiz.getName());
             menuItem.setOnAction(event -> changeQuiz(quiz));
             quizButton.getItems().add(menuItem);
-
         }
     }
     public void changeQuiz(Quiz quiz) {
@@ -106,7 +100,6 @@ public class CreateUpdateQuestionController{
         this.quiz = quiz;
         quizButton.setText(quiz.getName());
     }
-
 
     private void setQuestion(){ String questionTekst = createUpdateQuestionTextField.getText();
         System.out.println(questionTekst);
@@ -172,11 +165,8 @@ public class CreateUpdateQuestionController{
             answerDAO.storeAnswer(question.getWrongAnswer1(), id, false);
             answerDAO.storeAnswer(question.getWrongAnswer2(), id, false);
             answerDAO.storeAnswer(question.getWrongAnswer3(), id, false);
-
         }
-
     }
-
 
     @FXML
     private void enableWrongAnswerTextfield2(){
