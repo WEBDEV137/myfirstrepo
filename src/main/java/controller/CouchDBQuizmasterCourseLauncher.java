@@ -1,7 +1,7 @@
 package controller;
 
 import com.google.gson.JsonObject;
-import database.nosql.CouchDBaccess;
+import database.nosql.CourseCouchDBAcces;
 import database.nosql.CourseCouchDBDAO;
 import database.nosql.UserCouchDBDAO;
 import model.Course;
@@ -10,13 +10,13 @@ import model.User;
 import java.util.List;
 
 public class CouchDBQuizmasterCourseLauncher {
-    private CouchDBaccess cDB;
+    private CourseCouchDBAcces cDB;
     private CourseCouchDBDAO uDB;
 
     public CouchDBQuizmasterCourseLauncher() {
         super();
-        cDB = new CouchDBaccess();
-        uDB = new CourseCouchDBDAO(cDB);
+        this.cDB = new CourseCouchDBAcces();
+        this.uDB = new CourseCouchDBDAO(cDB);
     }
 
 
@@ -44,7 +44,7 @@ public class CouchDBQuizmasterCourseLauncher {
 
 //Haal een cursus op uit Couch DB
 
-        Course courseId = uDB.getCourseByDocId("842addd1eab945b3828b35da56591e48");
+        Course courseId = uDB.getCourseByDocId("d4ca6644edc24891a1171c7d3df5b70e");
         System.out.println(courseId);
 
 //        // Bring all gebruikers.

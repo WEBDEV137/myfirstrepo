@@ -8,10 +8,10 @@ import model.Course;
 import java.util.List;
 
 public class CourseCouchDBDAO {
-    private CouchDBaccess db;
+    private CourseCouchDBAcces db;
     private Gson gson;
 
-    public CourseCouchDBDAO(CouchDBaccess db) {
+    public CourseCouchDBDAO(CourseCouchDBAcces db) {
         super();
         this.db = db;
         gson = new Gson();
