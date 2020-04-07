@@ -8,7 +8,7 @@ private int groupId;
 private String groupName;
 private User user; //dit is de docent
 private Course course;
-private ArrayList<User> studenten; //dit zijn de studenten
+private ArrayList<User> students; //dit zijn de studenten
 
     // all args constructor
     public Group(int groupId, String groupName, int userId, int courseId) {
@@ -16,7 +16,7 @@ private ArrayList<User> studenten; //dit zijn de studenten
         this.groupName = groupName;
         user = new User(userId, "onbekend");
         course = new Course(courseId, "onbekend");
-        studenten = new ArrayList<>();
+        students = new ArrayList<>();
     }
 
     // constructor zonder groupId. chainen???
@@ -24,7 +24,7 @@ private ArrayList<User> studenten; //dit zijn de studenten
         this.groupName = groupName;
         user = new User(userId, "onbekend");
         course = new Course(courseId, "onbekend");
-        studenten = new ArrayList<>();
+        students = new ArrayList<>();
     }
 
 
@@ -41,24 +41,12 @@ private ArrayList<User> studenten; //dit zijn de studenten
         return groupName;
     }
 
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
-    }
-
     public int getUserId() {
         return user.getUserId();
     }
 
-    public void setUserId(User user) {
-        this.user.setUserId(getUserId());
-    }
-
     public int getCourseId() {
         return course.getId();
-    }
-
-    public void setCourseId(Course course) {
-        this.course.setId(course.getId());
     }
 
 
