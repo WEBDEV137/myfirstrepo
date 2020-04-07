@@ -2,6 +2,7 @@ package controller;
 
 import database.mysql.DBAccess;
 import database.mysql.GroupDAO;
+import database.mysql.UserDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -11,6 +12,7 @@ import model.Group;
 import view.Main;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 public class ManageGroupsController{
@@ -20,14 +22,6 @@ public class ManageGroupsController{
 
     @FXML
     private ListView<Group> groupList;
-    @FXML
-    private Button newGroupButton;
-    @FXML
-    private Button updateGroupButton;
-    @FXML
-    private Button deleteGroupButton;
-    @FXML
-    private Button doMenuButton;
 
     // setup, lijst van groepen tonen
     public void setup() {
@@ -37,6 +31,7 @@ public class ManageGroupsController{
         System.out.println(groupDAO.getAll());
         try {
             ArrayList<Group> allGroups = groupDAO.getAll();
+            Collections.sort(allGroups);
             Iterator i = allGroups.iterator();
             while (i.hasNext()) {
                 Group g = (Group) i.next();

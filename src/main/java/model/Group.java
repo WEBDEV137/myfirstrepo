@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-public class Group {
+public class Group implements Comparable<Group> {
     //variabelen
 private int groupId;
 private String groupName;
@@ -56,6 +56,10 @@ private ArrayList<User> students; //dit zijn de studenten
         return groupName;
     }
 
+    @Override
+    public int compareTo(Group group) {
+        return groupName.compareTo(group.getGroupName());
+    }
 
 }
 

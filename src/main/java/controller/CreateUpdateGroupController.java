@@ -15,6 +15,7 @@ import model.User;
 import view.Main;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -53,26 +54,18 @@ public class CreateUpdateGroupController {
         if (group == null) {
             titleLabel.setText("Nieuwe groep aanmaken");
             setupTeacherMenuButton(allUsers);
-            for (int i = 0; i < allCourses.size(); i++) {
-                String coursename = allCourses.get(i).getCoursename();
-                MenuItem menuItem = new MenuItem(coursename);
-                courseMenuButton.getItems().add(menuItem);
-                menuItem.setOnAction(e -> setCoursename(coursename));
-            }
+            setupCourseMenuButtonNewGroup(allCourses);
         } else {
             titleLabel.setText("Groep wijzigen");
             setupTeacherMenuButton(allUsers);
+            /*setupCourseMenuButtonUpdateGroup(allCourses);*/
             for (int i = 0; i < allCourses.size(); i++) {
                 String coursename = allCourses.get(i).getCoursename();
                 MenuItem menuItem = new MenuItem(coursename);
                 courseMenuButton.getItems().add(menuItem);
                 menuItem.setOnAction(e -> setCoursename(coursename));
                 courseMenuButton.setText(courseDAO.getCourseNameById(group.getCourseId()));
-                menuItem.setOnAction(e -> {
-                    Alert opgeslagen = new Alert(Alert.AlertType.INFORMATION);
-                    opgeslagen.setContentText("Je kunt de cursus niet wijzigen. Maak een nieuwe groep.");
-                    opgeslagen.show();
-                });
+                alertCourseNotUpdatable(menuItem);
             }
             groupNumberTextfield.setText(String.valueOf(group.getGroupId()));
             groupNameTextfield.setText(group.getGroupName());
@@ -80,7 +73,7 @@ public class CreateUpdateGroupController {
         }
     }
 
-// hulpmethode om MenuButton Docent te vullen met lijst en gekozen naam in te stellen
+// hulpmethode om MenuButton Docent te vullen met lijst
     private void setupTeacherMenuButton(List<User> allUsers) {
         for (int ib = 0; ib < allUsers.size(); ib++) {
             String teachername = allUsers.get(ib).getUserName();
@@ -89,6 +82,43 @@ public class CreateUpdateGroupController {
             menuItem.setOnAction(e -> setTeachername(teachername));
         }
     }
+
+    // hulpmethode om MenuButton Course te vullen met lijst
+    private void setupCourseMenuButtonNewGroup(List<Course> allCourses){
+        for (int i = 0; i < allCourses.size(); i++) {
+            String coursename = allCourses.get(i).getCoursename();
+            MenuItem menuItem = new MenuItem(coursename);
+            courseMenuButton.getItems().add(menuItem);
+            menuItem.setOnAction(e -> setCoursename(coursename));
+        }
+    }
+
+    // toon alert wanneer gebruiker course wil wijzigen
+    private void alertCourseNotUpdatable(MenuItem menuItem) {
+        menuItem.setOnAction(e -> {
+            Alert opgeslagen = new Alert(Alert.AlertType.INFORMATION);
+            opgeslagen.setContentText("Je kunt de cursus niet wijzigen. Maak een nieuwe groep.");
+            opgeslagen.show();
+        });
+    }
+
+/*    private void setupCourseMenuButtonUpdateGroup(List<Course> allCourses){
+        dbAccess = Main.getDBaccess();
+        dbAccess.openConnection();
+        CourseDAO courseDAO = new CourseDAO(dbAccess);
+        for (int i = 0; i < allCourses.size(); i++) {
+            String coursename = allCourses.get(i).getCoursename();
+            MenuItem menuItem = new MenuItem(coursename);
+            courseMenuButton.getItems().add(menuItem);
+            menuItem.setOnAction(e -> setCoursename(coursename));
+            courseMenuButton.setText(courseDAO.getCourseNameById(group.getCourseId()));
+            menuItem.setOnAction(e -> {
+                Alert opgeslagen = new Alert(Alert.AlertType.INFORMATION);
+                opgeslagen.setContentText("Je kunt de cursus niet wijzigen. Maak een nieuwe groep.");
+                opgeslagen.show();
+            });
+        }
+    }*/
 
 
 // hulpmethodes om gekozen naam in te stellen als tekst van MenuButton
