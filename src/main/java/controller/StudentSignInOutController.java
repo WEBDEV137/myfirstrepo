@@ -33,7 +33,7 @@ public class StudentSignInOutController {
 
     public void setup() {
         this.cdao = new CourseDAO(Main.getDBaccess());
-        List<Course> allCourses = cdao.getAllCourses();
+        List<Course> allCourses = cdao.getAll();
         Collections.sort(allCourses);
         for (Course course : allCourses ) {
             signedOutCourseList.getItems().add(course);

@@ -47,7 +47,7 @@ public class CreateUpdateGroupController extends AbstractController {
         dbAccess.openConnection();
         CourseDAO courseDAO = new CourseDAO(dbAccess);
         UserDAO userDAO = new UserDAO(dbAccess);
-        List<Course> allCourses = courseDAO.getAllCourses();
+        List<Course> allCourses = courseDAO.getAll();
         List<User> allUsers = userDAO.getUsersByRole("coordinator");
         System.out.println(allUsers.get(0));
         System.out.println(allUsers.get(1));

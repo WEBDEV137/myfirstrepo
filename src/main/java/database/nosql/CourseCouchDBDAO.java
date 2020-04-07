@@ -37,7 +37,6 @@ public class CourseCouchDBDAO {
         List<JsonObject> allCourses = db.getClient().view("_all_docs").includeDocs(true).query(JsonObject.class);
         for (JsonObject json : allCourses) {
             resultaat = gson.fromJson(json, Course.class);
-            // wat betekent onderstaande?
             if (resultaat.getId() == id  && (resultaat.getCoursename().equals(cursusnaam))) {
                 return resultaat;
             }
