@@ -67,7 +67,7 @@ public class CouchDBQuizmasterLauncher {
         Group group = groupDb.getGroupByDocId("ca5e1bae9aa94366a9d194563bca37d8");
         System.out.println(group);
 
-        // hier nog een andere query/methode toevoegen voor group*/
+        // hier nog een andere query/methode toevoegen voor group
 
         }
-    }
+    }*/

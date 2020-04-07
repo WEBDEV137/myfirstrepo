@@ -1,6 +1,7 @@
 package database.mysql;
 
-import controller.AbstractController;
+
+import controller.Coll;
 import model.Group;
 import model.Question;
 import model.Quiz;
@@ -126,7 +127,7 @@ public class UserDAO extends AbstractDAO implements GenericDAO {
             }
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
-            AbstractController.showAlert("x", "x", "x");
+            Coll.showAlert("x", "x", "x");
         }
         return user;
     }
@@ -173,7 +174,7 @@ public class UserDAO extends AbstractDAO implements GenericDAO {
             }
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
-            AbstractController.showAlert("x", "x", "x");
+            Coll.showAlert("x", "x", "x");
         }
         return userId;
     }
@@ -190,7 +191,7 @@ public class UserDAO extends AbstractDAO implements GenericDAO {
             }
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
-            AbstractController.showAlert("x", "x", "x");
+            Coll.showAlert("x", "x", "x");
         }
         return userName;
     }

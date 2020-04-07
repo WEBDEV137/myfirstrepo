@@ -14,7 +14,7 @@ import view.Main;
 import java.util.List;
 import java.util.Optional;
 
-public class ManageQuizzesController extends AbstractController {
+public class ManageQuizzesController{
 
     private QuizDAO quizDAO;
     private CourseDAO courseDAO;
@@ -47,8 +47,6 @@ public class ManageQuizzesController extends AbstractController {
 
     public void doUpdateQuiz() {
         quiz = quizList.getSelectionModel().getSelectedItem();
-        System.out.println(quiz.getName());
-        System.out.println(quiz.getId());
         Main.getSceneManager().showCreateUpdateQuizScene(quiz);
     }
     public void doDeleteQuiz() {
@@ -62,23 +60,20 @@ public class ManageQuizzesController extends AbstractController {
     public void doLogOut() {
         Main.getSceneManager().showLoginScene();
     }
+
     /**
      * Confirmation dialogue
      * do you want to Delete quiz?
      */
     public void doDeleteConfirmation() {
         if(quizList.getSelectionModel().getSelectedItem() != null){
-
-        String ARE_YOU_SURE = "U staat op het punt een quiz te wissen.\n Alle bijbehorende vragen zullen ook worden verwijderd.";
-        String CLICK_CONTINUE = "Weet u zeker dat u wilt doorgaan?";
-
         ButtonType jaKnop = new ButtonType("Ja", ButtonBar.ButtonData.YES);
         ButtonType neeKnop = new ButtonType("Nee", ButtonBar.ButtonData.CANCEL_CLOSE);
-        Alert okCancelDialogue = new Alert(Alert.AlertType.WARNING, CLICK_CONTINUE, jaKnop, neeKnop);
+        Alert okCancelDialogue = new Alert(Alert.AlertType.INFORMATION, Const.CLICK_CONTINUE, jaKnop, neeKnop);
         okCancelDialogue.setTitle(Main.QUIZMASTER);
-        okCancelDialogue.setHeaderText(ARE_YOU_SURE);
-        okCancelDialogue.initModality(Modality.APPLICATION_MODAL); //Achtegrpond scherm wordt onbruikbaar gemaakt.
-        okCancelDialogue.initOwner(Main.getPrimaryStage()); //show,
+        okCancelDialogue.setHeaderText(Const.ARE_YOU_SURE);
+        okCancelDialogue.initModality(Modality.APPLICATION_MODAL);
+        okCancelDialogue.initOwner(Main.getPrimaryStage());
         Optional<ButtonType> result = okCancelDialogue.showAndWait();
         if (result.get() == jaKnop) {
             doDeleteQuiz();

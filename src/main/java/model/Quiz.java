@@ -62,26 +62,12 @@ public class Quiz {
     public void setSuccesDefinition(int succesDefinition) {
         this.succesDefinition = succesDefinition;
     }
-    public void setSelectedQuestions(List<Question> questions) {
-        this.questions = questions;
-    }
-
-    public void setAllQuestions(ArrayList<Question> questions) {
-        for (Question question : questions){
-            addQuestion(question);
-        }
-    }
     public void setCourseName(String name) {
         course.setCoursename(name);
-    }
-    public void setCourseCoordinatorId(int coordinatorId) {
-        course.setCoordinatorid(coordinatorId);
     }
     public void setCourseId(Course course) {
         this.course.setId(course.getId());
     }
-
-
 
     @Override
     public String toString() {

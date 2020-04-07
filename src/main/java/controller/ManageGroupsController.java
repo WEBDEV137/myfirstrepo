@@ -14,7 +14,7 @@ import view.Main;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class ManageGroupsController extends AbstractController{
+public class ManageGroupsController{
 
     private GroupDAO groupDAO;
     private DBAccess dbAccess;

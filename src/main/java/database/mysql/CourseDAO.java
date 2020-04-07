@@ -1,7 +1,8 @@
 //Maken CourseDAO om gegevens vanuit database te halen
 package database.mysql;
 
-import controller.AbstractController;
+
+import controller.Coll;
 import model.Course;
 import model.Group;
 import model.Quiz;
@@ -140,7 +141,7 @@ public class CourseDAO extends AbstractDAO {
             }
         } catch (final SQLException e) {
             System.out.println("SQL error " + e.getMessage());
-            AbstractController.showAlert("x", "x", "x");
+            Coll.showAlert("x", "x", "x");
         }
         return courseId;
     }
@@ -157,7 +158,7 @@ public class CourseDAO extends AbstractDAO {
             }
         } catch (final SQLException e) {
             System.out.println("SQL error " + e.getMessage());
-            AbstractController.showAlert("x", "x", "x");
+            Coll.showAlert("x", "x", "x");
         }
         return courseName;
     }

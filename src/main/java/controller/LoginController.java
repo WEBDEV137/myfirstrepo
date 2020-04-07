@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 import model.User;
 import view.Main;
 
-public class LoginController extends AbstractController{
+public class LoginController{
 
     @FXML
     private TextField nameTextField;

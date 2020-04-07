@@ -240,9 +240,10 @@ public class FillOutQuizController{
         return doc_id;
     }
     public void doMenu() {
-       storeCurrentQuestionResult();
-       Main.getSceneManager().showWelcomeScene(user);
-    }
+        if(quizResult.getCountQuestions()>0){
+       storeCurrentQuestionResult(); }
+       Main.getSceneManager().showWelcomeScene(user);}
+
     /**
      * Confirmation dialogue
      * do you want to Leave Quiz?

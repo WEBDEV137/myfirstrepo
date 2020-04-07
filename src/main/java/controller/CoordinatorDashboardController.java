@@ -14,7 +14,7 @@ import view.Main;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CoordinatorDashboardController extends AbstractController{
+public class CoordinatorDashboardController{
 
     private QuizDAO quizDAO;
     private QuestionDAO questionDAO;
@@ -38,13 +38,13 @@ public class CoordinatorDashboardController extends AbstractController{
     public void setup() {
         setupMainObjects();
 
-        populateListView(courseList, courseDAO.getAllByCoordinatorId(user.getUserId()));
+        Coll.populateListView(courseList, courseDAO.getAllByCoordinatorId(user.getUserId()));
         courseList.getSelectionModel().selectedItemProperty().addListener(
                 new ChangeListener<Course>() {
                     @Override
                     public void changed(ObservableValue<? extends Course> observableValue, Course oldCourse, Course newCourse) {
                         quizzes = quizDAO.getAllByCourseId(newCourse.getId());
-                        populateListView(quizList, quizzes);
+                        Coll.populateListView(quizList, quizzes);
                         questionList.getItems().clear();
                     }
                 });
@@ -53,7 +53,7 @@ public class CoordinatorDashboardController extends AbstractController{
                     @Override
                     public void changed(ObservableValue<? extends Quiz> observableValue, Quiz oldQuiz, Quiz newQuiz) {
                         questions = questionDAO.getAllQuestionsByQuizId(newQuiz.getId());
-                        populateListView(questionList, questions);
+                        Coll.populateListView(questionList, questions);
                     }
                 });
     }

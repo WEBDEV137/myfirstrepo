@@ -13,7 +13,7 @@ import view.SceneManager;
 
 import java.util.ArrayList;
 
-public class SelectQuizForStudentController extends AbstractController {
+public class SelectQuizForStudentController{
     private User user;
     private DBAccess dbAccess;
     private QuizDAO quizDAO;
@@ -28,7 +28,7 @@ public class SelectQuizForStudentController extends AbstractController {
         quizDAO = new QuizDAO(dbAccess);
         quizzes = quizDAO.getAllByUserId(user.getUserId());
 
-        populateListView(quizList, quizzes);
+        Coll.populateListView(quizList, quizzes);
      }
 
     public void doMenu() {
