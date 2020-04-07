@@ -110,7 +110,7 @@ public class CreateUpdateQuestionController{
 
     private void setQuestion(){ String questionTekst = createUpdateQuestionTextField.getText();
         System.out.println(questionTekst);
-        boolean nameIsAllowed = Coll.checkIfNameAllowed(questionTekst, Const.NOT_ALLOWED_CHARACTERS);
+        boolean nameIsAllowed = Coll.checkIfNameAllowed(questionTekst, Const.NOT_ALLOWED_CHARACTERS_QUESTION);
         if (nameIsAllowed) {
             question.setQuestionText(questionTekst);
         } else Coll.showAlert(Const.SOME_CHARACTERS_NOT_ALLOWED, Const.CHOOSE_OTHER, "INFORMATION");
