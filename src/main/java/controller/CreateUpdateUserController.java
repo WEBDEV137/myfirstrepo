@@ -95,7 +95,7 @@ public class CreateUpdateUserController {
     public void doCreateUpdateUser(ActionEvent e) {
         createUser();
         if (user != null) {
-            if (userIdTextfield.getText().equals(("userId"))) {
+            if (userIdTextfield.getText().equals(("Gebruiker id"))) {
                 udao.storeOne(user);
                 userIdTextfield.setText(String.valueOf(user.getUserId()));
                 Main.getSceneManager().showCreateUpdateUserScene(null);
