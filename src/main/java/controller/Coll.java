@@ -2,12 +2,9 @@ package controller;
 
 import javafx.application.Platform;
 import javafx.scene.control.*;
-import javafx.stage.Modality;
-import view.Main;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -47,23 +44,6 @@ public class Coll {
             }
             return true;
         }
-
-
-        /**
-         * Maak een menu-item voor een dropdownmenu of menubar met als label de opgegeven teks
-         * *
-         */
-        public static MenuItem createMenuItem(String menuItem){
-            return new MenuItem(menuItem);
-        }
-        /**
-         * Voeg een extra knop toe aan een dropdown menu
-         *
-         */
-        public static void addMenuItemToMenuButton(MenuItem menuItem, MenuButton dropdownMenu){
-            dropdownMenu.getItems().add(menuItem);
-        }
-
         /**
          * Laat een alert zien met de ingegeven tekst als 1e en 2e parameter en ingegeven alerttype (als String) als derde
          * Kies als alerttype: "error" of "conformation" of "warning" "information"
@@ -98,16 +78,6 @@ public class Coll {
             }
             Platform.exit();
         }
-
-    public boolean doesArraylistContainNumber(ArrayList<Integer> list, Integer number) {
-        for (int index = 0; index < list.size(); index++) {
-            if (list.get(index) == number) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 }
 
 

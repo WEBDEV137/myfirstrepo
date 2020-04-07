@@ -14,6 +14,11 @@ import view.Main;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Deze controller klasse  zorgt  voor een overzicht van courses, bijbehorende quizzen en bijbehorende vragen en de mogelijkheid quizzen
+ * en vragen te wijzigen en toe te voegen
+ */
+
 public class CoordinatorDashboardController{
 
     private QuizDAO quizDAO;
@@ -35,17 +40,23 @@ public class CoordinatorDashboardController{
     private ListView<Question> questionList;
 
 
-    public void setup() {
+    public void setup(Quiz quiz) {
         setupMainObjects();
-
         Coll.populateListView(courseList, courseDAO.getAllByCoordinatorId(user.getUserId()));
+        if(quiz!=null){
+            quizList.getItems().add(quiz);
+            questions = questionDAO.getAllQuestionsByQuizId(quiz.getId());
+            Coll.populateListView(questionList, questions);
+        ; }
         courseList.getSelectionModel().selectedItemProperty().addListener(
+
                 new ChangeListener<Course>() {
                     @Override
                     public void changed(ObservableValue<? extends Course> observableValue, Course oldCourse, Course newCourse) {
                         quizzes = quizDAO.getAllByCourseId(newCourse.getId());
                         Coll.populateListView(quizList, quizzes);
                         questionList.getItems().clear();
+
                     }
                 });
         quizList.getSelectionModel().selectedItemProperty().addListener(
@@ -85,6 +96,6 @@ public class CoordinatorDashboardController{
     }
 
     public void doMenu() {
-        Main.getSceneManager().showWelcomeScene();
+        Main.getSceneManager().showWelcomeScene(Main.getCurrentUser());
     }
 }

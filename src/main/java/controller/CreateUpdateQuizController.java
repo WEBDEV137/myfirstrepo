@@ -96,7 +96,10 @@ public class CreateUpdateQuizController {
     public void doMenu() {
         Main.getSceneManager().showWelcomeScene(user);
     }
-
+    @FXML
+    private void doDashboard() {
+        Main.getSceneManager().showCoordinatorDashboard(quiz);
+    }
     @FXML
     public void doManageQuizzes() {
         Main.getSceneManager().showManageQuizScene();

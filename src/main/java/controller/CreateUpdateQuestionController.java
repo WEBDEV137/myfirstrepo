@@ -177,4 +177,10 @@ public class CreateUpdateQuestionController{
     private void enableWrongAnswerTextfield3(){
         createUpdateWrongAnswerTextField3.setDisable(false);
     }
+
+    @FXML
+    private void doDashboard(){
+        Main.getSceneManager().showCoordinatorDashboard(quiz);
+    }
+
 }

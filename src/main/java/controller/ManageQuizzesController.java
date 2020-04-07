@@ -13,6 +13,10 @@ import view.Main;
 
 import java.util.List;
 import java.util.Optional;
+/**
+ * Deze controller klasse zorgt ervoor dat quizzen gemaakt, verwijderd en gewijzigd kunnen worden.
+ */
+
 
 public class ManageQuizzesController{
 

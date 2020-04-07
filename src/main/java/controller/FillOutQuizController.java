@@ -32,13 +32,11 @@ public class FillOutQuizController{
     private List<Question> questions;
     private List<Answer> answers;
     private List<Answer> randomizedAnswers;
-    private int questionNumber;
     private int questionIndex;
     private Answer answerA;
     private Answer answerB;
     private Answer answerC;
     private Answer answerD;
-    final static int FIRST_QUESTION = 1;
     final static int INDEX_OF_FIRST_ITEM = 0;
     final static int INDEX_OF_SECOND_ITEM = 1;
     final static int INDEX_OF_THIRD_ITEM = 2;
@@ -59,7 +57,6 @@ public class FillOutQuizController{
     public void setup(Quiz quiz) {
         this.quiz = quiz;
         questionIndex = INDEX_OF_FIRST_ITEM;
-        questionNumber = FIRST_QUESTION;
         dbAccess = Main.getDBaccess();
         user = Main.getCurrentUser();
         questionDAO = new QuestionDAO(dbAccess);
@@ -78,14 +75,18 @@ public class FillOutQuizController{
         currentQuestionResult = quizResult.getQuestionResult(INDEX_OF_FIRST_ITEM);
     }
 
-
-
     private List<Answer> getAnswersByQuestionId(int questionId) {
         answerDAO = new AnswerDAO(dbAccess);
         answers = answerDAO.getAllByQuestionId(questionId);
         return answers;
     }
 
+    /**
+     * Deze Methode verdeelt de Objecten in een List in een willekeurige volgorde  willekeurig over aan andere ArrayList,
+     * @param answers List<Answer>
+     * @return randomized List<Answer>
+     *
+     */
     public List<Answer> randomizeAnswers (List<Answer> answers) {
         List<Answer> answersCopy = new ArrayList<>();
         for (Answer answerToCopy : answers) {
@@ -103,20 +104,44 @@ public class FillOutQuizController{
             MAX --;
         } return randomizedAnswers;
     }
-        public void assignAnswersToLetters() {
-            answerA = null;
-            answerB = null;
-            answerC = null;
-            answerD = null;
+
+
+    /**
+     * Deze Methode verdeelt de Objecten in een List in een willekeurige volgorde  willekeurig over aan andere ArrayList,
+     * Dit ide verbeterde versie van de vorige, bij deze is moet het kopieren van de ingegeven array apart vooraf gedaan
+     * worden.
+     * @param answers List<Answer>
+     * @return randomized List<Answer>
+     *
+     */
+    public List<Answer> randomizeAnswers2 (List<Answer> answers) {
+        List<Answer> randomizedAnswers = new ArrayList<>();
+        while (answers.size() > INDEX_OF_FIRST_ITEM) {
+            int randomIndex = ((int) (Math.random() * answers.size()));
+            randomizedAnswers.add(answers.get(randomIndex));
+            answers.remove(randomIndex);
+        }
+        return randomizedAnswers;
+    }
+
+    /**
+     * Deze methode wijst de antwoorden uit een ArrayList toe aan Antwoord objecten A, B, en afhankelijk van
+     * de grootte van de ArrayList mogelijk  ook aan C en D
+     */
+    public void assignAnswersToLetters() {
             answerA = randomizedAnswers.get(INDEX_OF_FIRST_ITEM);
             answerB = randomizedAnswers.get(INDEX_OF_SECOND_ITEM);
+            answerC = null;
+            answerD = null;
             if (randomizedAnswers.size() > NUMBER_OF_ANSWERS_AB) {
                 answerC = randomizedAnswers.get(INDEX_OF_THIRD_ITEM);
-                if (randomizedAnswers.size() > NUMBER_OF_ANSWERS_ABC) {
+                if (randomizedAnswers.size() >NUMBER_OF_ANSWERS_ABC) {
                     answerD = randomizedAnswers.get(INDEX_OF_FOURTH_ITEM);
                 }
             }
         }
+
+
     private void fillTextArea(){
         if(questions.get(questionIndex) != null){
             currentQuestion = questions.get(questionIndex);
@@ -164,17 +189,12 @@ public class FillOutQuizController{
         questionIndex++;
         if (questionIndex < questions.size()) {
             currentQuestion = questions.get(questionIndex);
-            System.out.println(currentQuestion);
             answers = getAnswersByQuestionId(currentQuestion.getQuestionID());
             hideButtons(answers.size());
-            for (Answer answer : answers){
-                System.out.println(answer);
-            }
             randomizedAnswers = randomizeAnswers(answers);
             assignAnswersToLetters();
             fillTextArea();
            currentQuestionResult = quizResult.getQuestionResult(questionIndex);
-            System.out.println(quizResult);
         }
         else{ ;
             questionIndex--;
