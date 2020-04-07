@@ -14,6 +14,7 @@ public class GroupDAO extends AbstractDAO implements GenericDAO {
         super(dbAccess);
     }
 
+    // alle groepen ophalen uit SQL DB
     public ArrayList<Group> getAll() {
         String sql = "SELECT * FROM groep;";
         ArrayList<Group> result = new ArrayList();
@@ -34,6 +35,7 @@ public class GroupDAO extends AbstractDAO implements GenericDAO {
         return result;
     }
 
+    // groep ophalen uit SQL DB dmv groupId
     @Override
     public Group getOneById(int id) {
         String query = "SELECT * FROM groep WHERE id = ?;";
@@ -54,7 +56,7 @@ public class GroupDAO extends AbstractDAO implements GenericDAO {
         return group;
     }
 
-
+// groep verwijderen uit SQL DB dmv groupName
 public void deleteGroupByName (String groupName) {
     String sql = "DELETE FROM groep WHERE naam = ?;";
     try {
@@ -66,6 +68,7 @@ public void deleteGroupByName (String groupName) {
     }
 }
 
+// groep opslaan in SQL DB
     @Override
     public void storeOne (Object type) {
         String sql = "INSERT INTO groep VALUES(DEFAULT, ?, ?, ?);";
@@ -80,7 +83,7 @@ public void deleteGroupByName (String groupName) {
         }
     }
 
-
+    // groep wijzigen in SQL DB
     public void updateGroup(Group group) {
         String sql = "UPDATE groep SET naam = ?, docentid = ? where id = ?;";
         try {

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import model.Group;
+import model.Question;
 
 import java.util.List;
 
@@ -32,17 +33,18 @@ public class GroupCouchDBDAO {
         return resultaat;
     }
 
-/*    public Group getGroupByName(String groepNaam, int docentcode) {
+    //hier wordt momenteel alleen de naam getoond omdat de toString van Group alleen groupName heeft
+    public Group getGroup(String groepNaam) {
         Group resultaat = null;
         List<JsonObject> allGroups = gdb.getClient().view("_all_docs").includeDocs(true).query(JsonObject.class);
         for (JsonObject json : allGroups) {
             resultaat = gson.fromJson(json, Group.class);
-            if (resultaat.getGroupName().equals(groepNaam) && (resultaat.getUserId() == docentcode)) {
+            if (resultaat.getGroupName().equals(groepNaam)) {
                 return resultaat;
             }
         }
         return resultaat;
-    }*/
+    }
 
 
 }
