@@ -17,15 +17,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class CourseDAO extends AbstractDAO {
+public class CourseDAO extends AbstractDAO implements GenericDAO {
     public CourseDAO(final DBAccess dbAccess){
         super(dbAccess);
     }
 
-    public  List <Course> getAllCourses() {
-        final List<Course> courseSheet = new ArrayList<>();
+    @Override
+    public  ArrayList <Course> getAll() {
+        final ArrayList<Course> courseSheet = new ArrayList<>();
         final String query = "SELECT * FROM cursus";
-        Course course = null;
+        Course course;
         try {
             final PreparedStatement preparedStatement = this.getStatement(query);
             final ResultSet resultSet = this.executeSelectPreparedStatement(preparedStatement);
@@ -63,6 +64,11 @@ public class CourseDAO extends AbstractDAO {
         return course;
     }
 
+    @Override
+    public void storeOne(Object type) {
+
+    }
+
     /**
      * Wegschrijven van nieuwe course naar SQL TO DO: Bewaren lukt nog niet
      */
@@ -95,7 +101,7 @@ public class CourseDAO extends AbstractDAO {
         }
     }
 
-    public ArrayList<Course> getAllByCoordinatorId(final int coordinatorId) {
+    public ArrayList<Course> getAllByCoordinatorId(int coordinatorId) {
         ArrayList<Course> courses = null;
         final String query = "SELECT * FROM cursus WHERE coordinatorid = ? ;";
         try {
