@@ -63,12 +63,7 @@ public class Course implements Comparable<Course> {
         return coursename.compareTo(o.getCoursename());
     }
 
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Course course = (Course) o;
-        return id == (course.id) && coordinatorid == (course.coordinatorid) && coursename == (course.coursename);
-    }
+
 }
 
 
