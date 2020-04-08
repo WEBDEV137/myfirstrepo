@@ -62,7 +62,7 @@ public class QuestionDAO extends AbstractDAO implements GenericDAO<Question>{
      *
      */
     public List<Question> getSelectedQuestionsByQuizId(int quizId) {
-        String query = "SELECT * FROM Vraag WHERE id IN (SELECT vraagid FROM quizvraag WHERE quizid = ?);";
+        String query = "SELECT * FROM Vraag WHERE quizid = ?;";
         List<Question> questions = new ArrayList<>();
         Question question;
         try {

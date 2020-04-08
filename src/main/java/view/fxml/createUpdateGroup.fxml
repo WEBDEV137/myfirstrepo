@@ -49,7 +49,7 @@
             </children>
         </GridPane>
         <Button fx:id="saveButton" layoutX="270.0" layoutY="304.0" maxHeight="1.8" mnemonicParsing="false" onAction="#doCreateUpdateGroup" text="Save" />
-        <Button fx:id="lijstButton" layoutX="319.0" layoutY="304.0" maxHeight="1.8" mnemonicParsing="false" onAction="#doBackToList" text="groepen beheer" />
+        <Button fx:id="lijstButton" layoutX="319.0" layoutY="304.0" maxHeight="1.8" mnemonicParsing="false" onAction="#doBackToList" text="groep beheer" />
         <Button fx:id="menuButton" layoutX="427.0" layoutY="304.0" maxHeight="1.8" minHeight="-Infinity" mnemonicParsing="false" onAction="#doBackToMenu" text="Menu" />
     </children>
 </AnchorPane>
