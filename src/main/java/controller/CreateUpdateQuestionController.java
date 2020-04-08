@@ -42,10 +42,7 @@ public class CreateUpdateQuestionController {
             answerLabel.setText("Wijzig antwoorden");
             createUpdateAnswerButton.setText("Wijzig vraag en antwoorden");
             createUpdateQuestionTextField.setText(question.toString());
-            ArrayList<Answer> answerList = new ArrayList<>(answerDAO.getAllAnswersByQuestionId(question.getQuestionID()));
-            createUpdateRightAnswerTextField.setText(answerList.get(0).getText());
-            createUpdateWrongAnswerTextField1.setText(answerList.get(1).getText());
-            createUpdateWrongAnswerTextField2.setText(answerList.get(2).getText());
+            ArrayList<Answer> answerList = getAnswerListBySelectedQuestion(question);
             if (!createUpdateWrongAnswerTextField2.getText().isEmpty()){
                 createUpdateWrongAnswerTextField2.setDisable(false);
             }
@@ -57,6 +54,14 @@ public class CreateUpdateQuestionController {
             selectedQuizName = quizDAO.getOneById(question.getQuizID()).getName();
             selectedQuestion = question;
         } fillQuizDropdownMenu();
+    }
+
+    private ArrayList<Answer> getAnswerListBySelectedQuestion(Question question) {
+        ArrayList<Answer> answerList = new ArrayList<>(answerDAO.getAllAnswersByQuestionId(question.getQuestionID()));
+        createUpdateRightAnswerTextField.setText(answerList.get(0).getText());
+        createUpdateWrongAnswerTextField1.setText(answerList.get(1).getText());
+        createUpdateWrongAnswerTextField2.setText(answerList.get(2).getText());
+        return answerList;
     }
 
     @FXML
@@ -116,31 +121,39 @@ public class CreateUpdateQuestionController {
         if (newWrongAnswer2 != null) {createWrongAnswer2();}
         if (newWrongAnswer3 != null) {createWrongAnswer3();}
         if (selectedQuestion == null) {
-            newQuestion.setQuizID(selectedQuiz.getId());
-            questionDAO.storeOne(newQuestion);
-            newRightAnswer.setQuestionId(questionDAO.getIdByQuestionText(newQuestion.toString()));
-            answerDAO.storeOne(newRightAnswer);
-            newWrongAnswer1.setQuestionId(questionDAO.getIdByQuestionText(newQuestion.toString()));
-            answerDAO.storeOne(newWrongAnswer1);
-            if (newWrongAnswer2 != null) {
-                newWrongAnswer2.setQuestionId(questionDAO.getIdByQuestionText(newQuestion.toString()));
-                answerDAO.storeOne(newWrongAnswer2);}
-            if (newWrongAnswer3 != null) {
-                newWrongAnswer3.setQuestionId(questionDAO.getIdByQuestionText(newQuestion.toString()));
-                answerDAO.storeOne(newWrongAnswer3);}
-            Alert stored = new Alert(Alert.AlertType.INFORMATION);
-            stored.setContentText("Vraag en antwoorden opgeslagen");
-            stored.show();
+            storeNewQuestionAndAnswers();
         } else {
-            questionDAO.updateQuestionByQuestionText(newQuestion.toString(), selectedQuestion.toString());
-            answerDAO.updateAnswerByAnswerText(newRightAnswer.toString(), createUpdateRightAnswerTextField.getText());
-            answerDAO.updateAnswerByAnswerText(newWrongAnswer1.toString(), createUpdateWrongAnswerTextField1.getText());
-            answerDAO.updateAnswerByAnswerText(newWrongAnswer2.toString(), createUpdateWrongAnswerTextField2.getText());
-            answerDAO.updateAnswerByAnswerText(newWrongAnswer3.toString(), createUpdateWrongAnswerTextField3.getText());
-            Alert updated = new Alert(Alert.AlertType.INFORMATION);
-            updated.setContentText("Vraag en antwoorden gewijzigd");
-            updated.show();
+            updateQuestionAndAnswers();
         }
+    }
+
+    private void storeNewQuestionAndAnswers() {
+        newQuestion.setQuizID(selectedQuiz.getId());
+        questionDAO.storeOne(newQuestion);
+        newRightAnswer.setQuestionId(questionDAO.getIdByQuestionText(newQuestion.toString()));
+        answerDAO.storeOne(newRightAnswer);
+        newWrongAnswer1.setQuestionId(questionDAO.getIdByQuestionText(newQuestion.toString()));
+        answerDAO.storeOne(newWrongAnswer1);
+        if (newWrongAnswer2 != null) {
+            newWrongAnswer2.setQuestionId(questionDAO.getIdByQuestionText(newQuestion.toString()));
+            answerDAO.storeOne(newWrongAnswer2);}
+        if (newWrongAnswer3 != null) {
+            newWrongAnswer3.setQuestionId(questionDAO.getIdByQuestionText(newQuestion.toString()));
+            answerDAO.storeOne(newWrongAnswer3);}
+        Alert stored = new Alert(Alert.AlertType.INFORMATION);
+        stored.setContentText("Vraag en antwoorden opgeslagen");
+        stored.show();
+    }
+
+    private void updateQuestionAndAnswers() {
+        questionDAO.updateQuestionByQuestionText(newQuestion.toString(), selectedQuestion.toString());
+        answerDAO.updateAnswerByAnswerText(newRightAnswer.toString(), createUpdateRightAnswerTextField.getText());
+        answerDAO.updateAnswerByAnswerText(newWrongAnswer1.toString(), createUpdateWrongAnswerTextField1.getText());
+        answerDAO.updateAnswerByAnswerText(newWrongAnswer2.toString(), createUpdateWrongAnswerTextField2.getText());
+        answerDAO.updateAnswerByAnswerText(newWrongAnswer3.toString(), createUpdateWrongAnswerTextField3.getText());
+        Alert updated = new Alert(Alert.AlertType.INFORMATION);
+        updated.setContentText("Vraag en antwoorden gewijzigd");
+        updated.show();
     }
 
     @FXML
@@ -150,7 +163,6 @@ public class CreateUpdateQuestionController {
                 quizList) {
             MenuItem menuItem = new MenuItem(quiz.getName());
             menuItem.setOnAction(actionEvent -> selectedQuiz = quiz);
-            //menuItem.setOnAction(actionEvent -> quizMenuButton.setText(quiz.getName()));
             quizMenuButton.getItems().add(menuItem);
         }
     }
