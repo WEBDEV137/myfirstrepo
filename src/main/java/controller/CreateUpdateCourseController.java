@@ -45,6 +45,7 @@ public class CreateUpdateCourseController {
         this.dbAccess.openConnection();
         this.userDAO = new UserDAO(this.dbAccess);
         List<User> allUsers = this.userDAO.getUsersByRole("Coordinator");
+
         if (course == null) {
             this.titleLabel.setText("Nieuwe cursus aanmaken");
 

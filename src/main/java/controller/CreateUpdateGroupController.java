@@ -50,7 +50,12 @@ public class CreateUpdateGroupController {
         CourseDAO courseDAO = new CourseDAO(dbAccess);
         UserDAO userDAO = new UserDAO(dbAccess);
         List<Course> allCourses = courseDAO.getAll();
-        List<User> allUsers = userDAO.getUsersByRole("docent");
+        List<User> allUsers = userDAO.getUsersByRole("coordinator");
+        List<User> teachers = userDAO.getUsersByRole("docent");
+        for(User user : teachers){
+            allUsers.add(user);
+        }
+//        List<User> allUsers = userDAO.getUsersByRole("docent");
         if (group == null) {
             titleLabel.setText("Nieuwe groep aanmaken");
             setupTeacherMenuButton(allUsers);

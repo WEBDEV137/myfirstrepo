@@ -69,7 +69,6 @@ public class StudentSignInOutController {
         Alert verkeerdeInlogGegevens = new Alert(Alert.AlertType.INFORMATION);
         verkeerdeInlogGegevens.setContentText("Je bent ingeschreven voor " + course + " .");
         verkeerdeInlogGegevens.show();
-
     }
 
     /**
