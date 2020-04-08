@@ -60,9 +60,10 @@ public class ManageGroupsController{
     public void doUpdateGroup(ActionEvent event) {
         Group group = groupList.getSelectionModel().getSelectedItem();
         if (group == null) {
-            Alert niksGeselecteerdFout = new Alert(Alert.AlertType.INFORMATION);
+            alertSetupManage("Selecteer een groep.");
+/*          Alert niksGeselecteerdFout = new Alert(Alert.AlertType.INFORMATION);
             niksGeselecteerdFout.setContentText("Selecteer een groep.");
-            niksGeselecteerdFout.show();
+            niksGeselecteerdFout.show();*/
             return;
         }
         Main.getSceneManager().showCreateUpdateGroupScene(group);
@@ -73,17 +74,24 @@ public class ManageGroupsController{
         Group group = groupList.getSelectionModel().getSelectedItem();
         System.out.println(group);
         if (group == null) {
-            Alert niksGeselecteerdFout = new Alert(Alert.AlertType.INFORMATION);
+            alertSetupManage("Selecteer een groep.");
+/*            Alert niksGeselecteerdFout = new Alert(Alert.AlertType.INFORMATION);
             niksGeselecteerdFout.setContentText("Selecteer een groep.");
-            niksGeselecteerdFout.show();
+            niksGeselecteerdFout.show();*/
         } else {
             GroupDAO groupDAO = new GroupDAO(Main.getDBaccess());
             groupDAO.deleteGroupByName(group.getGroupName());
-            Alert verwijder = new Alert(Alert.AlertType.INFORMATION);
+            alertSetupManage("Groep is verwijderd.");
+/*            Alert verwijder = new Alert(Alert.AlertType.INFORMATION);
             verwijder.setContentText("Groep is verwijderd.");
-            verwijder.show();
+            verwijder.show();*/
             Main.getSceneManager().showManageGroupsScene();
         }
     }
 
+    public void alertSetupManage(String string){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText(string);
+        alert.show();
+    }
 }
