@@ -59,6 +59,14 @@ public class StudentFeedbackController {
             return false;
         }
     }
+    public boolean checkQuizPassedSimple(int countCorrect, int succesDefinition){
+        if (countCorrect >= succesDefinition){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
     public String createFeedbackText(){
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Quiz: ").append(quizName).append("\n");

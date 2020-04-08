@@ -105,7 +105,6 @@ public class FillOutQuizController{
         } return randomizedAnswers;
     }
 
-
     /**
      * Deze Methode verdeelt de Objecten in een List in een willekeurige volgorde  willekeurig over aan andere ArrayList,
      * Dit ide verbeterde versie van de vorige, bij deze is moet het kopieren van de ingegeven array apart vooraf gedaan
@@ -264,26 +263,6 @@ public class FillOutQuizController{
        storeCurrentQuestionResult(); }
        Main.getSceneManager().showWelcomeScene(user);}
 
-    /**
-     * Confirmation dialogue
-     * do you want to Leave Quiz?
-     */
-    public void doGoMenuConfirmation() {
-            String ARE_YOU_SURE = "U gaat de quiz verlaten";
-            String CLICK_CONTINUE = "Weet u zeker dat u wilt doorgaan?";
-
-            ButtonType jaKnop = new ButtonType("Ja", ButtonBar.ButtonData.YES);
-            ButtonType neeKnop = new ButtonType("Nee", ButtonBar.ButtonData.CANCEL_CLOSE);
-            Alert okCancelDialogue = new Alert(Alert.AlertType.WARNING, CLICK_CONTINUE, jaKnop, neeKnop);
-            okCancelDialogue.setTitle(Main.QUIZMASTER);
-            okCancelDialogue.setHeaderText(ARE_YOU_SURE);
-            okCancelDialogue.initModality(Modality.APPLICATION_MODAL);
-            okCancelDialogue.initOwner(Main.getPrimaryStage()); //show,
-            Optional<ButtonType> result = okCancelDialogue.showAndWait();
-            if (result.get() == jaKnop) {
-                doMenu();
-            }
-    }
     /**
      * Confirmation dialogue
      * do you want to Finish the Quiz?

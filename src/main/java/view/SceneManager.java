@@ -176,10 +176,10 @@ public class SceneManager {
         controller.setup(doc_id);
     }
 
-    public void showCoordinatorDashboard() {
+    public void showCoordinatorDashboard(Quiz quiz) {
         FXMLLoader loader = getScene("/view/fxml/coordinatorDashboard.fxml");
         CoordinatorDashboardController controller = loader.getController();
-        controller.setup();
+        controller.setup(quiz);
     }
 
     public void showWelcomeScene() {

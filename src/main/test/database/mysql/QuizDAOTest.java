@@ -19,16 +19,10 @@ class QuizDAOTest {
         int succesDefinition = 100;
         int courseId = 5;
         Quiz quiz = new Quiz(id, name, succesDefinition, courseId);
-        String expectedName = name;
-        int expectedSuccesDefinition = succesDefinition;
         int expectedCourseId = courseId;
         int returnedId = quizDAO.storeOneAndReturnId(quiz);
         Quiz actualQuiz = quizDAO.getOneById(returnedId);
-        String actualName = actualQuiz.getName();
-        int actualSuccesDefinition = actualQuiz.getSuccesDefinition();
         int actualCourseId = actualQuiz.getCourseId();
-        assertEquals(expectedName,actualName);
-        assertEquals(expectedSuccesDefinition,actualSuccesDefinition);
         assertEquals(expectedCourseId,actualCourseId);
     }
 
@@ -43,15 +37,10 @@ class QuizDAOTest {
         int courseId = 2;
         Quiz quiz = new Quiz(id, name, succesDefinition, courseId);
         String expectedName = name;
-        int expectedSuccesDefinition = succesDefinition;
-        int expectedCourseId = courseId;
         int returnedId = quizDAO.storeOneAndReturnId(quiz);
         Quiz actualQuiz = quizDAO.getOneById(returnedId);
         String actualName = actualQuiz.getName();
-        int actualSuccesDefinition = actualQuiz.getSuccesDefinition();
-        int actualCourseId = actualQuiz.getCourseId();
         assertEquals(expectedName,actualName);
-        assertEquals(expectedSuccesDefinition,actualSuccesDefinition);
-        assertEquals(expectedCourseId,actualCourseId);
+
     }
 }

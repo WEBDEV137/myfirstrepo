@@ -5,6 +5,8 @@ public class Const {
     final static String  NOT_ALLOWED_CHARACTERS_QUESTION = "%$@~`;:*^#!+}{[]=\\|";
     final static String SUCCESFACTOR_ = "Geef een andere waarde voor de succesfactor op";
     final static String SUCCESFACTOR_TOO_HIGH = "Succesfactor mag niet hoger zijn dan het aantal vragen";
+    final static String SUCCESFACTOR_NOT_NUMBER= "De succesdefinitie moet een getal zijn";
+    final static String NO_SUCCESFACTOR = "Voer een succesdefinitie in";
     final static String SUCCESFACTOR_TOO_LOW = "De succesfactor moet minimaal 1 zijn";
     final static String STRING_TOO_SHORT = "Geen naam ingevuld";
     final static String STORING_SUCCES = "Het item is succesvol opgeslagen";
@@ -12,6 +14,7 @@ public class Const {
     final static String CHOOSE_OTHER = "Geef een andere op.";
     final static String INFORMATION = "Information";
     final static String EMPTY_STRING = "";
+    final static String SLECT_COURSE = "Selecteer een cursus";
     final static String ARE_YOU_SURE = "Weet u zeker dat de quiz wilt verwijderen?.";
     final static String CLICK_CONTINUE = "Weet u zeker dat u wilt doorgaan?";
     static final String PROGRAMMA_NAAM = "Quizmaster";
