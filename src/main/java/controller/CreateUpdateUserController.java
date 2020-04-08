@@ -56,11 +56,11 @@ public class CreateUpdateUserController {
      */
     public ArrayList<String> addRolInList() {
         ArrayList<String> rolList = new ArrayList<>();
-        rolList.add(ROL_TECHNISCH_BEHEERDER);
-        rolList.add(ROL_DOCENT);
-        rolList.add(ROL_STUDENT);
         rolList.add(ROL_ADMINISTRATOR);
         rolList.add(ROL_COORDINATOR);
+        rolList.add(ROL_DOCENT);
+        rolList.add(ROL_STUDENT);
+        rolList.add(ROL_TECHNISCH_BEHEERDER);
         return rolList;
     }
 
