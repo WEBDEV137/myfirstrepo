@@ -16,7 +16,7 @@ public class WelcomeController {
     private MenuButton taskMenuButton;
 
     public void setup(User user) {
-        welcomeLabel.setText("Welcome " + user.getName() + "\nUw rol is " + user.getRolName());
+        welcomeLabel.setText("Welkom " + user.getName() + "\nUw rol is " + user.getRolName());
         switch (user.getRolName()) {
             case "Student":
                 voegMenuItemsToeStudent();

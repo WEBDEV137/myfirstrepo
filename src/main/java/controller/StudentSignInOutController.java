@@ -60,14 +60,14 @@ public class StudentSignInOutController {
         Course course = signedOutCourseList.getSelectionModel().getSelectedItem();
         if (course == null) {
             Alert verkeerdeInlogGegevens = new Alert(Alert.AlertType.INFORMATION);
-            verkeerdeInlogGegevens.setContentText("Je moet een course kiezen!!!");
+            verkeerdeInlogGegevens.setContentText("Je moet een cursus kiezen");
             verkeerdeInlogGegevens.show();
             return;
         }
         cdao.storeInscrijving(course);
         Main.getSceneManager().showStudentSignInOutScene();
         Alert verkeerdeInlogGegevens = new Alert(Alert.AlertType.INFORMATION);
-        verkeerdeInlogGegevens.setContentText("Je heeft ingescreven voor " + course + " .");
+        verkeerdeInlogGegevens.setContentText("Je bent ingeschreven voor " + course + " .");
         verkeerdeInlogGegevens.show();
 
     }
@@ -81,14 +81,14 @@ public class StudentSignInOutController {
         Course course = signedInCourseList.getSelectionModel().getSelectedItem();
         if (course == null) {
             Alert verkeerdeInlogGegevens = new Alert(Alert.AlertType.INFORMATION);
-            verkeerdeInlogGegevens.setContentText("Je moet een course kiezen!!!");
+            verkeerdeInlogGegevens.setContentText("Je moet een cursus kiezen");
             verkeerdeInlogGegevens.show();
             return;
         }
         cdao.deleteInshrijvingCourse(course);
         Main.getSceneManager().showStudentSignInOutScene();
         Alert verkeerdeInlogGegevens = new Alert(Alert.AlertType.INFORMATION);
-        verkeerdeInlogGegevens.setContentText("Je heeft uitgescreven voor " + course + " .");
+        verkeerdeInlogGegevens.setContentText("Je bent ingeschreven voor " + course + " .");
         verkeerdeInlogGegevens.show();
     }
 }

@@ -51,7 +51,7 @@ public class ManageUsersController {
         User user = userList.getSelectionModel().getSelectedItem();
         if (user == null) {
             Alert verkeerdeInlogGegevens = new Alert(Alert.AlertType.INFORMATION);
-            verkeerdeInlogGegevens.setContentText("Je moet een user kiezen!!!");
+            verkeerdeInlogGegevens.setContentText("Je moet een gebruiker kiezen");
             verkeerdeInlogGegevens.show();
             return;
         }
@@ -64,14 +64,14 @@ public class ManageUsersController {
         System.out.println(user);
         if (user == null) {
             Alert niksGeselecteerdFout = new Alert(Alert.AlertType.ERROR);
-            niksGeselecteerdFout.setContentText("Je moet een user kiezen!!!");
+            niksGeselecteerdFout.setContentText("Je moet een gebruiker kiezen");
             niksGeselecteerdFout.show();
         } else {
             UserDAO userDAO = new UserDAO(Main.getDBaccess());
             userDAO.deleteUser(user);
             Main.getSceneManager().showManageUserScene();
             Alert verwijder = new Alert(Alert.AlertType.INFORMATION);
-            verwijder.setContentText("User is verwijderd.");
+            verwijder.setContentText("gebruiker is verwijderd.");
             verwijder.show();
         }
     }

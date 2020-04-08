@@ -86,6 +86,7 @@ public class ManageCoursesController {
             Alert verwijder = new Alert(Alert.AlertType.INFORMATION);
             verwijder.setContentText("Cursus is verwijderd.");
             verwijder.show();
+            Main.getSceneManager().showManageCoursesScene();
         }
     }
 
