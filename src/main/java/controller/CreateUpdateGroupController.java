@@ -4,27 +4,18 @@ import database.mysql.CourseDAO;
 import database.mysql.DBAccess;
 import database.mysql.GroupDAO;
 import database.mysql.UserDAO;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import model.Course;
 import model.Group;
-import model.Question;
 import model.User;
 import view.Main;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 public class CreateUpdateGroupController {
 
-    private GroupDAO groupDAO;
     private DBAccess dbAccess;
-    private String coursename;
-    private String teachername;
     private Group group;
 
 
@@ -62,7 +53,6 @@ public class CreateUpdateGroupController {
         } else {
             titleLabel.setText("Groep wijzigen");
             setupTeacherMenuButton(allUsers);
-            /*setupCourseMenuButtonUpdateGroup(allCourses);*/
             for (int i = 0; i < allCourses.size(); i++) {
                 String coursename = allCourses.get(i).getCoursename();
                 MenuItem menuItem = new MenuItem(coursename);
@@ -106,41 +96,26 @@ public class CreateUpdateGroupController {
         });
     }
 
-/*    private void setupCourseMenuButtonUpdateGroup(List<Course> allCourses){
-        dbAccess = Main.getDBaccess();
-        dbAccess.openConnection();
-        CourseDAO courseDAO = new CourseDAO(dbAccess);
-        for (int i = 0; i < allCourses.size(); i++) {
-            String coursename = allCourses.get(i).getCoursename();
-            MenuItem menuItem = new MenuItem(coursename);
-            courseMenuButton.getItems().add(menuItem);
-            menuItem.setOnAction(e -> setCoursename(coursename));
-            courseMenuButton.setText(courseDAO.getCourseNameById(group.getCourseId()));
-            menuItem.setOnAction(e -> {
-                Alert opgeslagen = new Alert(Alert.AlertType.INFORMATION);
-                opgeslagen.setContentText("Je kunt de cursus niet wijzigen. Maak een nieuwe groep.");
-                opgeslagen.show();
-            });
-        }
-    }*/
-
+    public void alertSetupCRUD(String string){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText(string);
+        alert.show();
+    }
 
 // hulpmethodes om gekozen naam in te stellen als tekst van MenuButton
 
 public void setCoursename(String coursename){
-        this.coursename = coursename;
-        courseMenuButton.setText(coursename);
+    courseMenuButton.setText(coursename);
 }
 
 public void setTeachername(String teachername){
-        this.teachername = teachername;
-        teacherMenuButton.setText(teachername);
+    teacherMenuButton.setText(teachername);
     }
 
 
     // Save-knop
     @FXML
-    public void doCreateUpdateGroup(ActionEvent event) {
+    public void doCreateUpdateGroup() {
         createGroup();
         DBAccess dbAccess = Main.getDBaccess();
         GroupDAO groupDAO = new GroupDAO(dbAccess);
@@ -161,7 +136,7 @@ public void setTeachername(String teachername){
 // nieuwe groep aanmaken
     private void createGroup() {
         StringBuilder warningText = new StringBuilder();
-        boolean correcteInvoer = true;
+        boolean correcteInvoer = false;
         UserDAO userDAO = new UserDAO(dbAccess);
         CourseDAO courseDAO = new CourseDAO(dbAccess);
         int userId;
@@ -173,17 +148,14 @@ public void setTeachername(String teachername){
         courseId = courseDAO.getCourseIdByName(courseName);
         if (groupName.isEmpty()) {
             warningText.append("Vul een groepnaam in.\n");
-            correcteInvoer = false;
         }
         if ("Kies cursus".equals(courseMenuButton.getText())){
             warningText.append("Kies een cursusnaam.\n");
-            correcteInvoer = false;
         } else {
             correcteInvoer = true;
         }
         if ("Kies docent".equals(teacherMenuButton.getText())){
             warningText.append("Kies een docentnaam.\n");
-            correcteInvoer = false;
         } else {
             correcteInvoer = true;
         }
@@ -199,7 +171,7 @@ public void setTeachername(String teachername){
 
 
     @FXML
-    public void doBackToList(ActionEvent actionEvent) {
+    public void doBackToList() {
         Main.getSceneManager().showManageGroupsScene();
     }
 
@@ -208,10 +180,5 @@ public void setTeachername(String teachername){
         Main.getSceneManager().showWelcomeScene(Main.getCurrentUser());
     }
 
-    public void alertSetupCRUD(String string){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText(string);
-        alert.show();
-    }
 
 }

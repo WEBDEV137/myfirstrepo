@@ -2,11 +2,8 @@ package controller;
 
 import database.mysql.DBAccess;
 import database.mysql.GroupDAO;
-import database.mysql.UserDAO;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import model.Group;
 import view.Main;
@@ -17,7 +14,6 @@ import java.util.Iterator;
 
 public class ManageGroupsController{
 
-    private GroupDAO groupDAO;
     private DBAccess dbAccess;
 
     @FXML
@@ -46,24 +42,21 @@ public class ManageGroupsController{
 
 // Menuknop: terug naar WelcomeScene (inlog blijft behouden)
     @FXML
-    public void doMenu(ActionEvent event) {
+    public void doMenu() {
         Main.getSceneManager().showWelcomeScene(Main.getCurrentUser());
     }
 
 
     @FXML
-    public void doCreateGroup(ActionEvent event) {
+    public void doCreateGroup() {
         Main.getSceneManager().showCreateUpdateGroupScene(null);
     }
 
     @FXML
-    public void doUpdateGroup(ActionEvent event) {
+    public void doUpdateGroup() {
         Group group = groupList.getSelectionModel().getSelectedItem();
         if (group == null) {
             alertSetupManage("Selecteer een groep.");
-/*          Alert niksGeselecteerdFout = new Alert(Alert.AlertType.INFORMATION);
-            niksGeselecteerdFout.setContentText("Selecteer een groep.");
-            niksGeselecteerdFout.show();*/
             return;
         }
         Main.getSceneManager().showCreateUpdateGroupScene(group);
@@ -75,16 +68,10 @@ public class ManageGroupsController{
         System.out.println(group);
         if (group == null) {
             alertSetupManage("Selecteer een groep.");
-/*            Alert niksGeselecteerdFout = new Alert(Alert.AlertType.INFORMATION);
-            niksGeselecteerdFout.setContentText("Selecteer een groep.");
-            niksGeselecteerdFout.show();*/
         } else {
             GroupDAO groupDAO = new GroupDAO(Main.getDBaccess());
             groupDAO.deleteGroupByName(group.getGroupName());
             alertSetupManage("Groep is verwijderd.");
-/*            Alert verwijder = new Alert(Alert.AlertType.INFORMATION);
-            verwijder.setContentText("Groep is verwijderd.");
-            verwijder.show();*/
             Main.getSceneManager().showManageGroupsScene();
         }
     }
