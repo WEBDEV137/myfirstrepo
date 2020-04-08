@@ -55,7 +55,6 @@ public class CreateUpdateGroupController {
         for(User user : teachers){
             allUsers.add(user);
         }
-//        List<User> allUsers = userDAO.getUsersByRole("docent");
         if (group == null) {
             titleLabel.setText("Nieuwe groep aanmaken");
             setupTeacherMenuButton(allUsers);
@@ -193,7 +192,7 @@ public void setTeachername(String teachername){
             correcteInvoer = true;
         }
         if (!correcteInvoer) {
-            Alert foutmelding = new Alert(Alert.AlertType.ERROR);
+            Alert foutmelding = new Alert(Alert.AlertType.INFORMATION);
             foutmelding.setContentText(warningText.toString());
             foutmelding.show();
             group = null;
