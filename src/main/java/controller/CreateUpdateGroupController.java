@@ -148,16 +148,12 @@ public void setTeachername(String teachername){
             if (groupNumberTextfield.getText().equals(("groepnummer"))) {
                 groupDAO.storeOne(group);
                 groupNumberTextfield.setText(String.valueOf(group.getGroupId()));
-                Alert opgeslagen = new Alert(Alert.AlertType.INFORMATION);
-                opgeslagen.setContentText("Groep opgeslagen");
-                opgeslagen.show();
+                alertSetupCRUD("Groep opgeslagen");
             } else { // in geval van groep wijzigen
                 int groupId = Integer.parseInt(groupNumberTextfield.getText());
                 group.setGroupId(groupId);
                 groupDAO.updateGroup(group);
-                Alert gewijzigd = new Alert(Alert.AlertType.INFORMATION);
-                gewijzigd.setContentText("Groep gewijzigd");
-                gewijzigd.show();
+                alertSetupCRUD("Groep gewijzigd");
             }
         }
     }
@@ -212,6 +208,10 @@ public void setTeachername(String teachername){
         Main.getSceneManager().showWelcomeScene(Main.getCurrentUser());
     }
 
-
+    public void alertSetupCRUD(String string){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText(string);
+        alert.show();
+    }
 
 }
