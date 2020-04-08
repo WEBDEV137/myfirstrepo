@@ -48,8 +48,8 @@
                 <TextField fx:id="groupNumberTextfield" disable="true" editable="false" text="groepnummer" GridPane.columnIndex="1" />
             </children>
         </GridPane>
-        <Button fx:id="saveButton" layoutX="276.0" layoutY="304.0"  maxHeight="1.8" mnemonicParsing="false" onAction="#doCreateUpdateGroup" text="Save" />
-        <Button fx:id="lijstButton" layoutX="327.0" layoutY="304.0" maxHeight="1.8" mnemonicParsing="false" onAction="#doBackToList" text="Groepenlijst" />
-        <Button fx:id="menuButton" layoutX="420.0" layoutY="304.0" maxHeight="1.8" minHeight="-Infinity" mnemonicParsing="false" onAction="#doBackToMenu" text="Menu" />
+        <Button fx:id="saveButton" layoutX="270.0" layoutY="304.0" maxHeight="1.8" mnemonicParsing="false" onAction="#doCreateUpdateGroup" text="Save" />
+        <Button fx:id="lijstButton" layoutX="319.0" layoutY="304.0" maxHeight="1.8" mnemonicParsing="false" onAction="#doBackToList" text="groep beheer" />
+        <Button fx:id="menuButton" layoutX="427.0" layoutY="304.0" maxHeight="1.8" minHeight="-Infinity" mnemonicParsing="false" onAction="#doBackToMenu" text="Menu" />
     </children>
 </AnchorPane>
