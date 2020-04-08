@@ -20,30 +20,10 @@ class UserDAOTest {
         for (User user : users) {
             assertNotNull(user);
         }
-        /*ArrayList<User> userTest = new ArrayList<>();
-        User user1 = new User(1,"Student","emr123","12345","emrullah","","kilic");
-        User user2 = new User(2,"Docent","emr","12345","emir","","cek");
-        User user3 = new User(3,"Coordinator","zere","12345","zerin","","tek");
-        userTest.add(user1);
-        userTest.add(user2);
-        userTest.add(user3);
-        User expectedUser1 = user1;
-        User expectedUser2 = user2;
-        User expectedUser3 = user3;
-        ArrayList<User> expectedUser = new ArrayList<>();
-        expectedUser.add(expectedUser1);
-        expectedUser.add(expectedUser2);
-        expectedUser.add(expectedUser3);
-        ArrayList<User> actuelUser = userDAO.getAll();
-        assertEquals(expectedUser,actuelUser);*/
     }
 
     @Test
     void getOneById() {
-        /*DBAccess dbAccess = Main.getDBaccess();
-        dbAccess.openConnection();
-        UserDAO userDAO = new UserDAO(dbAccess);
-        assertNotNull(userDAO.getOneById(2));*/
         DBAccess dbAccess = Main.getDBaccess();
         dbAccess.openConnection();
         UserDAO userDAO = new UserDAO(dbAccess);
@@ -115,4 +95,34 @@ class UserDAOTest {
         assertEquals(expecteduserNaam,actuelUserNaam);
         assertEquals(expectedAchternaam,actuelAchternaam);
     }
+    @Test
+    void getUserByInlognaam() {
+      DBAccess dbAccess = Main.getDBaccess();
+        dbAccess.openConnection();
+        UserDAO userDAO = new UserDAO(dbAccess);
+        assertNotNull(userDAO.getUserByInlognaam("Dorien"));
+    }
+
+    @Test
+    void getUsersByRole() {
+        DBAccess dbAccess = Main.getDBaccess();
+        dbAccess.openConnection();
+        UserDAO userDAO = new UserDAO(dbAccess);
+        assertNotNull(userDAO.getUsersByRole("Student"));
+    }
+    @Test
+    void getUserIdByLoginName() {
+        DBAccess dbAccess = Main.getDBaccess();
+        dbAccess.openConnection();
+        UserDAO userDAO = new UserDAO(dbAccess);
+        assertNotNull(userDAO.getUserIdByLoginName("Dorien"));
+    }
+    @Test
+    void getUserNameById() {
+        DBAccess dbAccess = Main.getDBaccess();
+        dbAccess.openConnection();
+        UserDAO userDAO = new UserDAO(dbAccess);
+        assertNotNull(userDAO.getUserNameById(5));
+    }
+
 }
