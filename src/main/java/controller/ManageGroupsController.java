@@ -60,9 +60,9 @@ public class ManageGroupsController{
     public void doUpdateGroup(ActionEvent event) {
         Group group = groupList.getSelectionModel().getSelectedItem();
         if (group == null) {
-            Alert nietGekozenFout = new Alert(Alert.AlertType.ERROR);
-            nietGekozenFout.setContentText("Selecteer een groep.");
-            nietGekozenFout.show();
+            Alert niksGeselecteerdFout = new Alert(Alert.AlertType.INFORMATION);
+            niksGeselecteerdFout.setContentText("Selecteer een groep.");
+            niksGeselecteerdFout.show();
             return;
         }
         Main.getSceneManager().showCreateUpdateGroupScene(group);
@@ -73,7 +73,7 @@ public class ManageGroupsController{
         Group group = groupList.getSelectionModel().getSelectedItem();
         System.out.println(group);
         if (group == null) {
-            Alert niksGeselecteerdFout = new Alert(Alert.AlertType.ERROR);
+            Alert niksGeselecteerdFout = new Alert(Alert.AlertType.INFORMATION);
             niksGeselecteerdFout.setContentText("Selecteer een groep.");
             niksGeselecteerdFout.show();
         } else {
@@ -85,9 +85,5 @@ public class ManageGroupsController{
             Main.getSceneManager().showManageGroupsScene();
         }
     }
-
-
-
-
 
 }
