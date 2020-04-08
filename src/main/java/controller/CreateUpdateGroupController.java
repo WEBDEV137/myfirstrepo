@@ -133,10 +133,10 @@ public void setTeachername(String teachername){
         }
     }
 
-// nieuwe groep aanmaken
+    // nieuwe groep aanmaken
     private void createGroup() {
         StringBuilder warningText = new StringBuilder();
-        boolean correcteInvoer = false;
+        boolean correcteInvoer = true;
         UserDAO userDAO = new UserDAO(dbAccess);
         CourseDAO courseDAO = new CourseDAO(dbAccess);
         int userId;
@@ -148,14 +148,17 @@ public void setTeachername(String teachername){
         courseId = courseDAO.getCourseIdByName(courseName);
         if (groupName.isEmpty()) {
             warningText.append("Vul een groepnaam in.\n");
+            correcteInvoer = false;
         }
         if ("Kies cursus".equals(courseMenuButton.getText())){
             warningText.append("Kies een cursusnaam.\n");
+            correcteInvoer = false;
         } else {
             correcteInvoer = true;
         }
         if ("Kies docent".equals(teacherMenuButton.getText())){
             warningText.append("Kies een docentnaam.\n");
+            correcteInvoer = false;
         } else {
             correcteInvoer = true;
         }
