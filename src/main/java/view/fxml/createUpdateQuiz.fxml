@@ -12,16 +12,17 @@
                <font>
                   <Font size="18.0" />
                </font></Label>
-            <Button fx:id="opslaanKnop" layoutX="311.0" layoutY="316.0" mnemonicParsing="false" onAction="#doStore" prefHeight="25.0" prefWidth="61.0" text="Save" />
-            <Button fx:id="Menu" layoutX="496.0" layoutY="316.0" mnemonicParsing="false" onAction="#doMenu" prefHeight="25.0" prefWidth="69.0" text="Menu" />
+            <Button fx:id="opslaanKnop" layoutX="281.0" layoutY="316.0" mnemonicParsing="false" onAction="#doStore" prefHeight="25.0" prefWidth="61.0" text="Save" />
+            <Button fx:id="Menu" layoutX="351.0" layoutY="316.0" mnemonicParsing="false" onAction="#doMenu" prefHeight="25.0" prefWidth="54.0" text="Menu" />
             <Label layoutX="224.0" layoutY="245.0" prefHeight="25.0" prefWidth="84.0" text="Succesdefinitie" />
             <Label layoutX="672.0" layoutY="69.0" />
             <TextField fx:id="succesDefinitionField" layoutX="311.0" layoutY="245.0" prefHeight="25.0" prefWidth="110.0" promptText="Succesdefinitie" />
             <Label layoutX="250.0" layoutY="217.0" prefHeight="17.0" prefWidth="61.0" text="Quiznaam" />
             <TextField fx:id="quizNameField" layoutX="311.0" layoutY="213.0" prefHeight="17.0" prefWidth="254.0" promptText="Quiznaam" />
-            <Button fx:id="doGoToQuizbeheer" layoutX="382.0" layoutY="316.0" mnemonicParsing="false" onAction="#doManageQuizzes" prefHeight="25.0" prefWidth="103.0" text="Quizlijst" />
+            <Button fx:id="doGoToQuizbeheer" layoutX="414.0" layoutY="316.0" mnemonicParsing="false" onAction="#doManageQuizzes" prefHeight="25.0" prefWidth="84.0" text="Quiz beheer" />
             <Label layoutX="239.0" layoutY="180.0" prefHeight="25.0" prefWidth="84.0" text="Cursusnaam" />
             <MenuButton fx:id="coursesMenuButton" layoutX="311.0" layoutY="180.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="254.0" text="Kies een cursus" />
+            <Button fx:id="dashboardKnop" layoutX="506.0" layoutY="316.0" mnemonicParsing="false" onAction="#doDashboard" prefHeight="25.0" prefWidth="84.0" text="Dashboard" />
          </children></AnchorPane>
    </children>
 </AnchorPane>
