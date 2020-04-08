@@ -42,17 +42,10 @@ public class CouchDBQuizmasterCourseLauncher {
         System.out.println(courseCouch);
         uDB.saveSingleCourse(courseCouch);
 
-//Haal een cursus op uit Couch DB
+        //Haal een cursus op uit Couch DB
 
         Course courseId = uDB.getCourseByDocId("d4ca6644edc24891a1171c7d3df5b70e");
         System.out.println(courseId);
-
-//        // Bring all gebruikers.
-//        List<JsonObject> allDocs = db.getClient().view("_all_docs").includeDocs(true).query(JsonObject.class);
-//        for (JsonObject d : allDocs) {
-//            System.out.println(d.getAsJsonObject());
-//        }
-//
     }
 
- }
+}

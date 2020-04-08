@@ -29,7 +29,6 @@ public class CreateUpdateCourseController {
     private MenuButton coordinatornaamTextfield;
 
 
-
     public CreateUpdateCourseController() {
         super();
         this.courseDAO = new CourseDAO(this.dbAccess);
@@ -37,7 +36,8 @@ public class CreateUpdateCourseController {
     }
 
     /**
-     * ophalen van de coordinatorids bij aanmaken van nieuwe course.
+     * opstarten CRUD scherm.
+     *
      * @param course
      */
     public void setup(Course course) {
@@ -45,22 +45,18 @@ public class CreateUpdateCourseController {
         this.dbAccess.openConnection();
         this.userDAO = new UserDAO(this.dbAccess);
         List<User> allUsers = this.userDAO.getUsersByRole("Coordinator");
-
         if (course == null) {
             this.titleLabel.setText("Nieuwe cursus aanmaken");
-
             showScreen(allUsers);
         } else {
             this.titleLabel.setText("Cursus wijzigen");
             showScreen(allUsers);
-            this.cursusnummerTextfield.setText(String.valueOf(course.getId()));
-            this.cursusnaamTextfield.setText(course.getCoursename());
-            this.coordinatornaamTextfield.setText(this.userDAO.getUserNameById(course.getCoordinatorid()));
+            showSelectedCourse(course);
 
         }
     }
 
-    // methode om Set up methode te verkorten
+
     private void showScreen(List<User> allUsers) {
         for (int i = 0; i < allUsers.size(); i++) {
             String coordinatorname = allUsers.get(i).getUserName();
@@ -70,13 +66,26 @@ public class CreateUpdateCourseController {
         }
     }
 
+    /**
+     * Laat gegevens zien van de gekozen cursus     *
+     *
+     * @param course
+     */
+    private void showSelectedCourse(Course course) {
+        this.cursusnummerTextfield.setText(String.valueOf(course.getId()));
+        this.cursusnaamTextfield.setText(course.getCoursename());
+        this.coordinatornaamTextfield.setText(this.userDAO.getUserNameById(course.getCoordinatorid()));
+    }
+
     public void setCoordinatorName(String coordinatorName) {
         this.coordinatornaamTextfield.setText(coordinatorName);
 
     }
 
 
-    //nieuwe cursus aanmaken
+    /**
+     * Nieuwe cursus maken
+     */
     private void createCourse() {
         StringBuilder warningText = new StringBuilder();
         boolean correcteInvoer = true;
